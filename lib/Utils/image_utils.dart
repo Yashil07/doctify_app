@@ -1,0 +1,27 @@
+ class ImageUtils {
+   static const String baseIconPath = 'assets/icon/';
+   static const String baseImgPath = 'assets/images/';
+   static const String baseGifPath = 'assets/gifs/';
+
+
+
+ /////Images////
+
+   static const splashImage = "${baseImgPath}splash_image.png";
+   static const mainLogoImage = "${baseImgPath}logo_img.png";
+   static const obs1Image = "${baseImgPath}obs1_img.svg";
+   static const obs2Image = "${baseImgPath}obs2_img.svg";
+   static const obs3Image = "${baseImgPath}obs3_img.svg";
+   static const loginImage = "${baseImgPath}login_img.png";
+
+
+
+ ////Icons//////
+   static const obsIndicator1Icon = "${baseImgPath}obs_indicator1_icon.svg";
+   static const obsIndicator2Icon = "${baseImgPath}obs_indicator2_icon.svg";
+
+   //// gifs////
+    static const oba1gif = "${baseImgPath}obs.json";
+    static const oba2gif = "${baseImgPath}obs2.json";
+    static const oba3gif = "${baseImgPath}obs3.json";
+ }

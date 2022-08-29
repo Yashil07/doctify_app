@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 10.w,),
                    CustomButton(onTap: (){},btnColor: ColorUtils.primaryColor,buttonText: "Sign in",height: 6.h,),
 
-// TextButton(onPressed: (){print("Email - id here :-${_emailController.text}");}, child: Text("ok"))
+ TextButton(onPressed: (){print("Email - id here :-${_emailController.text}");}, child: Text("ok"))
                  ],
                 ),)
               ],

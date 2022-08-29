@@ -11,6 +11,7 @@ class ColorUtils{
   static Color lightGreyColor = const Color(0xffDEE0E3);
   static Color labelColor = const Color(0xff707070);
   static Color inputBoxColor = const Color(0xffffffff);
+  static Color darkGreyColor = const Color(0xffABB0B8);
 
 
 }

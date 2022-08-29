@@ -13,6 +13,7 @@
    static const obs2Image = "${baseImgPath}obs2_img.svg";
    static const obs3Image = "${baseImgPath}obs3_img.svg";
    static const loginImage = "${baseImgPath}login_img.png";
+   static const logoImage = "${baseImgPath}logo.png";
 
 
 

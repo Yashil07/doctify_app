@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Views/Auth/login_screen.dart';
+import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import 'Views/onBoarding/onbording_screen.dart';

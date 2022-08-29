@@ -55,4 +55,7 @@ class FontTextStyle {
   static TextStyle poppinsS14W4LightGreyColor =
   poppinsS12W5labelColor.copyWith(color: ColorUtils.lightGreyColor);
 
+  static TextStyle poppinsS14W4DarkGreyColor =
+  poppinsS12W5labelColor.copyWith(color: ColorUtils.darkGreyColor);
+
 }

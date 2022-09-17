@@ -45,7 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         borderRadius: BorderRadius.circular(50),
                         borderSide: BorderSide(
                             width: 1, color: ColorUtils.primaryColor)),
-                  hintText: widget.hintName,
+                  hintText:widget.hintName,
                     hintStyle:FontTextStyle.poppinsS14W4LightGreyColor ,
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),)),

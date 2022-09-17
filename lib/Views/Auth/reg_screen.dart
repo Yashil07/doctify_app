@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
@@ -19,7 +18,7 @@ class RegScreen extends StatefulWidget {
 class _RegScreenState extends State<RegScreen> {
   final TextEditingController  _emailController = TextEditingController();
   final TextEditingController  _passwordController = TextEditingController();
-  final TextEditingController  _confirmpasswordController = TextEditingController();
+  final TextEditingController  _confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
 
@@ -63,7 +62,7 @@ class _RegScreenState extends State<RegScreen> {
                         CustomTextField(
                           fieldName: "Confirm Password",
                           hintName: "Enter Your Password Again",
-                          fieldController:_confirmpasswordController,
+                          fieldController:_confirmPasswordController,
                         ),
                         SizedBox(height: 3.h,),
                         CustomButton(onTap: (){},buttonText:"Sign Up",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),

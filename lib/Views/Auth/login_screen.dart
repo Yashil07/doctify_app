@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
+import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,9 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   // SizedBox(height: 3.h,),
                   Center(
-                    child: Container(
-                      child: Text("Sign In",style:FontTextStyle.poppinsS20W7PrimaryColor),
-                    ),
+                    child: Text("Sign In",style:FontTextStyle.poppinsS20W7PrimaryColor),
                   ),
                   SizedBox(height: 3.h,),
                   Padding(
@@ -58,21 +57,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 3.h,),
 
                         CustomButton(onTap: (){},buttonText:"Sign In",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                        SizedBox(height: 1.h,),
+                        GestureDetector(
+                          child: Text(" Forgot Password",style:FontTextStyle.poppinsS10W5labelColor),
+                          onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPassword()));},
+
+                        ),
                         SizedBox(height: 3.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              child: Text("Don't have an account?",style:FontTextStyle.poppinsS14W4DarkGreyColor),
-                            ),
-                            Container(
-                                child: GestureDetector(
-                                  child: Text(" Sign Up",style:FontTextStyle.poppinsS14W4PrimaryColor),
-                                  onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => RegScreen()));},
+                            Text("Don't have an account?",style:FontTextStyle.poppinsS14W4DarkGreyColor),
+                            GestureDetector(
+                              child: Text(" Sign Up",style:FontTextStyle.poppinsS14W4PrimaryColor),
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const RegScreen()));},
 
-                                )),
+                            ),
+
                           ],
                         )
+
                       ],
                     ),
                   )

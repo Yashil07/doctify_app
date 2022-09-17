@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/Views/Auth/forgot_password_screen.dart';
 import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const SplashScreen(),
+         home: const ForgotPassword(),
         );
       }
     );

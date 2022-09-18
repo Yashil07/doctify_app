@@ -9,6 +9,7 @@ import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utils/const_utils.dart';
+import '../customeWidgets/custom_appbar.dart';
 import 'login_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -46,13 +47,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Profile Page',
-                style: TextStyle(color: Colors.black54)),
-            leading: const BackButton(color: Colors.black54),
-            backgroundColor: ColorUtils.appBgColor,
-            elevation: 3,
-          ),
+          // appBar: AppBar(
+          //   title: const Text('Profile Page',
+          //       style: TextStyle(color: Colors.black54)),
+          //   leading: const BackButton(color: Colors.black54),
+          //   backgroundColor: ColorUtils.appBgColor,
+          //   elevation: 3,
+          // ),
+        appBar: PreferredSize(
+        preferredSize:Size.fromHeight(50),
+        child: CustomAppBar(title: "PROFILE",),),
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 3.w),

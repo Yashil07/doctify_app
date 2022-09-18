@@ -16,18 +16,13 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return  SafeArea(
         child:Scaffold(
-          appBar: AppBar(
-            title:  Text("${widget.title ?? ""}",style: FontTextStyle.poppinsS12W5labelColor,),
-            backgroundColor: ColorUtils.appBgColor,
-            elevation: 0,
 
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.arrow_circle_left),
-                tooltip: 'Back Icon',
-                onPressed: () {},
-              ), //IconButton//IconButton
-            ],
+          appBar: AppBar(
+            title:Text("${widget.title ?? ""}",
+                style: TextStyle(color: Colors.black54)),
+            leading: const BackButton(color: Colors.black54),
+            backgroundColor: ColorUtils.appBgColor,
+            elevation: 3,
           ),
         ),
     );

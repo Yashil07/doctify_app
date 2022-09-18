@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -81,7 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+
         ),
+
+
       ),
     );
   }

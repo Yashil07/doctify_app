@@ -27,7 +27,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         SizedBox(height: 1.h,),
         Container(
           
-          child: Container(decoration:
+          child: Container(
+              decoration:
           BoxDecoration(color: ColorUtils.inputBoxColor,
               // border: Border.all(color: ColorUtils.lightGreyColor
               // ),

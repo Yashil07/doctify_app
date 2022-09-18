@@ -1,13 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
+import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:sizer/sizer.dart';
+import '../../Utils/const_utils.dart';
 import 'login_screen.dart';
 import 'package:intl/intl.dart';
 
-const List<String> list = <String>['Male','Female'];
+const List<String> list = <String>['Male', 'Female'];
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -16,21 +22,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final TextEditingController  _emailController = TextEditingController();
-  final TextEditingController  _nameController = TextEditingController();
-  final TextEditingController  _genderController = TextEditingController();
-  final TextEditingController  _dobController = TextEditingController();
-  final TextEditingController  _addressController = TextEditingController();
-  final TextEditingController  _profileuploadController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _profileuploadController =
+      TextEditingController();
   final TextEditingController dateInput = TextEditingController();
-  // Initial Selected Value
-  String dropdownvalue = 'Male';
+  String genderInitialValue = 'Male';
 
-  // List of items in our dropdown menu
-  var items = [
-    'Male',
-    'Female',
-  ];
+  String  birthDate = "";
+
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
@@ -44,117 +47,208 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Profile Page',style: TextStyle(color:Colors.black54)),
+            title: const Text('Profile Page',
+                style: TextStyle(color: Colors.black54)),
             leading: const BackButton(color: Colors.black54),
             backgroundColor: ColorUtils.appBgColor,
             elevation: 3,
-
           ),
           body: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(2.0),
+              padding: EdgeInsets.symmetric(horizontal: 3.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
-                  SizedBox(height: 3.h,),
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                 Center(
+                   child: Stack(
+                     clipBehavior: Clip.none,
+                     children: [
+                       CircleAvatar(
+
+                         radius: 75,
+                         child:  ClipOval(
+                           child: imageFile?.path.toString() != null
+                               && imageFile?.path.toString() != "" ?
+                           Image.file(imageFile!,fit: BoxFit.cover,height: 160,
+                             width: 160,) :
+                           Image.asset(ImageUtils.profileAvtar,fit: BoxFit.cover),
+                         )
+                       ),
+                       Positioned(
+                           bottom: -4.w,
+                           left: 4.w,
+                           right: 4.w,
+                           child: GestureDetector(
+                             onTap: () {
+
+                               _openImagePickUpBox();
+                             },
+                             child: Container(
+                               padding: EdgeInsets.all(0.5.w),
+                               decoration: BoxDecoration(
+                                   boxShadow: [
+                                     BoxShadow(
+                                       color:
+                                       ColorUtils.grey.withOpacity(0.5),
+                                       blurRadius: 10,
+                                       spreadRadius: 2,
+                                     ),
+                                   ],
+                                   shape: BoxShape.circle,
+                                   color: ColorUtils.whiteColor),
+                               child: Container(
+                                 height: 11.w,
+                                 padding: EdgeInsets.all(2.w),
+                                 decoration: BoxDecoration(
+                                     shape: BoxShape.circle,
+                                     color: ColorUtils.primaryColor),
+                                 child: Icon(Icons.camera_alt, color: ColorUtils.whiteColor,)
+                               ),
+                             ),
+                           ))
+                     ],
+                   )
+                 ),
+
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                    fieldName: "Full Name",
+                    hintName: "Full Name",
+                    fieldController: _nameController,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+
+                  CustomTextField(
+                    fieldName: "Email",
+                    hintName: "Email",
+                    fieldController: _emailController,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5.w),
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          fieldName: "Upload Image",
-                          hintName: "Upload Image",
-                          fieldController:_profileuploadController,
-                        ),
-
-                        SizedBox(height: 2.h,),
-                        CustomTextField(
-                          fieldName: "Full Name",
-                          hintName: "Full Name",
-                          fieldController:_nameController,
-                        ),
-                        SizedBox(height: 2.h,),
-
-                        CustomTextField(
-                          fieldName: "Email",
-                          hintName: "Email",
-                          fieldController:_emailController,
-                        ),
-                        SizedBox(height: 2.h,),
-                        // DropdownButton(
-                        //
-                        //   // Initial Value
-                        //   value: dropdownvalue,
-                        //
-                        //   // Down Arrow Icon
-                        //   icon: const Icon(Icons.keyboard_arrow_down),
-                        //
-                        //   // Array list of items
-                        //   items: items.map((String items) {
-                        //     return DropdownMenuItem(
-                        //       value: items,
-                        //       child: Text(items),
-                        //     );
-                        //   }).toList(),
-                        //   // After selecting the desired option,it will
-                        //   // change button value to selected value
-                        //   onChanged: (String? newValue) {
-                        //     setState(() {
-                        //       dropdownvalue = newValue!;
-                        //     });
-                        //   },
-                        // ),
-                        // SizedBox(height: 2.h,),
-                        // // CustomTextField(
-                        // //   fieldName: "Date of birth",
-                        // //   hintName: "Date of birth",
-                        // //   fieldController:_dobController,
-                        // // ),
-                        CustomTextField(
-                          fieldName: "Address",
-                          hintName: "address",
-                          fieldController:_addressController,
-                        ),
-                        SizedBox(height: 3.h,),
-                      TextField(
-                        controller: dateInput,
-                        //editing controller of this TextField
-                        decoration: const InputDecoration(
-                            icon: Icon(Icons.calendar_today), //icon of text field
-                            labelText: "Date of Birth" //label text of field
-                        ),
-                        readOnly: true,
-                        //set it true, so that user will not able to edit text
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1950),
-                              //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime(2100));
-
-                          if (pickedDate != null) {
-                            print(
-                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                            String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
-                            print(
-                                formattedDate); //formatted date output using intl package =>  2021-03-16
-                            setState(() {
-                              dateInput.text =
-                                  formattedDate; //set output date to TextField value.
-                            });
-                          } else {}
-                        },
-                      ),
-                        SizedBox(height: 5.h,),
-
-                        CustomButton(onTap: (){},buttonText:"Confirm",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
-
-                      ],
-
+                    padding:  EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Text("Gender",style: FontTextStyle.poppinsS12W5labelColor),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 12.7.w,
+                    padding: EdgeInsets.only(
+                        left: 4.w, right: 3.w, bottom: 1.w),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: ColorUtils.lightGreyColor),
+                      color: ColorUtils.whiteColor,
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                  )
+                    child: DropdownButton(
+                      iconEnabledColor: ColorUtils.grey,
+                      style: TextStyle(
+                          color: ColorUtils.grey, fontSize: 16),
+                      dropdownColor: ColorUtils.whiteColor,
+                      focusColor: ColorUtils.grey,
+                      elevation: 0,
+                      underline: SizedBox(),
+                      value: genderInitialValue,
+                      isExpanded: true,
+                      icon: Icon(Icons.keyboard_arrow_down),
+                      items: gender.map((String items) {
+                        return DropdownMenuItem(
+                          child: Text(
+                            '${items}',
+                            style: FontTextStyle
+                                .poppinsS12W5labelColor,
+                          ),
+                          value: items != null ? items : "",
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        setState(() {
+                          genderInitialValue = value!;
+                          print(value);
+                          // genderValue = value;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Text("Date Of Birth",style: FontTextStyle.poppinsS12W5labelColor),
+                  ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      _openBirthDatePicker(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 12.7.w,
+                      padding: EdgeInsets.only(
+                          left: 4.w, right: 4.w, bottom: 1.w),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: ColorUtils.lightGreyColor),
+                        color: ColorUtils.whiteColor,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                        birthDate != null && birthDate != "" ?  Text("$birthDate", style: FontTextStyle
+                            .poppinsS12W5labelColor) : Text("Select Your Date Of Birth", style: FontTextStyle
+                            .poppinsS14W4LightGreyColor)
+                          ,Icon(Icons.keyboard_arrow_down,color: ColorUtils.grey,),],
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                    fieldName: "Phone Number",
+                    hintName: "Enter Your Number",
+                    fieldController: _addressController,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                    fieldName: "Address",
+                    hintName: "address",
+                    fieldController: _addressController,
+                  ),
+
+
+                  SizedBox(
+                    height: 5.h,
+                  ),
+
+                  CustomButton(
+                    onTap: () {},
+                    buttonText: "Confirm",
+                    textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+                  ),
+                  SizedBox(
+                    height: 5.h,
+                  ),
                 ],
               ),
             ),
@@ -163,4 +257,127 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  /////////////////////////////BIRTH DATE//////////////////////
+
+  Future<void> _openBirthDatePicker(BuildContext context) async {
+    final _initialDate = DateTime.now();
+    final _newDate = await showDatePicker(
+        context: context,
+        initialDate: _initialDate,
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5));
+    if (_newDate != null) {
+      setState(() {
+        birthDate = "${_newDate.month}-${_newDate.day}-${_newDate.year}";
+
+      });
+    }
+  }
+
+  ////////////////////////////PROFILE IMAGE///////////////////////
+  File? imageFile = File('');
+  _getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+
+      print('Image From Camera: ${imageFile!.path}');
+    }
+  }
+
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+      print('Image From Gallery: ${imageFile!.path}');
+    }
+  }
+
+  _openImagePickUpBox() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: ColorUtils.whiteColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(1.w)),
+            child: Container(
+              height: 40.w,
+              padding: EdgeInsets.only(left: 10.w, right: 10.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          _getFromCamera();
+                        },
+                        child: Column(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: 3.w, left: 3.w, right: 3.w, bottom: 3.w),
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.primaryColor,
+                                  shape: BoxShape.circle),
+                              child: Icon(Icons.camera_alt,color: ColorUtils.whiteColor,)
+                            ),
+                            Text(
+                              'Camera',
+                              style: FontTextStyle.poppinsS12W5labelColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          _getFromGallery();
+                        },
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(
+                                  top: 3.w, left: 3.w, right: 3.w, bottom: 3.w),
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.primaryColor,
+                                  shape: BoxShape.circle),
+                              child: Icon(Icons.photo,color: ColorUtils.whiteColor,)
+                            ),
+                            SizedBox(
+                              height: 1.w,
+                            ),
+                            Text(
+                              'Gallery',
+                              style: FontTextStyle.poppinsS12W5labelColor,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
 }

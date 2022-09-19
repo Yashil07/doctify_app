@@ -15,6 +15,7 @@
    static const loginImage = "${baseImgPath}login_img.png";
    static const profileAvtar = "${baseImgPath}profile_avtar.png";
    static const logoImage = "${baseImgPath}logo.png";
+   static const homeLogoImage = "${baseImgPath}hlogo.png";
 
 
 

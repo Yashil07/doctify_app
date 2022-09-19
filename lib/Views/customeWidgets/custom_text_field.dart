@@ -7,7 +7,10 @@ class CustomTextField extends StatefulWidget {
   final String? hintName;
   final String? fieldName;
   final TextEditingController? fieldController;
-  const CustomTextField({Key? key,this.fieldName,this.hintName,this.fieldController}) : super(key: key);
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final bool? obscureText;
+  const CustomTextField({Key? key,this.fieldName,this.hintName,this.fieldController,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -20,10 +23,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
+        widget.fieldName != null ?  Padding(
           padding:  EdgeInsets.symmetric(horizontal: 4.w),
           child: Text("${widget.fieldName ?? ""}",style: FontTextStyle.poppinsS12W5labelColor ,),
-        ),
+        ) : SizedBox(),
         SizedBox(height: 1.h,),
         Container(
           
@@ -35,7 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
               borderRadius: const BorderRadius.all(Radius.circular(50))),
               child: TextFormField(controller: widget.fieldController,
-
+                obscureText: widget.obscureText ?? false,
                 decoration:  InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50),
@@ -46,10 +49,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         borderRadius: BorderRadius.circular(50),
                         borderSide: BorderSide(
                             width: 1, color: ColorUtils.primaryColor)),
-                  hintText:widget.hintName,
+                    prefixIcon:widget.prefixIcon,
+                    suffixIcon: widget.suffixIcon,
+                    hintText:widget.hintName,
                     hintStyle:FontTextStyle.poppinsS14W4LightGreyColor ,
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),)),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),
+
+              )),
               ),
       ],
     );

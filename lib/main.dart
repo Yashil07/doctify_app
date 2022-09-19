@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/Views/Auth/forgot_password_screen.dart';
+import 'package:project/Views/Auth/forget_password_screen_2.dart';
+import 'package:project/Views/Auth/forgot_password_screen_1.dart';
 import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const OnBordingScreen(),
+         home: const ForgotPasswordScreen2(),
         );
       }
     );

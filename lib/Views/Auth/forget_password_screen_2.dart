@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
+import 'package:project/Views/Auth/reset_password_screen.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:sizer/sizer.dart';
-
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 
@@ -18,6 +18,7 @@ class _ForgotPasswordScreen2State extends State<ForgotPasswordScreen2> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: ColorUtils.appBgColor,
       child: SafeArea(
         child: Scaffold(
           appBar: const PreferredSize(
@@ -42,7 +43,7 @@ class _ForgotPasswordScreen2State extends State<ForgotPasswordScreen2> {
                   ),
 
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordScreen()));},
                     buttonText: "Confirm",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

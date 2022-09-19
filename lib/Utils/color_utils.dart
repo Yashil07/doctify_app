@@ -13,6 +13,7 @@ class ColorUtils{
   static Color inputBoxColor = const Color(0xffffffff);
   static Color darkGreyColor = const Color(0xffABB0B8);
   static Color grey = const Color(0xffA2AAAD);
+  static Color skyBlueColor = const Color(0xffE1F5FE);
 
 
 }

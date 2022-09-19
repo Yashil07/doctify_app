@@ -32,7 +32,7 @@ class _ForgotPasswordScreen2State extends State<ForgotPasswordScreen2> {
                 children: [
                   const CustomTextField(
                     hintName: "Enter OTP here",
-                    fieldName: "Code has been send to +9174*****27",
+                    fieldName: "Code has been send to 9737xxxx73",
                   ),
                   SizedBox(
                     height: 4.h,

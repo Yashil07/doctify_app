@@ -138,7 +138,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                       ),
                       SizedBox(
-                        height: 27.h,
+                        height: 25.h,
                       ),
                       Container(
                         child: CustomButton(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Utils/color_utils.dart';
+import 'package:project/Views/Auth/forgot_password_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:sizer/sizer.dart';import '../../Utils/fontFamily_utils.dart';
@@ -60,6 +61,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 3.h,),
 
                         CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},buttonText:"Sign In",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                        SizedBox(height: 2.h,),
+                        Container(
+                            child: GestureDetector(
+                              child: Text(" Forgot Password?",style: FontTextStyle.poppinsS12W5labelColor,),
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));},
+
+                            )),
                         SizedBox(height: 3.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

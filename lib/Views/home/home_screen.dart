@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
                         SizedBox(width: 3.w,),
-                        Text("Doctify",style: FontTextStyle.poppinsS20W5labelColor,),
+                        Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
                         SizedBox(width: 22.w,),
                         Container(
                           height:45,

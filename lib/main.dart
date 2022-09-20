@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const ForgotPasswordScreen2(),
+         home: const SplashScreen(),
         );
       }
     );

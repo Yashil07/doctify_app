@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/Views/Auth/forget_password_screen_2.dart';
-import 'package:project/Views/Auth/forgot_password_screen_1.dart';
+import 'package:project/Views/Auth/forgot_password_screen.dart';
 import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
+import 'package:project/Views/Auth/successfully_changed.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const ForgotPasswordScreen2(),
+         home: const ResetPasswordScreen(),
         );
       }
     );

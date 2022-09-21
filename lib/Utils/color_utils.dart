@@ -14,6 +14,8 @@ class ColorUtils{
   static Color darkGreyColor = const Color(0xffABB0B8);
   static Color grey = const Color(0xffA2AAAD);
   static Color skyBlueColor = const Color(0xffE1F5FE);
+  static Color pinkColor = const Color(0xfffc5774);
+  static Color yellowColor = const Color(0xffffd464);
 
 
 }

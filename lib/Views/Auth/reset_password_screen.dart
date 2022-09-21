@@ -30,7 +30,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 children: [
                   Text("Create a new password"),
                   Padding(
-                    padding: EdgeInsets.only(top:30,left:10),
+                    padding: EdgeInsets.only(top:30,left:10,right: 15),
                     child: CustomTextField(
                       fieldName: "New Password",
                       hintName: "New Password",
@@ -38,7 +38,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
 
                   Padding(
-                    padding: const EdgeInsets.only(top:20,left: 10),
+                    padding: const EdgeInsets.only(top:20,left: 10,right: 15),
                     child: CustomTextField(
                         fieldName: "Confirm New Password",
                         hintName: "Confirm New Password",

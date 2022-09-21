@@ -19,6 +19,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController =TextEditingController();
   final TextEditingController _passwordController =TextEditingController();
+  bool obscurePassword=false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +56,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children: [
                         CustomTextField(
+                          prefixIcon: Icon(Icons.email_outlined),
                           fieldName: "Email-Id",
                           hintName: "Enter Your Email Id",
                           fieldController:_emailController,
                         ),
                         SizedBox(height: 2.h,),
                         CustomTextField(
+                          prefixIcon: Icon(Icons.lock),
+                          suffixIcon: GestureDetector
+                            (onTap: (){
+                            setState(() {
+                              obscurePassword=! obscurePassword;
+                            });
+
+                          },
+                              child: obscurePassword? Icon(Icons.visibility_off) : Icon(Icons.visibility)),
+                          obscureText: obscurePassword,
                           fieldName: "Password",
                           hintName: "Enter Your Password",
                           fieldController:_passwordController,

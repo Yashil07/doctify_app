@@ -22,7 +22,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       color: Colors.blueGrey,
       child:  SafeArea(
         child: Scaffold(
-          appBar: PreferredSize(
+          appBar: const PreferredSize(
 
             preferredSize: Size.fromHeight(50),
             child:CustomAppBar(title: "Forgot Password",),),

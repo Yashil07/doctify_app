@@ -16,12 +16,18 @@
    static const profileAvtar = "${baseImgPath}profile_avtar.png";
    static const logoImage = "${baseImgPath}logo.png";
    static const homeLogoImage = "${baseImgPath}hlogo.png";
+   static const doctorImage = "${baseImgPath}doctor_img1.png";
+   static const brainImage = "${baseImgPath}brain.png";
+
 
 
 
  ////Icons//////
    static const obsIndicator1Icon = "${baseImgPath}obs_indicator1_icon.svg";
    static const obsIndicator2Icon = "${baseImgPath}obs_indicator2_icon.svg";
+   static const teethIcon = "${baseImgPath}tooth.png";
+   static const brainIcon = "${baseIconPath}brain.png";
+
 
    //// gifs////
     static const oba1gif = "${baseImgPath}obs.json";

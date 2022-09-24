@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
+import 'package:project/Views/home/specialist_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -26,17 +27,20 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(150),
               child: Container(
-               // color: ColorUtils.darkGreyColor,
+                width: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 15,right: 15,bottom: 15,top: 15),
+                  padding: EdgeInsets.only(left: 20,right: 20,bottom: 15,top: 15),
                   child: Column(
                     children: [
+
                       Row(
+
+                        mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
                         SizedBox(width: 3.w,),
                         Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
-                        SizedBox(width: 22.w,),
+                        SizedBox(width: 30.w,),
                         Container(
                           height:45,
                           width: 45,
@@ -73,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                       SizedBox(height: 0.5.h,),
-                      CustomTextField(
+                      const CustomTextField(
                         hintName: "Search",
                         suffixIcon: Icon(Icons.search),
                       )
@@ -83,39 +87,178 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   ),
                 ),
-
-          )),
+              )),
           body: SingleChildScrollView(
-            child: Column(
-                children: [
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 3.w),child: Column(
-                    children: [
-                      SizedBox(height: 3.w,),
-                      Text("data"),
-                    ],
-                  ),),
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(padding: EdgeInsets.symmetric(horizontal: 3.w),child: Column(
+                      children: [
+                        SizedBox(height: 1.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Specialist Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
+                            GestureDetector(
+                                child: Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
+                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SpecialistScreen()));},),
 
-                  Padding(
-                    padding: EdgeInsets.only(left: 3.w),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(10, (index){
-                          return Row(
-                            children: [
-                              Container(
-                                color: Colors.lightGreen,
-                                child: Text("Home Page Demo!"),
+                          ],
+                        ),
+                        SizedBox(height: 1.5.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height:160,
+                              width: 112,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.pinkColor,
+                                  borderRadius: BorderRadius.circular(10)
+
+                                //more than 50% of width makes circle
                               ),
-                              SizedBox(width: 3.w,),
-                            ],
-                          );
-                        }),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                      Icons.monitor_heart_rounded,
+                                    size: 5.h,
+                                    color: ColorUtils.whiteColor,
+                                  ),
+                                  SizedBox( height: 1.h,),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                    child: Text("Cardio Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                  ),
+                                ],
+                              ),
+
+                            ),
+                            Container(
+                              height:160,
+                              width: 112,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.primaryColor,
+                                  borderRadius: BorderRadius.circular(10)
+
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.monitor_heart_rounded,
+                                    size: 5.h,
+                                    color: ColorUtils.whiteColor,
+                                  ),
+                                  SizedBox( height: 1.h,),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                    child: Text("Dental Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height:160,
+                              width: 112,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.yellowColor,
+                                  borderRadius: BorderRadius.circular(10)
+                                //more than 50% of width makes circle
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.remove_red_eye,
+                                    size: 5.h,
+                                    color: ColorUtils.whiteColor,
+                                  ),
+                                  SizedBox( height: 1.h,),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                    child: Text("Eye Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 2.5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Top Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
+                            Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
+                          ],
+                        ),
+                      ],
+                    ),),
+                    SizedBox(height: 1.5.h),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 3.w),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(10, (index){
+                            return Row(
+                              children: [
+                                Container(
+                                  height:250,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      color: ColorUtils.appBgColor,
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(width: 1,
+                                        color: ColorUtils.lightGreyColor
+                                      )
+
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: Column(
+
+                                      children: [
+                                        ClipRRect(
+                                            borderRadius: BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+
+                                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                              height: 180.0,
+                                              width: 150.0,)
+                                        ),
+                                        SizedBox(height: 1.h,),
+                                        Center(child: Text("Dr. Janny Willson",style: FontTextStyle.poppinsS10W5labelColor,)),
+                                        SizedBox(height: 1.h,),
+                                        Center(child: Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,)),
+
+
+
+
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 3.w,),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
+                    )
+                  ],
+                ),
+            ),
 
 
           ),

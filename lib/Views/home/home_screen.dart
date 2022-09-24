@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 color: Colors.lightGreen,
-                                child: Text("hina patel hello"),
+                                child: Text("Home Page Demo!"),
                               ),
                               SizedBox(width: 3.w,),
                             ],

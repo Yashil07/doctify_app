@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
 import 'package:project/Utils/image_utils.dart';
+import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../customeWidgets/custom_btn.dart';
@@ -42,7 +43,7 @@ class _SuccessfullChangedState extends State<SuccessfullChanged> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
-                      onTap: () {},
+                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                       buttonText: "Go to homepage",
                       textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                     ),

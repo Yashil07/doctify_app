@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
 import 'package:project/Utils/image_utils.dart';
-import 'package:project/Views/home/bottom_nav-bar_screen.dart';
-import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../customeWidgets/custom_btn.dart';
+import '../home/home_screen.dart';
 
 class SuccessfullChanged extends StatefulWidget {
   const SuccessfullChanged({Key? key}) : super(key: key);
@@ -44,7 +43,7 @@ class _SuccessfullChangedState extends State<SuccessfullChanged> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
-                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBarScreen()));},
+                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                       buttonText: "Go to homepage",
                       textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                     ),

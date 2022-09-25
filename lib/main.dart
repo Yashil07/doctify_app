@@ -7,6 +7,8 @@ import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
 import 'package:project/Views/Profile/profile_setting_screen.dart';
+import 'package:project/Views/home/about_doctor.dart';
+import 'package:project/Views/home/bottom_nav-bar_screen.dart';
 import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const ProfileSetting(),
+         home: const SplashScreen(),
         );
       }
     );

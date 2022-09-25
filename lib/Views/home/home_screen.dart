@@ -29,11 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Container(
                 width: double.infinity,
                 child: Padding(
+
                   padding: EdgeInsets.only(left: 20,right: 20,bottom: 15,top: 15),
                   child: Column(
+
                     children: [
 
                       Row(
+
 
                         mainAxisAlignment: MainAxisAlignment.center,
                       children: [

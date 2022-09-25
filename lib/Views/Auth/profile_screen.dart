@@ -7,6 +7,7 @@ import 'package:project/Utils/fontFamily_utils.dart';
 import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
+import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utils/const_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
@@ -246,7 +247,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
 
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                     buttonText: "Confirm",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

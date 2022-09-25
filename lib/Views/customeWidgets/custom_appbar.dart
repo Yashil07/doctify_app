@@ -22,7 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 style: TextStyle(color: Colors.black54)),
             leading: const BackButton(color: Colors.black54),
             backgroundColor: ColorUtils.appBgColor,
-            elevation: 3,
+            elevation: 2,
           ),
         ),
     );

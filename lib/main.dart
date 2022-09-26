@@ -6,6 +6,8 @@ import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
+import 'package:project/Views/Profile/contactus_screen.dart';
+import 'package:project/Views/Profile/help_setting_screen.dart';
 import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:project/Views/Profile/profile_setting_screen.dart';
 import 'package:project/Views/home/home_screen.dart';

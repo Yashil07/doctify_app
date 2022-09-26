@@ -6,7 +6,6 @@ import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
-import '../customeWidgets/custom_text_field.dart';
 
 class NotificationSetting extends StatefulWidget {
   const NotificationSetting({Key? key}) : super(key: key);
@@ -80,7 +79,6 @@ class _NotificationSettingState extends State<NotificationSetting> {
                       ],
                     ),
                   ),
-
                 ],
               ),
             )

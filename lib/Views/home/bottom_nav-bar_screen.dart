@@ -9,6 +9,7 @@ import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/image_utils.dart';
+import '../Profile/profile_setting_screen.dart';
 
 
 
@@ -47,7 +48,7 @@ class _MainPageState extends State<MainPage> {
           HomePage(),
           ResetPasswordScreen(),
           ChatPage(),
-          ProfilePage(),
+          ProfileSetting(),
         ],
         items: _navBarsItems(),
         //navBarStyle: NavBarStyle.style15,
@@ -123,7 +124,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Lottie.asset('assets/chat.json'),
+      child: ProfileSetting(),
     );
   }
 }

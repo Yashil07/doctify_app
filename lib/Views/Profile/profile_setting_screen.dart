@@ -147,8 +147,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
 
 
 
-                  SizedBox(
-                    height: 10.0,
+                  const SizedBox(
+                    height: 5.0,
                   ),
 
                 Container(
@@ -206,61 +206,59 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 10.0,
+                const SizedBox(
+                  height: 5.0,
                 ),
 
                 Container(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: ColorUtils.darkGreyColor),
-                      ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: ColorUtils.darkGreyColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Container(
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Container(
 
-                              height:50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                //more than 50% of width makes circle
-                              ),
-                              child: Icon(
-                                Icons.lock,
-                                size: 4.h,
-                                color: ColorUtils.primaryColor,
-                              ),
-
+                            height:50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: ColorUtils.skyBlueColor,
+                                borderRadius: BorderRadius.circular(10)
+                              //more than 50% of width makes circle
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Security",style:FontTextStyle.poppinsS12W5labelColor),
-                              ],
-
-
+                            child: Icon(
+                              Icons.lock,
+                              size: 4.h,
+                              color: ColorUtils.primaryColor,
                             ),
-                          ),
 
-                        ],
-                      ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Security",style:FontTextStyle.poppinsS12W5labelColor),
+                            ],
+
+
+                          ),
+                        ),
+
+                      ],
                     ),
                   ),
                 ),
 
-                SizedBox(
-                  height: 10.0,
+                const SizedBox(
+                  height: 5.0,
                 ),
 
 
@@ -333,8 +331,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 10.0,
+                const SizedBox(
+                  height: 5.0,
                 ),
 
                 Container(
@@ -396,84 +394,73 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   ),
                 ),
 
-                SizedBox(
-                  height: 10.0,
+                const SizedBox(
+                  height: 5.0,
                 ),
 
                 Container(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: ColorUtils.darkGreyColor),
-                      ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: ColorUtils.darkGreyColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Container(
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Container(
 
-                              height:50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.lightPinkColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                //more than 50% of width makes circle
-                              ),
-                              child: Icon(
-                                Icons.logout,
-                                size: 4.h,
-                                color: ColorUtils.redColor,
-                              ),
-
+                            height:50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: ColorUtils.lightPinkColor,
+                                borderRadius: BorderRadius.circular(10)
+                              //more than 50% of width makes circle
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Logout",style:FontTextStyle.poppinsS12W5labelColor),
-                              ],
+                            child: Icon(
+                              Icons.logout,
+                              size: 4.h,
+                              color: ColorUtils.redColor,
                             ),
-                          ),
-                          // Padding(
-                          //     padding: const EdgeInsets.only(left: 150.0, top: 25.0),
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Text("Hello",)
-                          //     ],
-                          //   ),
-                          // ),
 
-                        ],
-                      ),
+                          ),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Logout",style:FontTextStyle.poppinsS12W5labelColor),
+                            ],
+                          ),
+                        ),
+                        // Padding(
+                        //     padding: const EdgeInsets.only(left: 150.0, top: 25.0),
+                        //   child: Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       Text("Hello",)
+                        //     ],
+                        //   ),
+                        // ),
+
+                      ],
                     ),
                   ),
                 ),
 
                 SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
 
 
 
 
 
-                // SizedBox(
-                //   height: 3.h,
-                // ),
-                // Container(
-                //
-                //   height: 150,
-                //   width: 1000,
-                //   decoration: BoxDecoration( borderRadius: BorderRadius.circular(20),
-                //     color: ColorUtils.whiteColor,
-                //   ),
+
 
 
 

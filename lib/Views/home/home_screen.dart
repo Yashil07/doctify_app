@@ -36,19 +36,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
 
                     children: [
+                      Expanded(
+                        child: Row(
 
-                      Row(
 
-
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
-                        SizedBox(width: 3.w,),
-                        Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
-                        SizedBox(width: 30.w,),
-                        GestureDetector(
-                          onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const   FavouriteDoctorScreen()));},
-                          child: Container(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
+                          SizedBox(width: 3.w,),
+                          Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
+                          SizedBox(width: 30.w,),
+                          GestureDetector(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const   FavouriteDoctorScreen()));},
+                            child: Container(
+                              height:45,
+                              width: 45,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.skyBlueColor,
+                                  borderRadius: BorderRadius.circular(10)
+                                //more than 50% of width makes circle
+                              ),
+                              child:  Center(
+                                child: Icon(
+                                  Icons.favorite,
+                                  size: 30,
+                                  color: ColorUtils.primaryColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 5.w,),
+                          Container(
                             height:45,
                             width: 45,
                             decoration: BoxDecoration(
@@ -56,34 +74,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(10)
                               //more than 50% of width makes circle
                             ),
-                            child:  Center(
+                            child: Center(
                               child: Icon(
-                                Icons.favorite,
+                                Icons.notifications_sharp,
                                 size: 30,
                                 color: ColorUtils.primaryColor,
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 5.w,),
-                        Container(
-                          height:45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                              color: ColorUtils.skyBlueColor,
-                              borderRadius: BorderRadius.circular(10)
-                            //more than 50% of width makes circle
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.notifications_sharp,
-                              size: 30,
-                              color: ColorUtils.primaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
                     ),
+                      ),
                       SizedBox(height: 0.5.h,),
                       const CustomTextField(
                         hintName: "Search",

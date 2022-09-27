@@ -17,6 +17,8 @@ class ColorUtils{
   static Color redColor = const Color(0xFFB71C1C);
   static Color lightRedColor = const Color(0xFFFFEBEE);
   static Color lightPinkColor = const Color(0xFFFCE4EC);
+  static Color pinkColor = const Color(0xfffc5774);
+  static Color yellowColor = const Color(0xffffd464);
 
 
 

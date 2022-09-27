@@ -5,6 +5,9 @@ import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
+import 'package:project/Views/Profile/profile_setting_screen.dart';
+import 'package:project/Views/home/about_doctor.dart';
+import 'package:project/Views/home/book_appointment.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
             // backgroundColor: Color(0xffbE8F2F9),
           ),
           debugShowCheckedModeBanner: false,
-         home: const SplashScreen(),
+         home: const BookAppointment(),
          //home: const HomeScreen(),
         );
       }

@@ -7,16 +7,19 @@ import 'package:project/Utils/fontFamily_utils.dart';
 import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
+import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';
 import '../../Utils/const_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 import 'login_screen.dart';
 import 'package:intl/intl.dart';
 
-const List<String> list = <String>['Male', 'Female'];
-
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  final String? emailId;
+  final String? password;
+
+  const ProfileScreen({Key? key, this.emailId, this.password})
+      : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -28,16 +31,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phnoController = TextEditingController();
   final TextEditingController _profileuploadController =
       TextEditingController();
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
 
-  String  birthDate = "";
+  String birthDate = "";
 
   @override
   void initState() {
+    print("emailid${widget.emailId}");
     dateInput.text = ""; //set the initial value of text field
+    _emailController.text = widget.emailId!;
     super.initState();
   }
 
@@ -54,70 +60,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
           //   backgroundColor: ColorUtils.appBgColor,
           //   elevation: 3,
           // ),
-        appBar: PreferredSize(
-        preferredSize:Size.fromHeight(50),
-        child: CustomAppBar(title: "PROFILE",),),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: CustomAppBar(
+              title: "PROFILE",
+            ),
+          ),
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 3.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
                 children: [
                   SizedBox(
                     height: 3.h,
                   ),
-                 Center(
-                   child: Stack(
-                     clipBehavior: Clip.none,
-                     children: [
-                       CircleAvatar(
-
-                         radius: 75,
-                         child:  ClipOval(
-                           child: imageFile?.path.toString() != null
-                               && imageFile?.path.toString() != "" ?
-                           Image.file(imageFile!,fit: BoxFit.cover,height: 160,
-                             width: 160,) :
-                           Image.asset(ImageUtils.profileAvtar,fit: BoxFit.cover),
-                         )
-                       ),
-                       Positioned(
-                           bottom: -4.w,
-                           left: 4.w,
-                           right: 4.w,
-                           child: GestureDetector(
-                             onTap: () {
-
-                               _openImagePickUpBox();
-                             },
-                             child: Container(
-                               padding: EdgeInsets.all(0.5.w),
-                               decoration: BoxDecoration(
-                                   boxShadow: [
-                                     BoxShadow(
-                                       color:
-                                       ColorUtils.grey.withOpacity(0.5),
-                                       blurRadius: 10,
-                                       spreadRadius: 2,
-                                     ),
-                                   ],
-                                   shape: BoxShape.circle,
-                                   color: ColorUtils.whiteColor),
-                               child: Container(
-                                 height: 11.w,
-                                 padding: EdgeInsets.all(2.w),
-                                 decoration: BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: ColorUtils.primaryColor),
-                                 child: Icon(Icons.camera_alt, color: ColorUtils.whiteColor,)
-                               ),
-                             ),
-                           ))
-                     ],
-                   )
-                 ),
-
+                  Center(
+                      child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      CircleAvatar(
+                          radius: 75,
+                          child: ClipOval(
+                            child: imageFile?.path.toString() != null &&
+                                    imageFile?.path.toString() != ""
+                                ? Image.file(
+                                    imageFile!,
+                                    fit: BoxFit.cover,
+                                    height: 160,
+                                    width: 160,
+                                  )
+                                : Image.asset(ImageUtils.profileAvtar,
+                                    fit: BoxFit.cover),
+                          )),
+                      Positioned(
+                          bottom: -4.w,
+                          left: 4.w,
+                          right: 4.w,
+                          child: GestureDetector(
+                            onTap: () {
+                              _openImagePickUpBox();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(0.5.w),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: ColorUtils.grey.withOpacity(0.5),
+                                      blurRadius: 10,
+                                      spreadRadius: 2,
+                                    ),
+                                  ],
+                                  shape: BoxShape.circle,
+                                  color: ColorUtils.whiteColor),
+                              child: Container(
+                                  height: 11.w,
+                                  padding: EdgeInsets.all(2.w),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: ColorUtils.primaryColor),
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    color: ColorUtils.whiteColor,
+                                  )),
+                            ),
+                          ))
+                    ],
+                  )),
                   SizedBox(
                     height: 2.h,
                   ),
@@ -129,19 +138,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 2.h,
                   ),
-
                   CustomTextField(
                     fieldName: "Email",
                     hintName: "Email",
                     fieldController: _emailController,
+                    readonly: true,
                   ),
                   SizedBox(
                     height: 2.h,
                   ),
-
                   Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text("Gender",style: FontTextStyle.poppinsS12W5labelColor),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Text("Gender",
+                        style: FontTextStyle.poppinsS12W5labelColor),
                   ),
                   SizedBox(
                     height: 1.h,
@@ -149,18 +158,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     width: double.infinity,
                     height: 12.7.w,
-                    padding: EdgeInsets.only(
-                        left: 4.w, right: 3.w, bottom: 1.w),
+                    padding:
+                        EdgeInsets.only(left: 4.w, right: 3.w, bottom: 1.w),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorUtils.lightGreyColor),
+                      border: Border.all(color: ColorUtils.lightGreyColor),
                       color: ColorUtils.whiteColor,
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: DropdownButton(
                       iconEnabledColor: ColorUtils.grey,
-                      style: TextStyle(
-                          color: ColorUtils.grey, fontSize: 16),
+                      style: TextStyle(color: ColorUtils.grey, fontSize: 16),
                       dropdownColor: ColorUtils.whiteColor,
                       focusColor: ColorUtils.grey,
                       elevation: 0,
@@ -172,8 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return DropdownMenuItem(
                           child: Text(
                             '${items}',
-                            style: FontTextStyle
-                                .poppinsS12W5labelColor,
+                            style: FontTextStyle.poppinsS12W5labelColor,
                           ),
                           value: items != null ? items : "",
                         );
@@ -191,45 +197,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 2.h,
                   ),
                   Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text("Date Of Birth",style: FontTextStyle.poppinsS12W5labelColor),
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    child: Text("Date Of Birth",
+                        style: FontTextStyle.poppinsS12W5labelColor),
                   ),
                   SizedBox(
                     height: 1.h,
                   ),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       _openBirthDatePicker(context);
                     },
                     child: Container(
                       width: double.infinity,
                       height: 12.7.w,
-                      padding: EdgeInsets.only(
-                          left: 4.w, right: 4.w, bottom: 1.w),
+                      padding:
+                          EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.w),
                       decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorUtils.lightGreyColor),
+                        border: Border.all(color: ColorUtils.lightGreyColor),
                         color: ColorUtils.whiteColor,
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        birthDate != null && birthDate != "" ?  Text("$birthDate", style: FontTextStyle
-                            .poppinsS12W5labelColor) : Text("Select Your Date Of Birth", style: FontTextStyle
-                            .poppinsS14W4LightGreyColor)
-                          ,Icon(Icons.keyboard_arrow_down,color: ColorUtils.grey,),],
+                          birthDate != null && birthDate != ""
+                              ? Text("$birthDate",
+                                  style: FontTextStyle.poppinsS12W5labelColor)
+                              : Text("Select Your Date Of Birth",
+                                  style:
+                                      FontTextStyle.poppinsS14W4LightGreyColor),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: ColorUtils.grey,
+                          ),
+                        ],
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: 2.h,
                   ),
                   CustomTextField(
                     fieldName: "Phone Number",
                     hintName: "Enter Your Number",
-                    fieldController: _addressController,
+                    fieldController: _phnoController,
+                    keyboard: TextInputType.phone,
                   ),
                   SizedBox(
                     height: 2.h,
@@ -238,15 +251,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fieldName: "Address",
                     hintName: "address",
                     fieldController: _addressController,
+                    maxLines: 3,
                   ),
-
-
                   SizedBox(
                     height: 5.h,
                   ),
-
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
                     buttonText: "Confirm",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),
@@ -274,7 +290,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (_newDate != null) {
       setState(() {
         birthDate = "${_newDate.month}-${_newDate.day}-${_newDate.year}";
-
       });
     }
   }
@@ -336,13 +351,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           // crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(
-                                  top: 3.w, left: 3.w, right: 3.w, bottom: 3.w),
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.primaryColor,
-                                  shape: BoxShape.circle),
-                              child: Icon(Icons.camera_alt,color: ColorUtils.whiteColor,)
-                            ),
+                                padding: EdgeInsets.only(
+                                    top: 3.w,
+                                    left: 3.w,
+                                    right: 3.w,
+                                    bottom: 3.w),
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.primaryColor,
+                                    shape: BoxShape.circle),
+                                child: Icon(
+                                  Icons.camera_alt,
+                                  color: ColorUtils.whiteColor,
+                                )),
                             Text(
                               'Camera',
                               style: FontTextStyle.poppinsS12W5labelColor,
@@ -358,13 +378,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(
-                                  top: 3.w, left: 3.w, right: 3.w, bottom: 3.w),
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.primaryColor,
-                                  shape: BoxShape.circle),
-                              child: Icon(Icons.photo,color: ColorUtils.whiteColor,)
-                            ),
+                                padding: EdgeInsets.only(
+                                    top: 3.w,
+                                    left: 3.w,
+                                    right: 3.w,
+                                    bottom: 3.w),
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.primaryColor,
+                                    shape: BoxShape.circle),
+                                child: Icon(
+                                  Icons.photo,
+                                  color: ColorUtils.whiteColor,
+                                )),
                             SizedBox(
                               height: 1.w,
                             ),
@@ -383,5 +408,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
           );
         });
   }
-
 }

@@ -5,6 +5,8 @@ import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
+import 'package:project/Views/home/bottom_nav-bar_screen.dart';
+import 'package:project/Views/home/listdemo.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -17,26 +19,44 @@ Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+
+  final Future < FirebaseApp > _initialization = Firebase.initializeApp ( ) ;
 
 
   @override
   Widget build(BuildContext context) {
     return Sizer(
         builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          theme: ThemeData(
-            fontFamily: "Poppins",
-            // backgroundColor: Color(0xffbE8F2F9),
-          ),
-          debugShowCheckedModeBanner: false,
-         // home: const LoginScreen(),
-         home: const HomeScreen(),
+        return FutureBuilder(
+            future: _initialization,
+            builder: (context, snapshot){
+              if(snapshot.hasError){
+                print("Somthing Wents Wrong");
+              }
+              if(snapshot.connectionState==ConnectionState.done){
+                return MaterialApp(
+                  theme: ThemeData(
+                    fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
+                  ),
+                  debugShowCheckedModeBanner: false,
+                  home: const SplashScreen(),
+                  //home: const BottomNavBarScreen(),
+                  //home: const ListDemo(),
+                );
+              }
+              return const CircularProgressIndicator();
+            },
         );
+
+
+
+
+
+
       }
     );
   }

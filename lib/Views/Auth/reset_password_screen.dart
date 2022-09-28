@@ -24,7 +24,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         child: Scaffold(
           appBar: const PreferredSize(
             preferredSize:Size.fromHeight(50),
-            child: CustomAppBar(title: "Reset Password",),
+            child: CustomAppBar(title: "Reset Password"),
           ),
           body:SingleChildScrollView(
             child: Padding(

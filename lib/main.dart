@@ -10,9 +10,7 @@ import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/book_appointment.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'Views/home/home_screen.dart';
-import 'Views/onBoarding/onbording_screen.dart';
 import 'Views/onBoarding/splash_screen.dart';
 
 
@@ -38,7 +36,6 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          home: const BookAppointment(),
-         //home: const HomeScreen(),
         );
       }
     );

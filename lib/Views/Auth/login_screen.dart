@@ -3,6 +3,8 @@ import 'package:project/Utils/color_utils.dart';
 import 'package:project/Views/Auth/forgot_password_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
+import 'package:project/Views/home/bottom_nav-bar_screen.dart';
+import 'package:project/Views/home/home_screen.dart';
 import 'package:sizer/sizer.dart';import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_btn.dart';
@@ -75,11 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: obscurePassword,
                           fieldName: "Password",
                           hintName: "Enter Your Password",
+                          keyboard: TextInputType.visiblePassword,
+                          maxLines: 1,
                           fieldController:_passwordController,
                         ),
                         SizedBox(height: 3.h,),
 
-                        CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},buttonText:"Sign In",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                        CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBarScreen()));},buttonText:"Sign In",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
                         SizedBox(height: 2.h,),
                         Container(
                             child: GestureDetector(

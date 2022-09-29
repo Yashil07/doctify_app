@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
+import 'package:project/Views/home/Favourite-doctor_screen.dart';
 import 'package:project/Views/home/specialist_screen.dart';
+import 'package:project/Views/home/top-doc_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -34,51 +36,55 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
 
                     children: [
+                      Expanded(
+                        child: Row(
 
-                      Row(
 
-
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
-                        SizedBox(width: 3.w,),
-                        Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
-                        SizedBox(width: 30.w,),
-                        Container(
-                          height:45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                              color: ColorUtils.skyBlueColor,
-                              borderRadius: BorderRadius.circular(10)
-                            //more than 50% of width makes circle
-                          ),
-                          child:  Center(
-                            child: Icon(
-                              Icons.favorite,
-                              size: 30,
-                              color: ColorUtils.primaryColor,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(ImageUtils.logoImage,height: 7.h,width: 13.w),
+                          SizedBox(width: 3.w,),
+                          Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
+                          SizedBox(width: 30.w,),
+                          GestureDetector(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const   FavouriteDoctorScreen()));},
+                            child: Container(
+                              height:45,
+                              width: 45,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.skyBlueColor,
+                                  borderRadius: BorderRadius.circular(10)
+                                //more than 50% of width makes circle
+                              ),
+                              child:  Center(
+                                child: Icon(
+                                  Icons.favorite,
+                                  size: 30,
+                                  color: ColorUtils.primaryColor,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 5.w,),
-                        Container(
-                          height:45,
-                          width: 45,
-                          decoration: BoxDecoration(
-                              color: ColorUtils.skyBlueColor,
-                              borderRadius: BorderRadius.circular(10)
-                            //more than 50% of width makes circle
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.notifications_sharp,
-                              size: 30,
-                              color: ColorUtils.primaryColor,
+                          SizedBox(width: 5.w,),
+                          Container(
+                            height:45,
+                            width: 45,
+                            decoration: BoxDecoration(
+                                color: ColorUtils.skyBlueColor,
+                                borderRadius: BorderRadius.circular(10)
+                              //more than 50% of width makes circle
+                            ),
+                            child: Center(
+                              child: Icon(
+                                Icons.notifications_sharp,
+                                size: 30,
+                                color: ColorUtils.primaryColor,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
                     ),
+                      ),
                       SizedBox(height: 0.5.h,),
                       const CustomTextField(
                         hintName: "Search",
@@ -201,7 +207,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Top Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
-                            Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
+                            GestureDetector(
+                              child: Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const TopDoctorScreen()));},),
                           ],
                         ),
                       ],
@@ -217,8 +225,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             return Row(
                               children: [
                                 Container(
-                                  height:250,
-                                  width: 150,
+                                  height:240,
+                                  width: 145,
                                   decoration: BoxDecoration(
                                       color: ColorUtils.appBgColor,
                                       borderRadius: BorderRadius.circular(15),
@@ -233,14 +241,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                       children: [
                                         ClipRRect(
-                                            borderRadius: BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
 
-                                            child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
-                                              height: 180.0,
-                                              width: 150.0,)
+                                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                              height: 160.0,
+                                              width: 150.0,
+                                            )
                                         ),
                                         SizedBox(height: 1.h,),
-                                        Center(child: Text("Dr. Janny Willson",style: FontTextStyle.poppinsS10W5labelColor,)),
+                                        Center(child: Text("Dr. Janny  Willson",style: FontTextStyle.poppinsS8W5labelColor,)),
                                         SizedBox(height: 1.h,),
                                         Center(child: Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,)),
 

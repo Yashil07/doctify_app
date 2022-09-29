@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
                     fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
                   ),
                   debugShowCheckedModeBanner: false,
-                  home: const SplashScreen(),
+                  //home: const RegScreen(),
                   //home: const BottomNavBarScreen(),
-                  //home: const ListDemo(),
+                  home: const SplashScreen(),
                 );
               }
               return const CircularProgressIndicator();

@@ -20,8 +20,8 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
       child:  SafeArea(
         child: Scaffold(
           appBar: const PreferredSize(
-            preferredSize:Size.fromHeight(80),
-            child: CustomAppBar(title: "Specialist Doctor",)
+              preferredSize:Size.fromHeight(80),
+              child: CustomAppBar(title: "Specialist Doctor",)
           ),
           body:SingleChildScrollView(
             child: Padding(

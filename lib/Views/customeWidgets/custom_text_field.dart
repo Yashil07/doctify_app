@@ -46,23 +46,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
           onChanged: widget.onChange ?? null,
           validator:widget.validator ?? null ,
           decoration:  InputDecoration(
+              border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
 
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 0, color: ColorUtils.grey),
-                borderRadius: BorderRadius.circular(50),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 0, color: ColorUtils.primaryColor),
-                borderRadius: BorderRadius.circular(50),
-              ),
+              // enabledBorder: OutlineInputBorder(
+              //   borderSide: BorderSide(width: 1, color: ColorUtils.grey),
+              //   borderRadius: BorderRadius.circular(50),
+              // ),
+              // focusedBorder: OutlineInputBorder(
+              //   borderSide: BorderSide(width: 1, color: ColorUtils.primaryColor),
+              //   borderRadius: BorderRadius.circular(50),
+              //
+              // ),
 
               prefixIcon:widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               hintText:widget.hintName,
               hintStyle:FontTextStyle.poppinsS14W4LightGreyColor ,
-              border: InputBorder.none,
+              //border: InputBorder.none,
               fillColor: ColorUtils.aliceBlue,
-             filled: true,
+              filled: true,
+
              // isDense: true,
               contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),
 

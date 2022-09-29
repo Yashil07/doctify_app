@@ -7,7 +7,7 @@ class CustomTextField extends StatefulWidget {
   final String? hintName;
   final String? fieldName;
   final TextInputType? keyboard;
-
+final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? fieldController;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -15,9 +15,10 @@ class CustomTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final int? maxLines;
   final bool? readonly;
+  final int? maxLength;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String?>? onChange;
-  const CustomTextField({Key? key,this.fieldName,this.textInputAction,this.keyboard,this.readonly,this.hintName,this.fieldController,this.maxLines,this.onChange,this.validator,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
+  const CustomTextField({Key? key,this.fieldName,this.textInputAction,this.maxLength,this.keyboard,this.readonly,this.contentPadding,this.hintName,this.fieldController,this.maxLines,this.onChange,this.validator,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -45,6 +46,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           readOnly: widget.readonly ?? false,
           onChanged: widget.onChange ?? null,
           validator:widget.validator ?? null ,
+          maxLength: widget.maxLength,
           decoration:  InputDecoration(
               border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
 
@@ -67,7 +69,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               filled: true,
 
              // isDense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),
+              contentPadding:widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 4.w)),
 
         ),
       ],

@@ -134,7 +134,7 @@ class _RegScreenState extends State<RegScreen> {
                                               password:
                                                   _passwordController.text,
                                             )));
-                                        clearField();
+                                      //  clearField();
 
                               }
                             },

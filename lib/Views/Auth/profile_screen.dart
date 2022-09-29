@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/Utils/color_utils.dart';
@@ -8,8 +10,11 @@ import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:project/Views/home/home_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../Provider/user_provider.dart';
 import '../../Utils/const_utils.dart';
+import '../../model/user_model.dart';
 import '../customeWidgets/custom_appbar.dart';
 import 'login_screen.dart';
 import 'package:intl/intl.dart';
@@ -28,15 +33,13 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _genderController = TextEditingController();
-  final TextEditingController _dobController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phnoController = TextEditingController();
-  final TextEditingController _profileuploadController =
-      TextEditingController();
+
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
-
+bool loader = false;
   String birthDate = "";
 
   @override
@@ -53,14 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text('Profile Page',
-          //       style: TextStyle(color: Colors.black54)),
-          //   leading: const BackButton(color: Colors.black54),
-          //   backgroundColor: ColorUtils.appBgColor,
-          //   elevation: 3,
-          // ),
-          appBar: PreferredSize(
+                    appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
               title: "PROFILE",
@@ -134,6 +130,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fieldName: "Full Name",
                     hintName: "Full Name",
                     fieldController: _nameController,
+                    validator: (str) {
+                      if (str!.isEmpty) {
+                        return '* Is Required';
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 2.h,
@@ -243,6 +244,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     hintName: "Enter Your Number",
                     fieldController: _phnoController,
                     keyboard: TextInputType.phone,
+                    maxLength: 10,
+                    validator: (str) {
+                      if (str!.isEmpty) {
+                        return '* Is Required';
+                      }else if(str.length != 10){
+                        return '* Phone number must be of 10 digit';
+                      }
+                    },
+
                   ),
                   SizedBox(
                     height: 2.h,
@@ -252,16 +262,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     hintName: "address",
                     fieldController: _addressController,
                     maxLines: 3,
+                    contentPadding: const EdgeInsets.only(left: 20,top: 20),
                   ),
                   SizedBox(
                     height: 5.h,
                   ),
-                  CustomButton(
+                 loader ? Center(child: CircularProgressIndicator(),) : CustomButton(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+    // if (formKey.currentState.validate()) {
+    //   signUpData();
+    //
+    // }
+                      signUpData();
                     },
                     buttonText: "Confirm",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
@@ -277,6 +289,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  Future signUpData() async {
+    try {
+      // if (formKey.currentState?.validate()) {
+        final String email = _emailController.text.trim();
+        final String password = widget.password!.trim();
+        await auth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) async {
+          User? user = FirebaseAuth.instance.currentUser;
+
+          UserModel currentModel = UserModel(
+              email: widget.emailId,
+            password: widget.password,
+            phoneNumber: _phnoController.text,
+            gender: genderInitialValue.toString(),
+            birthdate: birthDate,
+            address: _addressController.text,
+            uid: user?.uid,
+            fullName: _nameController.text,
+            profileImg: "",
+             );
+
+          Provider.of<UserProvider>(context, listen: false)
+              .setUserModel(currentModel);
+          setState(() {
+            loader = true;
+          });
+          await FirebaseFirestore.instance
+              .collection("patients")
+              .doc(user?.uid)
+              .set({
+            'uid': user?.uid,
+            "fullName": _nameController.text,
+            "email":widget.emailId,
+            "password": widget.password,
+            'gender': genderInitialValue,
+            'birthdate': birthDate,
+            "address":_addressController.text,
+            'profileImg': '',
+            "phoneNumber":_phnoController.text,
+
+          });
+        });
+        setState(() {
+          loader = false;
+        });
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        // _firstNameController.clear();
+        // _lastNameController.clear();
+        // _mobileNumberController.clear();
+        // _emailController.clear();
+        // _passwordController.clear();
+        // _cPasswordController.clear();
+        // _walletAmountController.clear();
+
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("${e.message}")));
+      setState(() {
+        loader = false;
+      });
+    }
+  }
+
+
+
+
 
   /////////////////////////////BIRTH DATE//////////////////////
 

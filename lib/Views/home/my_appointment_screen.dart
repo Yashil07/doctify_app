@@ -80,7 +80,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                     child: Column(
                       children:[
                         SizedBox(height: 15.0),
-                      Image.asset(ImageUtils.noAppointmentImage),
+                        Image.asset(ImageUtils.logoImage),
                         Text("You don't have an appointment",style: FontTextStyle.poppinsS12W5labelColor,),
                         SizedBox(height: 10.h),
                         CustomButton(onTap: (){},buttonText:"Book Appointment Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),

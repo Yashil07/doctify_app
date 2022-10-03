@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/Views/customeWidgets/custom_appbar.dart';
-import 'package:project/Views/home/book_appointment.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -100,7 +99,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                      Padding(
                        padding: const EdgeInsets.only(right:15.0),
                        child: CustomButton(
-                         onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>BookAppointment()));},
+                         onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));},
                          buttonText: "Confirm",
                          textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                        ),

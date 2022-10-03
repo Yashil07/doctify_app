@@ -20,8 +20,7 @@ class RegScreen extends StatefulWidget {
 class _RegScreenState extends State<RegScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   clearField() {
     _emailController.clear();
@@ -69,9 +68,12 @@ class _RegScreenState extends State<RegScreen> {
                       child: Column(
                         children: [
                           CustomTextField(
+
                             fieldName: "Email-Id",
                             hintName: "Enter Your Email Id",
+
                             fieldController: _emailController,
+                            keyboard: TextInputType.emailAddress,
                             validator: (str) {
                               if (str!.isEmpty) {
                                 return '* Is Required';
@@ -92,7 +94,9 @@ class _RegScreenState extends State<RegScreen> {
                             fieldController: _passwordController,
                             validator: (str) {
                               if (str!.isEmpty) {
+
                                 return '* Is Required';
+
                               } else if (str.trim().length < 8) {
                                 return "Password must be least 8 character long!";
                               }
@@ -130,7 +134,7 @@ class _RegScreenState extends State<RegScreen> {
                                               password:
                                                   _passwordController.text,
                                             )));
-                               // clearField();
+                                      //  clearField();
 
                               }
                             },

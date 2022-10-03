@@ -61,7 +61,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                           ClipRRect(
                               borderRadius: BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                              child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
+                              child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
                                 height: 140,
                                 width: 110.0,)
                           ),

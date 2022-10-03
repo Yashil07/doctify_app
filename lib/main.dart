@@ -10,6 +10,7 @@ import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/book_appointment.dart';
 import 'package:project/Views/home/my_appointment_history_screen.dart';
 import 'package:project/Views/home/my_appointment_screen.dart';
+import 'package:project/Views/home/patient_details_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Views/home/home_screen.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             // backgroundColor: Color(0xffbE8F2F9),
           ),
           debugShowCheckedModeBanner: false,
-         home: const Appointment_History(),
+         home: const SplashScreen(),
         );
       }
     );

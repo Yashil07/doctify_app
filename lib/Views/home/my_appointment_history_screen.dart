@@ -84,7 +84,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                       ClipRRect(
                           borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                          child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
+                          child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
                             height: 140,
                             width: 110.0,)
                       ),
@@ -99,12 +99,22 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                        children: [
-                          Icon(Icons.call,color: ColorUtils.primaryColor,),
-                        ],
+                      Center(
+                        child: Container(
+                          height:40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.skyBlueColor,
+                              borderRadius: BorderRadius.circular(10)
+                            //more than 50% of width makes circle
+                          ),
+                          child:  Center(
+                            child: Icon(
+                              Icons.call_rounded,
+                              size: 30,
+                              color: ColorUtils.primaryColor,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -116,7 +126,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                       ClipRRect(
                           borderRadius: BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                          child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
+                          child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
                             height: 140,
                             width: 110.0,)
                       ),
@@ -131,12 +141,22 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.message,color: ColorUtils.primaryColor,),
-                          ],
+                      Center(
+                        child: Container(
+                          height:40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.skyBlueColor,
+                              borderRadius: BorderRadius.circular(10)
+                            //more than 50% of width makes circle
+                          ),
+                          child:  Center(
+                            child: Icon(
+                              Icons.message,
+                              size: 30,
+                              color: ColorUtils.primaryColor,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -154,7 +174,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                       ClipRRect(
                           borderRadius: BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                          child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
+                          child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
                             height: 140,
                             width: 110.0,)
                       ),
@@ -169,12 +189,22 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.call,color: ColorUtils.primaryColor,),
-                          ],
+                      Center(
+                        child: Container(
+                          height:40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.skyBlueColor,
+                              borderRadius: BorderRadius.circular(10)
+                            //more than 50% of width makes circle
+                          ),
+                          child:  Center(
+                            child: Icon(
+                              Icons.call_rounded,
+                              size: 30,
+                              color: ColorUtils.primaryColor,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -186,7 +216,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                       ClipRRect(
                           borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                          child: Image.asset(ImageUtils.DoctorImage,fit: BoxFit.fill,
+                          child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
                             height: 140,
                             width: 110.0,)
                       ),
@@ -201,12 +231,22 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.video_call,color: ColorUtils.primaryColor,),
-                          ],
+                      Center(
+                        child: Container(
+                          height:40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.skyBlueColor,
+                              borderRadius: BorderRadius.circular(10)
+                            //more than 50% of width makes circle
+                          ),
+                          child:  Center(
+                            child: Icon(
+                              Icons.video_call,
+                              size: 30,
+                              color: ColorUtils.primaryColor,
+                            ),
+                          ),
                         ),
                       ),
                     ],

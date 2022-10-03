@@ -83,7 +83,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                       Image.asset(ImageUtils.noAppointmentImage),
                         Text("You don't have an appointment",style: FontTextStyle.poppinsS12W5labelColor,),
                         SizedBox(height: 10.h),
-                        CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},buttonText:"Upcoming",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                        CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},buttonText:"Book Appointment Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
   
                       ]
                     ),

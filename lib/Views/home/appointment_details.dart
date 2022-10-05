@@ -8,6 +8,7 @@ import '../Auth/profile_screen.dart';
 import '../Profile/notification_setting_screen.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
+import 'messaging_end_screen.dart';
 
 class AppointmentDetails extends StatefulWidget {
   const AppointmentDetails({Key? key}) : super(key: key);
@@ -315,7 +316,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                     ),
                   ),
 
-                  CustomButton(onTap: (){},buttonText:"Message Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                  CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) =>MessagingEnd()));},buttonText:"Message Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
                 ],
               ),
             ),

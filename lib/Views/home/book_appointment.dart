@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:project/Views/home/patient_details_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -284,7 +285,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BookAppointment(
+                                    builder: (context) => PatientDetails(
                                       // appointmentDate: aDate,
                                     )));
                             //  clearField();

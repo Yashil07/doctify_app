@@ -7,6 +7,7 @@ import '../../Utils/fontFamily_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
+import 'appointment_details.dart';
 
 class PatientDetails extends StatefulWidget {
   const PatientDetails({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class _PatientDetailsState extends State<PatientDetails> {
 
                   CustomTextField(
                     fieldName: "Full Name",
-                    hintName: "Full Name",
+                    hintName: "Enter Your Full Name",
                     fieldController: _nameController,
                   ),
                   SizedBox(
@@ -61,16 +62,18 @@ class _PatientDetailsState extends State<PatientDetails> {
                   ),
                   CustomTextField(
                     fieldName: "Age",
-                    hintName: "Age",
+                    hintName: "Enter Your Age",
                     fieldController: _ageController,
                   ),
                   SizedBox(
                     height: 2.h,
                   ),
                   CustomTextField(
+                    suffixIcon: Icon(Icons.phone),
                     fieldName: "Phone Number",
                     hintName: "Enter Your Number",
                     fieldController: _phoneController,
+                    keyboard: TextInputType.phone,
                   ),
                   SizedBox(
                     height: 2.h,
@@ -132,14 +135,15 @@ class _PatientDetailsState extends State<PatientDetails> {
                     hintName: "Tell doctor about your problem",
                     contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 1.h),
                     fieldController: _problemController,
-                    maxLines: 3,
+                    maxLines: 4,
                   ),
                   SizedBox(
                     height: 5.h,
                   ),
 
                   CustomButton(
-                    onTap: () {},
+
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentDetails()));},
                     buttonText: "Next",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

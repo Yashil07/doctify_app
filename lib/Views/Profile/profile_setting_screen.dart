@@ -47,7 +47,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
 
                     GestureDetector(
-                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));},
                       child: Container(
                         height:45,
                         width: 45,

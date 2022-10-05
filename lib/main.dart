@@ -12,7 +12,9 @@ import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:project/Views/Profile/profile_setting_screen.dart';
 import 'package:project/Views/home/appointment_details.dart';
 import 'package:project/Views/home/home_screen.dart';
+import 'package:project/Views/home/messaging_end_screen.dart';
 import 'package:project/Views/home/my_appointment_screen.dart';
+import 'package:project/Views/home/write_review_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
          // home: const LoginScreen(),
-         home: const AppointmentDetails(),
+         home: const MessagingEnd(),
         );
       }
     );

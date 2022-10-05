@@ -6,17 +6,26 @@ import 'package:sizer/sizer.dart';
 class CustomTextField extends StatefulWidget {
   final String? hintName;
   final String? fieldName;
+  final TextInputType? keyboard;
+  final EdgeInsetsGeometry? contentPadding;
   final TextEditingController? fieldController;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool? obscureText;
-  const CustomTextField({Key? key,this.fieldName,this.hintName,this.fieldController,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
+  final TextInputAction? textInputAction;
+  final int? maxLines;
+  final bool? readonly;
+  final int? maxLength;
+  final FormFieldValidator<String>? validator;
+  final ValueChanged<String?>? onChange;
+  const CustomTextField({Key? key,this.fieldName,this.textInputAction,this.maxLength,this.keyboard,this.readonly,this.contentPadding,this.hintName,this.fieldController,this.maxLines,this.onChange,this.validator,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,37 +37,42 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: Text("${widget.fieldName ?? ""}",style: FontTextStyle.poppinsS12W5labelColor ,),
         ) : SizedBox(),
         SizedBox(height: 1.h,),
-        Container(
-          
-          child: Container(
-              decoration:
-          BoxDecoration(color: ColorUtils.inputBoxColor,
-              // border: Border.all(color: ColorUtils.lightGreyColor
+        TextFormField(controller: widget.fieldController,
+          obscureText: widget.obscureText ?? false,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: widget.textInputAction ?? TextInputAction.next,
+          maxLines:widget.maxLines ,
+          keyboardType: widget.keyboard,
+          readOnly: widget.readonly ?? false,
+          onChanged: widget.onChange ?? null,
+          validator:widget.validator ?? null ,
+          maxLength: widget.maxLength,
+          decoration:  InputDecoration(
+              border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
+
+              // enabledBorder: OutlineInputBorder(
+              //   borderSide: BorderSide(width: 1, color: ColorUtils.grey),
+              //   borderRadius: BorderRadius.circular(50),
+              // ),
+              // focusedBorder: OutlineInputBorder(
+              //   borderSide: BorderSide(width: 1, color: ColorUtils.primaryColor),
+              //   borderRadius: BorderRadius.circular(50),
+              //
               // ),
 
-              borderRadius: const BorderRadius.all(Radius.circular(50))),
-              child: TextFormField(controller: widget.fieldController,
-                obscureText: widget.obscureText ?? false,
-                decoration:  InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                            width: 1, color: ColorUtils.lightGreyColor)
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        borderSide: BorderSide(
-                            width: 1, color: ColorUtils.primaryColor)),
-                    prefixIcon:widget.prefixIcon,
-                    suffixIcon: widget.suffixIcon,
-                    hintText:widget.hintName,
-                    hintStyle:FontTextStyle.poppinsS14W4LightGreyColor ,
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 4.w)),
+              prefixIcon:widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
+              hintText:widget.hintName,
+              hintStyle:FontTextStyle.poppinsS14W4LightGreyColor ,
+              //border: InputBorder.none,
+              fillColor: ColorUtils.aliceBlue,
+              filled: true,
 
-              )),
-              ),
+              // isDense: true,
+              contentPadding:widget.contentPadding ?? EdgeInsets.symmetric(horizontal: 4.w)),
+
+        ),
       ],
     );
-        }
-      }
+  }
+}

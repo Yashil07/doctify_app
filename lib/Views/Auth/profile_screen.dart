@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _genderController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+    final TextEditingController _addressController = TextEditingController();
   final TextEditingController _profileuploadController =
       TextEditingController();
   final TextEditingController dateInput = TextEditingController();

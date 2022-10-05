@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project/Views/Auth/login_screen.dart';
+import 'package:project/Views/Auth/profile_screen.dart';
+import 'package:project/Views/Profile/help_setting_screen.dart';
+import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:io';
 
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
-import '../customeWidgets/custom_btn.dart';
-import '../customeWidgets/custom_text_field.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../Auth/reg_screen.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({Key? key}) : super(key: key);
@@ -26,43 +30,25 @@ class _ProfileSettingState extends State<ProfileSetting> {
         child: Scaffold(
           backgroundColor: ColorUtils.whiteColor,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(75),
+              preferredSize: const Size.fromHeight(75),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                child: Container(
-
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Image.asset(ImageUtils.logoImage,height: 5.h,width: 13.w),
-                            SizedBox(width: 3.w,),
-                            Text("Profile",style: FontTextStyle.poppinsS12W5labelColor,),
-                          ],
-                        ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Image.asset(ImageUtils.logoImage,height: 5.h,width: 13.w),
+                          SizedBox(width: 3.w,),
+                          Text("Profile",style: FontTextStyle.poppinsS12W5labelColor,),
+                        ],
                       ),
-                      // SizedBox(width: 50.w,),
-                      // Container(
-                      //   height:45,
-                      //   width: 45,
-                      //   decoration: BoxDecoration(
-                      //       color: ColorUtils.skyBlueColor,
-                      //       borderRadius: BorderRadius.circular(10)
-                      //     //more than 50% of width makes circle
-                      //   ),
-                      //   child:  Center(
-                      //     child: Icon(
-                      //       Icons.favorite,
-                      //       size: 30,
-                      //       color: ColorUtils.primaryColor,
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(width: 17.w,),
-                      Container(
+                    ),
+
+                    GestureDetector(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},
+                      child: Container(
                         height:45,
                         width: 45,
                         decoration: BoxDecoration(
@@ -78,15 +64,15 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               )),
           body: Padding(
             padding: const EdgeInsets.only(top: 2.0, left: 12.0, right: 12.0),
             child: Column(
               children: [
-                Container(
+                Container (
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -140,130 +126,65 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   height: 10.0,
-                // ),
-
-
-
-
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                          color: ColorUtils.darkGreyColor),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: Container(
-
-                            height:50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child: Icon(
-                              Icons.notifications,
-                              size: 4.h,
-                              color: ColorUtils.primaryColor,
-                            ),
-
-                          ),
-
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Notification",style:FontTextStyle.poppinsS12W5labelColor),
-                            ],
-                          ),
-                        ),
-                        // Padding(
-                        //     padding: const EdgeInsets.only(left: 150.0, top: 25.0),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       Text("Hello",)
-                        //     ],
-                        //   ),
-                        // ),
-
-                      ],
-                    ),
-                  ),
-                ),
 
                 const SizedBox(
-                  height: 5.0,
-                ),
-
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: ColorUtils.darkGreyColor),
-                    ),
+                    height: 10.0,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: Container(
 
-                            height:50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child: Icon(
-                              Icons.lock,
-                              size: 4.h,
-                              color: ColorUtils.primaryColor,
+                GestureDetector(
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSetting()));},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                            color: ColorUtils.darkGreyColor),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Container(
+                              height:50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: ColorUtils.skyBlueColor,
+                                  borderRadius: BorderRadius.circular(10)
+                                //more than 50% of width makes circle
+                              ),
+                              child: Icon(
+                                Icons.notifications,
+                                size: 4.h,
+                                color: ColorUtils.primaryColor,
+                              ),
+
                             ),
 
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Security",style:FontTextStyle.poppinsS12W5labelColor),
-                            ],
-
-
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Notification",style:FontTextStyle.poppinsS12W5labelColor),
+                              ],
+                            ),
                           ),
-                        ),
-
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
+
 
                 const SizedBox(
-                  height: 5.0,
+                  height: 10.0,
                 ),
 
-
-
-                Container(
+                GestureDetector(
+                  onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => HelpSetting()));},
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
@@ -331,71 +252,71 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   ),
                 ),
 
+
                 const SizedBox(
-                  height: 5.0,
+                  height: 10.0,
                 ),
 
                 Container(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: ColorUtils.darkGreyColor),
-                      ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: ColorUtils.darkGreyColor),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Container(
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Container(
 
-                              height:50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                //more than 50% of width makes circle
-                              ),
-                              child: Icon(
-                                Icons.people_alt_outlined,
-                                size: 4.h,
-                                color: ColorUtils.primaryColor,
-                              ),
-
+                            height:50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: ColorUtils.skyBlueColor,
+                                borderRadius: BorderRadius.circular(10)
+                              //more than 50% of width makes circle
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Invite Friends",style:FontTextStyle.poppinsS12W5labelColor),
-                              ],
+                            child: Icon(
+                              Icons.people_alt_outlined,
+                              size: 4.h,
+                              color: ColorUtils.primaryColor,
                             ),
-                          ),
-                          // Padding(
-                          //     padding: const EdgeInsets.only(left: 130.0),
-                          //   child: Column(
-                          //     // crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Icon(
-                          //         Icons.arrow_forward_ios,
-                          //         size: 3.h,
-                          //         color: ColorUtils.primaryColor,)
-                          //     ],
-                          //   ),
-                          // ),
 
-                        ],
-                      ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Invite Friends",style:FontTextStyle.poppinsS12W5labelColor),
+                            ],
+                          ),
+                        ),
+                        // Padding(
+                        //     padding: const EdgeInsets.only(left: 130.0),
+                        //   child: Column(
+                        //     // crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       Icon(
+                        //         Icons.arrow_forward_ios,
+                        //         size: 3.h,
+                        //         color: ColorUtils.primaryColor,)
+                        //     ],
+                        //   ),
+                        // ),
+
+                      ],
                     ),
                   ),
                 ),
 
+
                 const SizedBox(
-                  height: 5.0,
+                  height: 10.0,
                 ),
 
                 Container(
@@ -429,7 +350,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           ),
                         ),
                         Padding(
-                          padding:  EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(20.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -451,20 +372,11 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
                   ),
                 ),
+                
 
-                SizedBox(
-                  height: 5.0,
+                const SizedBox(
+                  height: 10.0,
                 ),
-
-
-
-
-
-
-
-
-
-
 
 
 

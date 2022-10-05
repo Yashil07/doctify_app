@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Views/Auth/login_screen.dart';
+import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Profile/help_setting_screen.dart';
 import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -45,19 +46,22 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       ),
                     ),
 
-                    Container(
-                      height:45,
-                      width: 45,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.skyBlueColor,
-                          borderRadius: BorderRadius.circular(10)
-                        //more than 50% of width makes circle
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.edit,
-                          size: 30,
-                          color: ColorUtils.primaryColor,
+                    GestureDetector(
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));},
+                      child: Container(
+                        height:45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                            color: ColorUtils.skyBlueColor,
+                            borderRadius: BorderRadius.circular(10)
+                          //more than 50% of width makes circle
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.edit,
+                            size: 30,
+                            color: ColorUtils.primaryColor,
+                          ),
                         ),
                       ),
                     ),

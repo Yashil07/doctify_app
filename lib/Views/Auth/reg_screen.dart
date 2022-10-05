@@ -21,11 +21,17 @@ class _RegScreenState extends State<RegScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  bool obscurePassword=true;
   GlobalKey<FormState> formKey = GlobalKey();
   clearField() {
     _emailController.clear();
     _passwordController.clear();
     _confirmPasswordController.clear();
+    @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -68,6 +74,7 @@ class _RegScreenState extends State<RegScreen> {
                       child: Column(
                         children: [
                           CustomTextField(
+                            prefixIcon: Icon(Icons.email_outlined),
 
                             fieldName: "Email-Id",
                             hintName: "Enter Your Email Id",
@@ -87,7 +94,17 @@ class _RegScreenState extends State<RegScreen> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          CustomTextField(
+                          CustomTextField(  prefixIcon: Icon(Icons.lock),
+                            suffixIcon: GestureDetector
+                              (onTap: (){
+                              setState(() {
+                                obscurePassword=! obscurePassword;
+                              });
+
+                            },
+                                child: obscurePassword? Icon(Icons.visibility_off) : Icon(Icons.visibility)),
+                            obscureText: obscurePassword,
+                            maxLines: 1,
                             fieldName: "Password",
                             hintName: "Enter Your Password",
                             keyboard: TextInputType.visiblePassword,
@@ -107,11 +124,25 @@ class _RegScreenState extends State<RegScreen> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          CustomTextField(textInputAction: TextInputAction.done,
+                          CustomTextField(
+                            prefixIcon: Icon(Icons.lock),
+                            suffixIcon: GestureDetector
+                              (onTap: (){
+                              setState(() {
+                                obscurePassword=! obscurePassword;
+                              });
+
+                            },
+                                child: obscurePassword? Icon(Icons.visibility_off) : Icon(Icons.visibility)),
+                            obscureText: obscurePassword,
+                            maxLines: 1,
+                            textInputAction: TextInputAction.done,
+
                             fieldName: "Confirm Password",
                             hintName: "Enter Your Password Again",
                             keyboard: TextInputType.visiblePassword,
                             fieldController: _confirmPasswordController,
+
                             validator: (str) {
                               if (str!.isEmpty) {
                                 return '* Is Required';

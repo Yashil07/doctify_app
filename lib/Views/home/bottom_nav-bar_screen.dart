@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../Utils/image_utils.dart';
 import '../Profile/profile_setting_screen.dart';
+import 'my_appointment_history_screen.dart';
 
 
 
@@ -46,7 +47,7 @@ class _MainPageState extends State<MainPage> {
         controller: _controller,
         screens: const [
           HomePage(),
-          ResetPasswordScreen(),
+          Appointment_History(),
           ChatPage(),
           ProfileSetting(),
         ],
@@ -113,7 +114,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ResetPasswordScreen(),
+      child:Appointment_History(),
     );
   }
 }

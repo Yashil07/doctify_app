@@ -29,4 +29,6 @@
     static const oba1gif = "${baseImgPath}obs.json";
     static const oba2gif = "${baseImgPath}obs2.json";
     static const oba3gif = "${baseImgPath}obs3.json";
+   //static const loader = "${baseImgPath}loder.json";
+   static const loader = "${baseImgPath}redloader.json";
  }

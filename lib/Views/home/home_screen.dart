@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:project/Views/home/Favourite-doctor_screen.dart';
+import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/specialist_screen.dart';
 import 'package:project/Views/home/top-doc_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -224,40 +225,44 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: List.generate(10, (index){
                             return Row(
                               children: [
-                                Container(
-                                  height:240,
-                                  width: 145,
-                                  decoration: BoxDecoration(
-                                      color: ColorUtils.appBgColor,
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(width: 1,
-                                        color: ColorUtils.lightGreyColor
-                                      )
+                                GestureDetector(
+                                onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutDoctor()));},
 
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: Column(
+                            child: Container(
+                                    height:240,
+                                    width: 145,
+                                    decoration: BoxDecoration(
+                                        color: ColorUtils.appBgColor,
+                                        borderRadius: BorderRadius.circular(15),
+                                        border: Border.all(width: 1,
+                                          color: ColorUtils.lightGreyColor
+                                        )
 
-                                      children: [
-                                        ClipRRect(
-                                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Column(
 
-                                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                              height: 160.0,
-                                              width: 150.0,
-                                            )
-                                        ),
-                                        SizedBox(height: 1.h,),
-                                        Center(child: Text("Dr. Janny  Willson",style: FontTextStyle.poppinsS8W5labelColor,)),
-                                        SizedBox(height: 1.h,),
-                                        Center(child: Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,)),
+                                        children: [
+                                          ClipRRect(
+                                              borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+
+                                              child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                                height: 160.0,
+                                                width: 150.0,
+                                              )
+                                          ),
+                                          SizedBox(height: 1.h,),
+                                          Center(child: Text("Dr. Janny  Willson",style: FontTextStyle.poppinsS8W5labelColor,)),
+                                          SizedBox(height: 1.h,),
+                                          Center(child: Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,)),
 
 
 
 
 
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

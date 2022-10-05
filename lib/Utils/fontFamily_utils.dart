@@ -72,6 +72,7 @@ class FontTextStyle {
   static TextStyle poppinsS14W5labelColor =
   poppinsS12W5labelColor.copyWith(fontSize: 14.sp);
 
-
+  static TextStyle poppinsS12W7labelColor =
+  poppinsS12W5labelColor.copyWith(fontWeight: FontWeightClass.bold);
 
 }

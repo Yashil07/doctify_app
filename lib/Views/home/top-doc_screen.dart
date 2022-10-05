@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
+import 'about_doctor.dart';
 
 class TopDoctorScreen extends StatefulWidget {
   const TopDoctorScreen({Key? key}) : super(key: key);
@@ -34,61 +35,64 @@ class _TopDoctorScreenState extends State<TopDoctorScreen> {
                   Column(
                     children: [
                       SizedBox( height: 1.5.h),
-                      Container(
+                      GestureDetector(
+                        onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutDoctor()));},
+                        child: Container(
 
-                      height:120,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.appBgColor,
-                          border: Border.all(color: ColorUtils.lightGreyColor),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding:  EdgeInsets.only(right: 5.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ClipRRect(
-                                borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                        height:120,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: ColorUtils.appBgColor,
+                            border: Border.all(color: ColorUtils.lightGreyColor),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Padding(
+                          padding:  EdgeInsets.only(right: 5.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                                child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                  height: 121,
-                                  width: 100.0,)
-                            ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                                  SizedBox(height: 1.h),
-                                  Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                                ],
+                                  child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                    height: 121,
+                                    width: 100.0,)
                               ),
-                            ),
-
-                            Center(
-                              child: Container(
-                                height:40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    color: ColorUtils.skyBlueColor,
-                                    borderRadius: BorderRadius.circular(10)
-                                  //more than 50% of width makes circle
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
+                                    SizedBox(height: 1.h),
+                                    Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
+                                  ],
                                 ),
-                                child:  Center(
-                                  child: Icon(
-                                    Icons.favorite,
-                                    size: 30,
-                                    color: ColorUtils.primaryColor,
+                              ),
+
+                              Center(
+                                child: Container(
+                                  height:40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      color: ColorUtils.skyBlueColor,
+                                      borderRadius: BorderRadius.circular(10)
+                                    //more than 50% of width makes circle
+                                  ),
+                                  child:  Center(
+                                    child: Icon(
+                                      Icons.favorite,
+                                      size: 30,
+                                      color: ColorUtils.primaryColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
 
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                 ),
+                      ),
                     ],
                   )),
               ),

@@ -22,6 +22,7 @@ class _WriteReviewState extends State<WriteReview> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
           appBar: const PreferredSize(

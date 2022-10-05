@@ -42,6 +42,8 @@ class FontTextStyle {
       color: ColorUtils.blackColor,
       fontWeight: FontWeightClass.regular);
 
+
+
   static TextStyle poppinsS20W7PrimaryColor = TextStyle(
       fontFamily:popinsFamily,
       fontSize: 20.sp,
@@ -69,5 +71,8 @@ class FontTextStyle {
 
   static TextStyle poppinsS20W4PrimaryColor =
   poppinsS24W7PrimaryColor.copyWith(fontSize: 20.sp,fontWeight: FontWeightClass.bold);
+
+  static TextStyle poppinsS16W4GrayColor =
+  poppinsS18W4GrayColor.copyWith(fontSize: 16.sp);
 
 }

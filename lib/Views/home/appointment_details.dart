@@ -21,6 +21,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blueGrey,
       child:  SafeArea(
         child: Scaffold(
           appBar: const PreferredSize(

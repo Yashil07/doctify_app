@@ -18,39 +18,41 @@ class _SuccessfullyContactusState extends State<SuccessfullyContactus> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorUtils.whiteColor,
+      color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-          body:Center(
-            child: Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 250),
-                    child: Image.asset(ImageUtils.mainLogoImage,height: 90,),
-                  ),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Text("ThankYou!",style: FontTextStyle.poppinsS20W7PrimaryColor),
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Text("We will contact you soon.",style: FontTextStyle.poppinsS12W5labelColor),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomButton(
-                      onTap: () {},
-                      buttonText: "Go to homepage",
-                      textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+          body:SingleChildScrollView(
+            child: Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 250),
+                      child: Image.asset(ImageUtils.mainLogoImage,height: 90,),
                     ),
-                  ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text("ThankYou!",style: FontTextStyle.poppinsS20W7PrimaryColor),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text("We will contact you soon.",style: FontTextStyle.poppinsS12W5labelColor),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomButton(
+                        onTap: () {},
+                        buttonText: "Go to homepage",
+                        textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+                      ),
+                    ),
 
-                ],
+                  ],
 
+                ),
               ),
             ),
           ),

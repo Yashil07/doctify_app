@@ -18,7 +18,7 @@ class _MessagingEndState extends State<MessagingEnd> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorUtils.whiteColor,
+      color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
           body:Center(

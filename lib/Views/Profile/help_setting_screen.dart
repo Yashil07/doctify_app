@@ -19,7 +19,7 @@ class _HelpSettingState extends State<HelpSetting> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorUtils.appBgColor,
+      color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
           appBar: const PreferredSize(

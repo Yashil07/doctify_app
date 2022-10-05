@@ -17,6 +17,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: ColorUtils.whiteColor,

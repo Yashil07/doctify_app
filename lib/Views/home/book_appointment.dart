@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
+import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 
 class BookAppointment extends StatefulWidget {
@@ -33,13 +34,14 @@ class _BookAppointmentState extends State<BookAppointment> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.blueGrey,
     child: SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Book Appointment'),
-          backgroundColor: ColorUtils.primaryColor,
-          leading: BackButton(),
-
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: CustomAppBar(
+            title: "Book Appointment",
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

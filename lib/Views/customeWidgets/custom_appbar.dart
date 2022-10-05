@@ -20,17 +20,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
           appBar: AppBar(
             title:Text("${widget.title ?? ""}",
-                style: TextStyle(color: Colors.black54)),
-            actions: [
-              IconButton(
-                onPressed: (){},
-                tooltip:"${widget.tooltip ?? ""}" ,
-                icon: Icon(Icons.share),
-                color: ColorUtils.primaryColor),
-            ],
+                style: FontTextStyle.poppinsS16W4GrayColor),
+
             leading: const BackButton(color: Colors.black54),
             backgroundColor: ColorUtils.appBgColor,
-            elevation: 2,
+            elevation: 1,
           ),
         ),
     );

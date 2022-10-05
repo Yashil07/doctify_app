@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
-bool loader = false;
+  bool loader = false;
   String birthDate = "";
 
   @override
@@ -56,7 +56,7 @@ bool loader = false;
       color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-                    appBar: PreferredSize(
+          appBar: PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
               title: "PROFILE",
@@ -73,56 +73,56 @@ bool loader = false;
                   ),
                   Center(
                       child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      CircleAvatar(
-                          radius: 75,
-                          child: ClipOval(
-                            child: imageFile?.path.toString() != null &&
+                        clipBehavior: Clip.none,
+                        children: [
+                          CircleAvatar(
+                              radius: 75,
+                              child: ClipOval(
+                                child: imageFile?.path.toString() != null &&
                                     imageFile?.path.toString() != ""
-                                ? Image.file(
-                                    imageFile!,
-                                    fit: BoxFit.cover,
-                                    height: 160,
-                                    width: 160,
-                                  )
-                                : Image.asset(ImageUtils.profileAvtar,
+                                    ? Image.file(
+                                  imageFile!,
+                                  fit: BoxFit.cover,
+                                  height: 160,
+                                  width: 160,
+                                )
+                                    : Image.asset(ImageUtils.profileAvtar,
                                     fit: BoxFit.cover),
-                          )),
-                      Positioned(
-                          bottom: -4.w,
-                          left: 4.w,
-                          right: 4.w,
-                          child: GestureDetector(
-                            onTap: () {
-                              _openImagePickUpBox();
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(0.5.w),
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorUtils.grey.withOpacity(0.5),
-                                      blurRadius: 10,
-                                      spreadRadius: 2,
-                                    ),
-                                  ],
-                                  shape: BoxShape.circle,
-                                  color: ColorUtils.whiteColor),
-                              child: Container(
-                                  height: 11.w,
-                                  padding: EdgeInsets.all(2.w),
+                              )),
+                          Positioned(
+                              bottom: -4.w,
+                              left: 4.w,
+                              right: 4.w,
+                              child: GestureDetector(
+                                onTap: () {
+                                  _openImagePickUpBox();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(0.5.w),
                                   decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: ColorUtils.grey.withOpacity(0.5),
+                                          blurRadius: 10,
+                                          spreadRadius: 2,
+                                        ),
+                                      ],
                                       shape: BoxShape.circle,
-                                      color: ColorUtils.primaryColor),
-                                  child: Icon(
-                                    Icons.camera_alt,
-                                    color: ColorUtils.whiteColor,
-                                  )),
-                            ),
-                          ))
-                    ],
-                  )),
+                                      color: ColorUtils.whiteColor),
+                                  child: Container(
+                                      height: 11.w,
+                                      padding: EdgeInsets.all(2.w),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorUtils.primaryColor),
+                                      child: Icon(
+                                        Icons.camera_alt,
+                                        color: ColorUtils.whiteColor,
+                                      )),
+                                ),
+                              ))
+                        ],
+                      )),
                   SizedBox(
                     height: 2.h,
                   ),
@@ -160,7 +160,7 @@ bool loader = false;
                     width: double.infinity,
                     height: 12.7.w,
                     padding:
-                        EdgeInsets.only(left: 4.w, right: 3.w, bottom: 1.w),
+                    EdgeInsets.only(left: 4.w, right: 3.w, bottom: 1.w),
                     decoration: BoxDecoration(
                       border: Border.all(color: ColorUtils.lightGreyColor),
                       color: ColorUtils.whiteColor,
@@ -213,7 +213,7 @@ bool loader = false;
                       width: double.infinity,
                       height: 12.7.w,
                       padding:
-                          EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.w),
+                      EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.w),
                       decoration: BoxDecoration(
                         border: Border.all(color: ColorUtils.lightGreyColor),
                         color: ColorUtils.whiteColor,
@@ -224,10 +224,10 @@ bool loader = false;
                         children: [
                           birthDate != null && birthDate != ""
                               ? Text("$birthDate",
-                                  style: FontTextStyle.poppinsS12W5labelColor)
+                              style: FontTextStyle.poppinsS12W5labelColor)
                               : Text("Select Your Date Of Birth",
-                                  style:
-                                      FontTextStyle.poppinsS14W4LightGreyColor),
+                              style:
+                              FontTextStyle.poppinsS14W4LightGreyColor),
                           Icon(
                             Icons.keyboard_arrow_down,
                             color: ColorUtils.grey,
@@ -267,12 +267,12 @@ bool loader = false;
                   SizedBox(
                     height: 5.h,
                   ),
-                 loader ? Center(child: CircularProgressIndicator(),) : CustomButton(
+                  loader ? Center(child: CircularProgressIndicator(),) : CustomButton(
                     onTap: () {
-    // if (formKey.currentState.validate()) {
-    //   signUpData();
-    //
-    // }
+                      // if (formKey.currentState.validate()) {
+                      //   signUpData();
+                      //
+                      // }
                       signUpData();
                     },
                     buttonText: "Confirm",
@@ -295,58 +295,58 @@ bool loader = false;
   Future signUpData() async {
     try {
       // if (formKey.currentState?.validate()) {
-        final String email = _emailController.text.trim();
-        final String password = widget.password!.trim();
-        await auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) async {
-          User? user = FirebaseAuth.instance.currentUser;
+      final String email = _emailController.text.trim();
+      final String password = widget.password!.trim();
+      await auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        User? user = FirebaseAuth.instance.currentUser;
 
-          UserModel currentModel = UserModel(
-              email: widget.emailId,
-            password: widget.password,
-            phoneNumber: _phnoController.text,
-            gender: genderInitialValue.toString(),
-            birthdate: birthDate,
-            address: _addressController.text,
-            uid: user?.uid,
-            fullName: _nameController.text,
-            profileImg: "",
-             );
+        UserModel currentModel = UserModel(
+          email: widget.emailId,
+          password: widget.password,
+          phoneNumber: _phnoController.text,
+          gender: genderInitialValue.toString(),
+          birthdate: birthDate,
+          address: _addressController.text,
+          uid: user?.uid,
+          fullName: _nameController.text,
+          profileImg: "",
+        );
 
-          Provider.of<UserProvider>(context, listen: false)
-              .setUserModel(currentModel);
-          setState(() {
-            loader = true;
-          });
-          await FirebaseFirestore.instance
-              .collection("patients")
-              .doc(user?.uid)
-              .set({
-            'uid': user?.uid,
-            "fullName": _nameController.text,
-            "email":widget.emailId,
-            "password": widget.password,
-            'gender': genderInitialValue,
-            'birthdate': birthDate,
-            "address":_addressController.text,
-            'profileImg': '',
-            "phoneNumber":_phnoController.text,
-
-          });
-        });
+        Provider.of<UserProvider>(context, listen: false)
+            .setUserModel(currentModel);
         setState(() {
-          loader = false;
+          loader = true;
         });
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
-        // _firstNameController.clear();
-        // _lastNameController.clear();
-        // _mobileNumberController.clear();
-        // _emailController.clear();
-        // _passwordController.clear();
-        // _cPasswordController.clear();
-        // _walletAmountController.clear();
+        await FirebaseFirestore.instance
+            .collection("patients")
+            .doc(user?.uid)
+            .set({
+          'uid': user?.uid,
+          "fullName": _nameController.text,
+          "email":widget.emailId,
+          "password": widget.password,
+          'gender': genderInitialValue,
+          'birthdate': birthDate,
+          "address":_addressController.text,
+          'profileImg': '',
+          "phoneNumber":_phnoController.text,
+
+        });
+      });
+      setState(() {
+        loader = false;
+      });
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      // _firstNameController.clear();
+      // _lastNameController.clear();
+      // _mobileNumberController.clear();
+      // _emailController.clear();
+      // _passwordController.clear();
+      // _cPasswordController.clear();
+      // _walletAmountController.clear();
 
     } on FirebaseAuthException catch (e) {
       print(e);

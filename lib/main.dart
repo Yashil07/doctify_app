@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             // backgroundColor: Color(0xffbE8F2F9),
           ),
           debugShowCheckedModeBanner: false,
-         home: const SplashScreen(),
+         home: const AboutDoctor(),
         );
       }
     );

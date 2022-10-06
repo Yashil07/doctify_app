@@ -63,7 +63,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: ColorUtils.primaryColor,
-              iconSize: 24,
+              iconSize: 20,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: ColorUtils.skyBlueColor,

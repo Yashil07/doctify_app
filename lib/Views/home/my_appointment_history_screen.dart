@@ -67,10 +67,10 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(child: CustomButton(onTap: (){},buttonText:"Upcoming",textStyle: FontTextStyle.poppinsS14W4WhiteColor,)),
-                      SizedBox(width: 1.h,),
                       Expanded(child: CustomButton(onTap: (){},buttonText:"Past",textStyle: FontTextStyle.poppinsS14W4PrimaryColor,btnColor: ColorUtils.whiteColor,)),
-                    ],
+                      SizedBox(width: 1.h,),
+                      Expanded(child: CustomButton(onTap: (){},buttonText:"Upcoming",textStyle: FontTextStyle.poppinsS14W4WhiteColor,)),
+                      ],
                   ),
                   SizedBox(height: 3.h),
                   Row(

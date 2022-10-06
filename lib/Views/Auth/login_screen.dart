@@ -22,6 +22,8 @@ import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../home/BottomNavBar.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -94,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
           storage.write(key: "uid", value: userCredential.user!.uid);
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
             builder: (context) {
-              return  BottomNavBarScreen();
+              return  BottomNavBar();
             },
           ), (route) => false);
 clearField();        } else {

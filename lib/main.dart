@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project/Views/Auth/forget_password_screen_2.dart';
 
 import 'package:project/Views/Auth/login_screen.dart';
+import 'package:project/Views/Profile/profile_update_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';

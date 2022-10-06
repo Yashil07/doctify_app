@@ -3,6 +3,7 @@ import 'package:project/Views/Auth/login_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Profile/help_setting_screen.dart';
 import 'package:project/Views/Profile/notification_setting_screen.dart';
+import 'package:project/Views/Profile/profile_update_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:io';
 
@@ -47,7 +48,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                     ),
 
                     GestureDetector(
-                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));},
+                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileUpdate()));},
                       child: Container(
                         height:45,
                         width: 45,

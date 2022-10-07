@@ -5,7 +5,6 @@ import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/customeWidgets/custom_btn.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
-import 'package:project/Views/home/bottom_nav-bar_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import 'login_screen.dart';

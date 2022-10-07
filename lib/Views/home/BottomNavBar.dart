@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:project/Utils/color_utils.dart';
+import 'package:project/Utils/fontFamily_utils.dart';
 
 import '../Auth/login_screen.dart';
 import '../Auth/reg_screen.dart';
@@ -28,8 +29,6 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-  TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Appointment_History(),
@@ -63,12 +62,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
               hoverColor: Colors.grey[100]!,
               gap: 8,
               activeColor: ColorUtils.primaryColor,
-              iconSize: 24,
+              iconSize: 20,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: ColorUtils.skyBlueColor,
               color: ColorUtils.blackColor,
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: LineIcons.home,
                   text: 'Home',

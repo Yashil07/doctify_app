@@ -10,7 +10,6 @@ import 'package:project/Utils/loder.dart';
 import 'package:project/Views/Auth/forgot_password_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
-import 'package:project/Views/home/bottom_nav-bar_screen.dart';
 import 'package:project/Views/home/home_screen.dart';
 import 'package:project/model/user_model.dart';
 import 'package:provider/provider.dart';

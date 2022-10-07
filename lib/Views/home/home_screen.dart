@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project/Utils/image_utils.dart';
@@ -6,6 +7,7 @@ import 'package:project/Views/home/Favourite-doctor_screen.dart';
 import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/specialist_screen.dart';
 import 'package:project/Views/home/top-doc_screen.dart';
+import 'package:project/model/doctor_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -20,6 +22,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -204,6 +210,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         SizedBox(height: 2.5.h),
+
+                        SizedBox(height: 2.5.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -216,63 +224,74 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),),
                     SizedBox(height: 1.5.h),
+                    StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                      stream: FirebaseFirestore.instance.collection('doctor').snapshots(),
+                      builder: (_, snapshot) {
+                        if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 
-                    Padding(
-                      padding: EdgeInsets.only(left: 3.w),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(10, (index){
-                            return Row(
-                              children: [
-                                GestureDetector(
-                                onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutDoctor()));},
+                        if (snapshot.hasData) {
+                          final docs = snapshot.data!.docs;
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: List.generate(docs.length, (index){
+                                final data = docs[index].data();
+                                return Row(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) =>  AboutDoctor(doctorId: "${data["doctor_id"]}",)));},
 
-                            child: Container(
-                                    height:240,
-                                    width: 145,
-                                    decoration: BoxDecoration(
-                                        color: ColorUtils.appBgColor,
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(width: 1,
-                                          color: ColorUtils.lightGreyColor
-                                        )
+                                      child: Container(
+                                        height:240,
+                                        width: 145,
+                                        decoration: BoxDecoration(
+                                            color: ColorUtils.appBgColor,
+                                            borderRadius: BorderRadius.circular(15),
+                                            border: Border.all(width: 1,
+                                                color: ColorUtils.lightGreyColor
+                                            )
 
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(0.0),
-                                      child: Column(
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(0.0),
+                                          child: Column(
 
-                                        children: [
-                                          ClipRRect(
-                                              borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                            children: [
+                                              ClipRRect(
+                                                  borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
 
-                                              child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                                height: 160.0,
-                                                width: 150.0,
-                                              )
+                                                  child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                                    height: 160.0,
+                                                    width: 150.0,
+                                                  )
+                                              ),
+                                              SizedBox(height: 1.h,),
+                                              Center(child: Text("${data['fullName']}",style: FontTextStyle.poppinsS8W5labelColor,)),
+                                              SizedBox(height: 1.h,),
+                                              Center(child: Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,)),
+
+
+
+
+
+                                            ],
                                           ),
-                                          SizedBox(height: 1.h,),
-                                          Center(child: Text("Dr. Janny  Willson",style: FontTextStyle.poppinsS8W5labelColor,)),
-                                          SizedBox(height: 1.h,),
-                                          Center(child: Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,)),
-
-
-
-
-
-                                        ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                SizedBox(width: 3.w,),
-                              ],
-                            );
-                          }),
-                        ),
-                      ),
+                                    SizedBox(width: 3.w,),
+                                  ],
+                                );
+                              }),
+                            ),
+                          );
+                        }
+
+                        return Center(child: CircularProgressIndicator());
+                      },
                     ),
+
+
 
                   ],
                 ),

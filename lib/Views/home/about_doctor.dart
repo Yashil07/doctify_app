@@ -54,10 +54,10 @@ class _AboutDoctorState extends State<AboutDoctor> {
       color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-          appBar: PreferredSize(
+          appBar: const PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBar(
-              title: "Dr Jenny Wilson",
+              title: "About Doctor",
             ),
           ),
 
@@ -87,6 +87,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                       child: Padding(
                         padding: EdgeInsets.all(2.h),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
 
@@ -115,7 +116,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                           children: [
                                             Text("Dr. ${docList[0]['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
                                             SizedBox(height: 1.h),
-                                            Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
+                                            Text("${docList[0]['specialist']} Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
                                           ],
                                         ),
                                       ),
@@ -190,7 +191,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                           ),
                                         ),
                                         SizedBox(height: 1.h,),
-                                        Text("15+",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                                        Text("${docList[0]['experience']}",style: FontTextStyle.poppinsS14W4PrimaryColor,),
                                         SizedBox(height: 1.0,),
                                         Text("Year Experience",style: FontTextStyle.poppinsS8W5labelColor,),
                                       ],
@@ -230,28 +231,24 @@ class _AboutDoctorState extends State<AboutDoctor> {
                               ),
                               SizedBox(height: 2.h),
                               Container(
-
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 10.0,top: 15.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 5.0),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 1.h),
-                                        Text("About Doctor",style: FontTextStyle.poppinsS12W7labelColor),
-                                        SizedBox(height: 1.h),
-                                        Text("Dr. Jenny Wilson is the top most Cardiologist specialist in Apple Hospital at London. She achived several awards for herwonderful contribution in medical field. She is available forprivate consultation.",style: FontTextStyle.poppinsS10W5labelColor,),
-                                        SizedBox(height:4.h),
-                                        Text("Working Time",style: FontTextStyle.poppinsS12W7labelColor),
-                                        SizedBox(height:1.h),
-                                        Text("Mon-Fri,09.00AM - 20.00PM",style: FontTextStyle.poppinsS10W5labelColor,),
-                                        SizedBox(height:4.h),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 1.h),
+                                      Text("About Doctor",style: FontTextStyle.poppinsS12W7labelColor),
+                                      SizedBox(height: 1.h),
+                                      Text("${docList[0]['biography']}",style: FontTextStyle.poppinsS10W5labelColor,),
+                                      SizedBox(height:4.h),
+                                      Text("Working Time",style: FontTextStyle.poppinsS12W7labelColor),
+                                      SizedBox(height:1.h),
+                                      Text("Mon-Fri, 09.00AM - 20.00PM",style: FontTextStyle.poppinsS10W5labelColor,),
+                                      SizedBox(height:4.h),
 
 
 
-                                      ],
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ),

@@ -25,6 +25,7 @@ class ProfileSetting extends StatefulWidget {
 
 class _ProfileSettingState extends State<ProfileSetting> {
   SharedPreferences? sharedPreferences;
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -4,10 +4,12 @@ import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Profile/help_setting_screen.dart';
 import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:project/Views/Profile/profile_update_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'dart:io';
 
+import '../../Provider/user_provider.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
@@ -76,59 +78,62 @@ class _ProfileSettingState extends State<ProfileSetting> {
             padding: const EdgeInsets.only(top: 2.0, left: 12.0, right: 12.0),
             child: Column(
               children: [
-                Container (
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                      color: ColorUtils.darkGreyColor),
-                    ),
+            Consumer<UserProvider>(builder: (context, data, child) {
+              return  Container (
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                        color: ColorUtils.darkGreyColor),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: Container(
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: Container(
 
-                            height:100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(100)
-                              //more than 50% of width makes circle
-                            ),
-                            child: Icon(
-                              Icons.person,
-                              size: 5.h,
-                              color: ColorUtils.primaryColor,
-                            ),
-
+                          height:100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: ColorUtils.skyBlueColor,
+                              borderRadius: BorderRadius.circular(100)
+                            //more than 50% of width makes circle
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0, top: 10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Doctify",style:FontTextStyle.poppinsS12W5labelColor),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Text("doctify@gmail.com",style:FontTextStyle.poppinsS14W4DarkGreyColor),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Text("India",style: FontTextStyle.poppinsS14W4DarkGreyColor),
-                            ],
-
-
+                          child: Icon(
+                            Icons.person,
+                            size: 5.h,
+                            color: ColorUtils.primaryColor,
                           ),
-                        ),
 
-                      ],
-                    ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20.0, top: 10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${data.userModel?.fullName}",style:FontTextStyle.poppinsS12W5labelColor),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text("${data.userModel?.email}",style:FontTextStyle.poppinsS14W4DarkGreyColor),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text("${data.userModel?.address}",style: FontTextStyle.poppinsS14W4DarkGreyColor),
+                          ],
+
+
+                        ),
+                      ),
+
+                    ],
                   ),
+                ),
+              );},
+
                 ),
 
                 const SizedBox(

@@ -1,8 +1,13 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:project/Provider/user_provider.dart';
+import 'package:project/Views/Profile/profile_setting_screen.dart';
+import 'package:project/model/user_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -34,8 +39,56 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
 
   String  birthDate = "";
 
+  getData() {
+    UserModel? model =
+        Provider.of<UserProvider>(context, listen: false).userModel;
+    setState(() {
+      //postUrl = model!.profileimg;
+      _nameController.text = "${model!.fullName}";
+      _emailController.text = "${model.email}";
+      genderInitialValue = "${model.gender}";
+     birthDate = "${model.birthdate}";
+      _phonenoController.text = "${model.phoneNumber}";
+      _addressController.text = "${model.address}";
+
+    });
+  }
+
+
+  Future updateProfileData(uid) async {
+    UserModel? model =
+        Provider.of<UserProvider>(context, listen: false).userModel;
+    await FirebaseFirestore.instance.collection("patients").doc(uid).update({
+      'uid': model?.uid,
+      "fullName": _nameController.text,
+      "email":_emailController.text,
+      "password": model!.password,
+      'gender': genderInitialValue,
+      'birthdate': birthDate,
+      "address":_addressController.text,
+      'profileImg': '',
+      "phoneNumber":_phonenoController.text,
+    });
+
+    UserModel modelUpdate =  UserModel(
+      uid: model.uid,
+      fullName: _nameController.text,
+      email:_emailController.text,
+      password: model.password,
+      gender: genderInitialValue,
+      birthdate: birthDate,
+      address:_addressController.text,
+      profileImg: '',
+      phoneNumber:_phonenoController.text,
+    );
+    Provider.of<UserProvider>(context, listen: false).setUserModel(modelUpdate);
+  }
+
+
+
   @override
   void initState() {
+    getData();
     dateInput.text = ""; //set the initial value of text field
     super.initState();
   }
@@ -254,7 +307,15 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                   ),
 
                   CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      String? uidData = Provider.of<UserProvider>(
+                          context,
+                          listen: false)
+                          .userModel
+                          ?.uid;
+                      updateProfileData(uidData);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSetting()));
+                    },
                     buttonText: "Confirm",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

@@ -44,8 +44,8 @@ dependencies:
   flutter_secure_storage: ^6.0.0
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.1
-  flutter_rating_bar: ^4.0.1
-  smooth_star_rating_null_safety: ^1.0.4+2
+  get: ^4.6.1
+  firebase_storage: ^10.3.10
 
 
 

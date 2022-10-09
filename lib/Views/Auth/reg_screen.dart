@@ -22,15 +22,13 @@ class _RegScreenState extends State<RegScreen> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool obscurePassword=true;
   GlobalKey<FormState> formKey = GlobalKey();
-  clearField() {
-    _emailController.clear();
+  @override
+  void dispose() {
+
     _passwordController.clear();
     _confirmPasswordController.clear();
-    @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-    }
+    _emailController.clear();
+
   }
   @override
   Widget build(BuildContext context) {

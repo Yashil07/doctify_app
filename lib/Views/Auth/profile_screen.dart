@@ -12,10 +12,14 @@ import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:project/Views/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import '../../Provider/loader_provider.dart';
 import '../../Provider/user_provider.dart';
 import '../../Utils/const_utils.dart';
+import '../../customMethod/upload_image.dart';
 import '../../model/user_model.dart';
 import '../customeWidgets/custom_appbar.dart';
+import '../customeWidgets/loader_layout.dart';
+import '../customeWidgets/show_toast.dart';
 import 'login_screen.dart';
 import 'package:intl/intl.dart';
 
@@ -39,262 +43,322 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
-  bool loader = false;
+
   String birthDate = "";
 
   @override
   void initState() {
-    print("emailid${widget.emailId}");
+
     dateInput.text = ""; //set the initial value of text field
     _emailController.text = widget.emailId!;
     super.initState();
   }
+  @override
+  void dispose() {
+    _nameController.clear();
+    _addressController.clear();
+    _phnoController.clear();
+    _emailController.clear();
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey,
-      child: SafeArea(
-        child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child: CustomAppBar(
-              title: "PROFILE",
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Center(
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          CircleAvatar(
-                              radius: 75,
-                              child: ClipOval(
-                                child: imageFile?.path.toString() != null &&
-                                    imageFile?.path.toString() != ""
-                                    ? Image.file(
-                                  imageFile!,
-                                  fit: BoxFit.cover,
-                                  height: 160,
-                                  width: 160,
-                                )
-                                    : Image.asset(ImageUtils.profileAvtar,
-                                    fit: BoxFit.cover),
-                              )),
-                          Positioned(
-                              bottom: -4.w,
-                              left: 4.w,
-                              right: 4.w,
-                              child: GestureDetector(
-                                onTap: () {
-                                  _openImagePickUpBox();
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(0.5.w),
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: ColorUtils.grey.withOpacity(0.5),
-                                          blurRadius: 10,
-                                          spreadRadius: 2,
-                                        ),
-                                      ],
-                                      shape: BoxShape.circle,
-                                      color: ColorUtils.whiteColor),
-                                  child: Container(
-                                      height: 11.w,
-                                      padding: EdgeInsets.all(2.w),
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorUtils.primaryColor),
-                                      child: Icon(
-                                        Icons.camera_alt,
-                                        color: ColorUtils.whiteColor,
-                                      )),
-                                ),
-                              ))
-                        ],
-                      )),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Full Name",
-                    hintName: "Full Name",
-                    fieldController: _nameController,
-                    validator: (str) {
-                      if (str!.isEmpty) {
-                        return '* Is Required';
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Email",
-                    hintName: "Email",
-                    fieldController: _emailController,
-                    readonly: true,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text("Gender",
-                        style: FontTextStyle.poppinsS12W5labelColor),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 12.7.w,
-                    padding:
-                    EdgeInsets.only(left: 4.w, right: 3.w, bottom: 1.w),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      color: ColorUtils.whiteColor,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: DropdownButton(
-                      iconEnabledColor: ColorUtils.grey,
-                      style: TextStyle(color: ColorUtils.grey, fontSize: 16),
-                      dropdownColor: ColorUtils.whiteColor,
-                      focusColor: ColorUtils.grey,
-                      elevation: 0,
-                      underline: SizedBox(),
-                      value: genderInitialValue,
-                      isExpanded: true,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: gender.map((String items) {
-                        return DropdownMenuItem(
-                          child: Text(
-                            '${items}',
-                            style: FontTextStyle.poppinsS12W5labelColor,
-                          ),
-                          value: items != null ? items : "",
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          genderInitialValue = value!;
-                          print(value);
-                          // genderValue = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text("Date Of Birth",
-                        style: FontTextStyle.poppinsS12W5labelColor),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _openBirthDatePicker(context);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 12.7.w,
-                      padding:
-                      EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.w),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: ColorUtils.lightGreyColor),
-                        color: ColorUtils.whiteColor,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          birthDate != null && birthDate != ""
-                              ? Text("$birthDate",
-                              style: FontTextStyle.poppinsS12W5labelColor)
-                              : Text("Select Your Date Of Birth",
-                              style:
-                              FontTextStyle.poppinsS14W4LightGreyColor),
-                          Icon(
-                            Icons.keyboard_arrow_down,
-                            color: ColorUtils.grey,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Phone Number",
-                    hintName: "Enter Your Number",
-                    fieldController: _phnoController,
-                    keyboard: TextInputType.phone,
-                    maxLength: 10,
-                    validator: (str) {
-                      if (str!.isEmpty) {
-                        return '* Is Required';
-                      }else if(str.length != 10){
-                        return '* Phone number must be of 10 digit';
-                      }
-                    },
+    return Stack(
+      children: [
+        Container(
+          color: Colors.blueGrey,
+          child: SafeArea(
+            child: Scaffold(
+              appBar: const PreferredSize(
+                preferredSize: Size.fromHeight(50),
+                child: CustomAppBar(
+                  title: "PROFILE",
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 3.w),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 3.h,
+                        ),
+                        Center(
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                CircleAvatar(
+                                    radius: 75,
+                                    child: ClipOval(
+                                      child: imageFile?.path.toString() != null &&
+                                          imageFile?.path.toString() != ""
+                                          ? Image.file(
+                                        imageFile!,
+                                        fit: BoxFit.cover,
+                                        height: 160,
+                                        width: 160,
+                                      )
+                                          : Image.asset(ImageUtils.profileAvtar,
+                                          fit: BoxFit.cover),
+                                    )),
+                                Positioned(
+                                    bottom: -4.w,
+                                    left: 4.w,
+                                    right: 4.w,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        _openImagePickUpBox();
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(0.5.w),
+                                        decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: ColorUtils.grey.withOpacity(0.5),
+                                                blurRadius: 10,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                            shape: BoxShape.circle,
+                                            color: ColorUtils.whiteColor),
+                                        child: Container(
+                                            height: 11.w,
+                                            padding: EdgeInsets.all(2.w),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: ColorUtils.primaryColor),
+                                            child: Icon(
+                                              Icons.camera_alt,
+                                              color: ColorUtils.whiteColor,
+                                            )),
+                                      ),
+                                    ))
+                              ],
+                            )),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextField(
+                          fieldName: "Full Name",
+                          hintName: "Full Name",
+                          fieldController: _nameController,
+                          validator: (str) {
+                            if (str!.isEmpty) {
+                              return '* Is Required';
+                            }
+                          },
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextField(
+                          fieldName: "Email",
+                          hintName: "Email",
+                          fieldController: _emailController,
+                          readonly: true,
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Text("Gender",
+                              style: FontTextStyle.poppinsS12W5labelColor),
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
 
+                        Container(
+                          width: double.infinity,
+                          height: 12.7.w,
+                          padding:
+                          EdgeInsets.only(left: 4.w, right: 3.w, bottom: 1.w),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: ColorUtils.lightGreyColor),
+                            color: ColorUtils.whiteColor,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: DropdownButton(
+                            iconEnabledColor: ColorUtils.grey,
+                            style: TextStyle(color: ColorUtils.grey, fontSize: 16),
+                            dropdownColor: ColorUtils.whiteColor,
+                            focusColor: ColorUtils.grey,
+                            elevation: 0,
+                            underline: SizedBox(),
+                            value: genderInitialValue,
+                            isExpanded: true,
+                            icon: Icon(Icons.keyboard_arrow_down),
+                            items: gender.map((String items) {
+                              return DropdownMenuItem(
+                                child: Text(
+                                  '${items}',
+                                  style: FontTextStyle.poppinsS12W5labelColor,
+                                ),
+                                value: items != null ? items : "",
+                              );
+                            }).toList(),
+                            onChanged: (String? value) {
+                              setState(() {
+                                genderInitialValue = value!;
+                                print(value);
+                                // genderValue = value;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 4.w),
+                          child: Text("Date Of Birth",
+                              style: FontTextStyle.poppinsS12W5labelColor),
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _openBirthDatePicker(context);
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 12.7.w,
+                            padding:
+                            EdgeInsets.only(left: 4.w, right: 4.w, bottom: 1.w),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ColorUtils.lightGreyColor),
+                              color: ColorUtils.whiteColor,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                birthDate != null && birthDate != ""
+                                    ? Text("$birthDate",
+                                    style: FontTextStyle.poppinsS12W5labelColor)
+                                    : Text("Select Your Date Of Birth",
+                                    style:
+                                    FontTextStyle.poppinsS14W4LightGreyColor),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: ColorUtils.grey,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextField(
+                          fieldName: "Phone Number",
+                          hintName: "Enter Your Number",
+                          fieldController: _phnoController,
+                          keyboard: TextInputType.phone,
+                          maxLength: 10,
+                          validator: (str) {
+                            if (str!.isEmpty) {
+                              return '* Is Required';
+                            }else if(str.length != 10){
+                              return '* Phone number must be of 10 digit';
+                            }
+                          },
+
+                        ),
+                        SizedBox(
+                          height: 2.h,
+                        ),
+                        CustomTextField(
+                          fieldName: "Address",
+                          hintName: "address",
+                          validator: (str) {
+                            if (str!.isEmpty) {
+                              return '* Is Required';
+                            }
+                          },
+                          fieldController: _addressController,
+                          maxLines: 3,
+                          contentPadding: const EdgeInsets.only(left: 20,top: 20),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        CustomButton(
+                          onTap: () async {
+                            if(formKey.currentState!.validate()){
+                              if(birthDate != null && birthDate != ""){
+                                print("if 1");
+                                if(imageFile != null && imageFile != ""){
+                                  print("if 2");
+                                  StorageMethods storageMethods =
+                                  new StorageMethods();
+                                  var url;
+                                  if (imageFile != null) {
+                                    print("if 3");
+                                    Map<String, String> data =
+                                    await storageMethods.uploadImageToServer(
+                                        imageFile, 'patient_profile_photo');
+
+                                    url = data['url'];
+                                    print("url for image:= ${url}");
+                                    signUpData(url);
+                                  }else{
+                                    print("else 3");
+                                    showToast(title: "Image is required", status: false);}
+
+
+                                }else{ print("else 2");showToast(title: "Image is required", status: false);}
+                              }else{ print("else 1");
+                              showToast(title: "BirthDate is required", status: false);
+                              }
+                            }                 // if(formKey.currentState!.validate()){
+                           //  if(birthDate != null && birthDate != "" && imageFile != null && imageFile != null){
+                           //
+                           //
+                           //  }else if(birthDate != null && birthDate != "" ){
+                           //    showToast(title: "BirthDate is required", status: false);
+                           //
+                           //  }
+                           //
+                           // }
+                           // else if(imageFile != null && imageFile != "" ){
+                           //   showToast(title: "Image is required", status: false);
+                           // }
+                          },
+                          buttonText: "Confirm",
+                          textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Address",
-                    hintName: "address",
-                    fieldController: _addressController,
-                    maxLines: 3,
-                    contentPadding: const EdgeInsets.only(left: 20,top: 20),
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  loader ? Center(child: CircularProgressIndicator(),) : CustomButton(
-                    onTap: () {
-                      // if (formKey.currentState.validate()) {
-                      //   signUpData();
-                      //
-                      // }
-                      signUpData();
-                    },
-                    buttonText: "Confirm",
-                    textStyle: FontTextStyle.poppinsS14W4WhiteColor,
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+        Provider.of<LoaderProvider>(context, listen: true).loader
+            ? LoaderLayoutWidget()
+            : SizedBox.shrink(),
+      ],
     );
   }
 
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future signUpData() async {
+  Future signUpData(String? url) async {
+    final loading = Provider.of<LoaderProvider>(context, listen: false);
+    loading.setLoader(value: true);
     try {
-      // if (formKey.currentState?.validate()) {
+
       final String email = _emailController.text.trim();
       final String password = widget.password!.trim();
       await auth
@@ -311,14 +375,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           address: _addressController.text,
           uid: user?.uid,
           fullName: _nameController.text,
-          profileImg: "",
+          profileImg: url,
         );
 
         Provider.of<UserProvider>(context, listen: false)
             .setUserModel(currentModel);
-        setState(() {
-          loader = true;
-        });
+        loading.setLoader(value: false);
         await FirebaseFirestore.instance
             .collection("patients")
             .doc(user?.uid)
@@ -330,31 +392,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           'gender': genderInitialValue,
           'birthdate': birthDate,
           "address":_addressController.text,
-          'profileImg': '',
+          'profileImg': url,
           "phoneNumber":_phnoController.text,
 
         });
       });
-      setState(() {
-        loader = false;
-      });
+      loading.setLoader(value: false);
+      showToast(title: "You have successfully registered !!", status: true);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      // _firstNameController.clear();
-      // _lastNameController.clear();
-      // _mobileNumberController.clear();
-      // _emailController.clear();
-      // _passwordController.clear();
-      // _cPasswordController.clear();
-      // _walletAmountController.clear();
+
 
     } on FirebaseAuthException catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("${e.message}")));
-      setState(() {
-        loader = false;
-      });
+      showToast(title: "${e.message}", status: false);
+
+      loading.setLoader(value: false);
     }
   }
 
@@ -379,7 +431,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   ////////////////////////////PROFILE IMAGE///////////////////////
-  File? imageFile = File('');
+  // File? imageFile = File('');
+  File? imageFile;
   _getFromCamera() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,

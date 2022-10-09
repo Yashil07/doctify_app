@@ -23,8 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   SharedPreferences? sharedPreferences;
   void getData() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences!.getString("patients") != null) {
-      String? userPref = sharedPreferences!.getString('patients');
+    if (sharedPreferences!.getString("patientKey") != null) {
+      String? userPref = sharedPreferences!.getString('patientKey');
 
       Map<String, dynamic> userMap =
       jsonDecode(userPref!) as Map<String, dynamic>;

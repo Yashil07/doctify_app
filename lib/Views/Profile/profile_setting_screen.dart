@@ -26,7 +26,7 @@ class ProfileSetting extends StatefulWidget {
 }
 
 class _ProfileSettingState extends State<ProfileSetting> {
-  SharedPreferences? sharedPreferences;
+
 
   @override
   Widget build(BuildContext context) {
@@ -341,8 +341,10 @@ class _ProfileSettingState extends State<ProfileSetting> {
                                 },
                                 child: Text("No")),
                             TextButton(
-                                onPressed: () {
-                                  sharedPreferences?.clear();
+                                onPressed: () async {
+                                  SharedPreferences sharedPreferences =
+                                      await SharedPreferences.getInstance();
+                                  sharedPreferences.clear();
                                   Navigator.pushAndRemoveUntil(context,
                                       MaterialPageRoute(
                                         builder: (context) {

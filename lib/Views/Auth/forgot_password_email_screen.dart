@@ -112,7 +112,7 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
     } on FirebaseAuthException catch (e) {
-      showToast(title: "${e.message}!!", status: true);
+      showToast(title: "${e.message}!!", status: false);
       loading.setLoader(value: false);
     }
   }

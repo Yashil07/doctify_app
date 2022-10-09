@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:project/Views/Auth/forget_password_screen_2.dart';
 
 import 'package:project/Views/Auth/login_screen.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(create: (context) => LoaderProvider()),
           ],
-          child: MaterialApp(
+          child: GetMaterialApp(
             theme: ThemeData(
               fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
             ),

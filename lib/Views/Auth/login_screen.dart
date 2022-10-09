@@ -14,13 +14,16 @@ import 'package:project/Views/home/home_screen.dart';
 import 'package:project/model/user_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';import '../../Provider/user_provider.dart';
+import 'package:sizer/sizer.dart';import '../../Provider/loader_provider.dart';
+import '../../Provider/user_provider.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../customeWidgets/loader_layout.dart';
+import '../customeWidgets/show_toast.dart';
 import '../home/BottomNavBar.dart';
 import 'forgot_password_email_screen.dart';
 
@@ -38,21 +41,18 @@ class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
   final currentUser = FirebaseAuth.instance.currentUser;
   final storage = const FlutterSecureStorage();
-  bool loader = false;
-  clearField() {
-    _emailController.clear();
-    _passwordController.clear();
-
-  }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+  void dispose() {
+    _passwordController.clear();
+    _emailController.clear();
+
   }
 
   //LOGIN DATA STORE ON FIREBASE
   loginData() async {
+    final loading = Provider.of<LoaderProvider>(context, listen: false);
+    loading.setLoader(value: true);
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
@@ -84,8 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
           Map<String, dynamic> map = currentModel.toJson();
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          bool result = await prefs.setString('patients', jsonEncode(map));
-          String? userPref = prefs.getString('patients');
+          bool result = await prefs.setString('patientKey', jsonEncode(map));
+          String? userPref = prefs.getString('patientKey');
 
           Map<String, dynamic> mapuser =
           jsonDecode(userPref!) as Map<String, dynamic>;
@@ -99,33 +99,30 @@ class _LoginScreenState extends State<LoginScreen> {
               return  BottomNavBar();
             },
           ), (route) => false);
-clearField();        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Merchant does not exists")));
-          setState(() {
-            loader = false;
-          });
+          showToast(title: "Login Successfully !!", status: true);
+          loading.setLoader(value: false);
+        } else {
+
+          showToast(title: "Patients does not exists", status: false);
+          loading.setLoader(value: false);
         }
       });
     } on FirebaseAuthException catch (e) {
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("${e.message}")));
-      setState(() {
-        loader = false;
-      });
+      showToast(title: "${e.message}", status: false);
+      loading.setLoader(value: false);
     }
   }
   //LOGIN DATA STORE ON FIREBASE
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Scaffold(
+    return Stack(
+      children: [
+        Container(
+          color: Colors.blueGrey,
+          child: SafeArea(
+            child: Scaffold(
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.all(2.0),
@@ -194,12 +191,10 @@ clearField();        } else {
                                 },
                               ),
                               SizedBox(height: 3.h,),
-                           loader ? Lottie.asset(ImageUtils.loader, height: 10.w) :   CustomButton(
+                           CustomButton(
                                 onTap: () {
                                   if (formKey.currentState!.validate()) {
-                                    setState(() {
-                                      loader = true;
-                                    });
+
                                     loginData();
 
 
@@ -238,11 +233,13 @@ clearField();        } else {
 
             ),
 
-          ],
+
+          ),
         ),
-
-
-      ),
+        Provider.of<LoaderProvider>(context, listen: true).loader
+            ? LoaderLayoutWidget()
+            : SizedBox.shrink(),
+      ],
     );
   }
 }

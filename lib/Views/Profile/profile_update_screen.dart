@@ -10,6 +10,7 @@ import 'package:project/model/user_model.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Provider/loader_provider.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/const_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
@@ -17,6 +18,8 @@ import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
+import '../customeWidgets/loader_layout.dart';
+import '../customeWidgets/show_toast.dart';
 const List<String> list = <String>['Male', 'Female'];
 class ProfileUpdate extends StatefulWidget {
   const ProfileUpdate({Key? key}) : super(key: key);
@@ -55,6 +58,8 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
 
 
   Future updateProfileData(uid) async {
+    final loading = Provider.of<LoaderProvider>(context, listen: false);
+    loading.setLoader(value: true);
     UserModel? model =
         Provider.of<UserProvider>(context, listen: false).userModel;
     await FirebaseFirestore.instance.collection("patients").doc(uid).update({
@@ -81,6 +86,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       phoneNumber:_phonenoController.text,
     );
     Provider.of<UserProvider>(context, listen: false).setUserModel(modelUpdate);
+    showToast(title: "Profile updated Successfully !!", status: true);
+    loading.setLoader(value: false);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSetting()));
   }
 
 
@@ -93,241 +101,248 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueGrey,
-      child: SafeArea(
-        child: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text('Profile Page',
-          //       style: TextStyle(color: Colors.black54)),
-          //   leading: const BackButton(color: Colors.black54),
-          //   backgroundColor: ColorUtils.appBgColor,
-          //   elevation: 3,
-          // ),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child: CustomAppBar(title: "Profile Update",),),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
+      children: [
+        Container(
+          color: Colors.blueGrey,
+          child: SafeArea(
+            child: Scaffold(
+              // appBar: AppBar(
+              //   title: const Text('Profile Page',
+              //       style: TextStyle(color: Colors.black54)),
+              //   leading: const BackButton(color: Colors.black54),
+              //   backgroundColor: ColorUtils.appBgColor,
+              //   elevation: 3,
+              // ),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(50),
+                child: CustomAppBar(title: "Profile Update",),),
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 3.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: [
-                  SizedBox(
-                    height: 3.h,
-                  ),
-                  Center(
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          CircleAvatar(
+                    children: [
+                      SizedBox(
+                        height: 3.h,
+                      ),
+                      Center(
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            children: [
+                              CircleAvatar(
 
-                              radius: 75,
-                              child: ClipOval(
-                                child: imageFile?.path.toString() != null
-                                    && imageFile?.path.toString() != "" ?
-                                Image.file(
-                                  imageFile!, fit: BoxFit.cover, height: 160,
-                                  width: 160,) :
-                                Image.asset(
-                                    ImageUtils.profileAvtar, fit: BoxFit.cover),
-                              )
-                          ),
-                          Positioned(
-                              bottom: -4.w,
-                              left: 4.w,
-                              right: 4.w,
-                              child: GestureDetector(
-                                onTap: () {
-                                  _openImagePickUpBox();
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(0.5.w),
-                                  decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color:
-                                          ColorUtils.grey.withOpacity(0.5),
-                                          blurRadius: 10,
-                                          spreadRadius: 2,
-                                        ),
-                                      ],
-                                      shape: BoxShape.circle,
-                                      color: ColorUtils.whiteColor),
-                                  child: Container(
-                                      height: 11.w,
-                                      padding: EdgeInsets.all(2.w),
+                                  radius: 75,
+                                  child: ClipOval(
+                                    child: imageFile?.path.toString() != null
+                                        && imageFile?.path.toString() != "" ?
+                                    Image.file(
+                                      imageFile!, fit: BoxFit.cover, height: 160,
+                                      width: 160,) :
+                                    Image.asset(
+                                        ImageUtils.profileAvtar, fit: BoxFit.cover),
+                                  )
+                              ),
+                              Positioned(
+                                  bottom: -4.w,
+                                  left: 4.w,
+                                  right: 4.w,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _openImagePickUpBox();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(0.5.w),
                                       decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                              ColorUtils.grey.withOpacity(0.5),
+                                              blurRadius: 10,
+                                              spreadRadius: 2,
+                                            ),
+                                          ],
                                           shape: BoxShape.circle,
-                                          color: ColorUtils.primaryColor),
-                                      child: Icon(Icons.camera_alt,
-                                        color: ColorUtils.whiteColor,)
-                                  ),
-                                ),
-                              ))
-                        ],
-                      )
-                  ),
+                                          color: ColorUtils.whiteColor),
+                                      child: Container(
+                                          height: 11.w,
+                                          padding: EdgeInsets.all(2.w),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: ColorUtils.primaryColor),
+                                          child: Icon(Icons.camera_alt,
+                                            color: ColorUtils.whiteColor,)
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          )
+                      ),
 
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Full Name",
-                    hintName: "Full Name",
-                    fieldController: _nameController,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      CustomTextField(
+                        fieldName: "Full Name",
+                        hintName: "Full Name",
+                        fieldController: _nameController,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
 
-                  CustomTextField(
-                    fieldName: "Email",
-                    hintName: "Email",
-                    fieldController: _emailController,
-                    keyboard: TextInputType.emailAddress,
-                    readonly: true,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
+                      CustomTextField(
+                        fieldName: "Email",
+                        hintName: "Email",
+                        fieldController: _emailController,
+                        keyboard: TextInputType.emailAddress,
+                        readonly: true,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
 
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text(
-                        "Gender", style: FontTextStyle.poppinsS12W5labelColor),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 12.7.w,
-                    padding: EdgeInsets.only(
-                        left: 4.w, right: 3.w, bottom: 1.w),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: ColorUtils.lightGreyColor),
-                      color: ColorUtils.whiteColor,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: DropdownButton(
-                      iconEnabledColor: ColorUtils.grey,
-                      style: TextStyle(
-                          color: ColorUtils.grey, fontSize: 16),
-                      dropdownColor: ColorUtils.whiteColor,
-                      focusColor: ColorUtils.grey,
-                      elevation: 0,
-                      underline: SizedBox(),
-                      value: genderInitialValue,
-                      isExpanded: true,
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      items: gender.map((String items) {
-                        return DropdownMenuItem(
-                          child: Text(
-                            '${items}',
-                            style: FontTextStyle
-                                .poppinsS12W5labelColor,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: Text(
+                            "Gender", style: FontTextStyle.poppinsS12W5labelColor),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 12.7.w,
+                        padding: EdgeInsets.only(
+                            left: 4.w, right: 3.w, bottom: 1.w),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: ColorUtils.lightGreyColor),
+                          color: ColorUtils.whiteColor,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: DropdownButton(
+                          iconEnabledColor: ColorUtils.grey,
+                          style: TextStyle(
+                              color: ColorUtils.grey, fontSize: 16),
+                          dropdownColor: ColorUtils.whiteColor,
+                          focusColor: ColorUtils.grey,
+                          elevation: 0,
+                          underline: SizedBox(),
+                          value: genderInitialValue,
+                          isExpanded: true,
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          items: gender.map((String items) {
+                            return DropdownMenuItem(
+                              child: Text(
+                                '${items}',
+                                style: FontTextStyle
+                                    .poppinsS12W5labelColor,
+                              ),
+                              value: items != null ? items : "",
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              genderInitialValue = value!;
+                              print(value);
+                              // genderValue = value;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 4.w),
+                        child: Text("Date Of Birth",
+                            style: FontTextStyle.poppinsS12W5labelColor),
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          _openBirthDatePicker(context);
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 12.7.w,
+                          padding: EdgeInsets.only(
+                              left: 4.w, right: 4.w, bottom: 1.w),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: ColorUtils.lightGreyColor),
+                            color: ColorUtils.whiteColor,
+                            borderRadius: BorderRadius.circular(50),
                           ),
-                          value: items != null ? items : "",
-                        );
-                      }).toList(),
-                      onChanged: (String? value) {
-                        setState(() {
-                          genderInitialValue = value!;
-                          print(value);
-                          // genderValue = value;
-                        });
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.w),
-                    child: Text("Date Of Birth",
-                        style: FontTextStyle.poppinsS12W5labelColor),
-                  ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      _openBirthDatePicker(context);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      height: 12.7.w,
-                      padding: EdgeInsets.only(
-                          left: 4.w, right: 4.w, bottom: 1.w),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: ColorUtils.lightGreyColor),
-                        color: ColorUtils.whiteColor,
-                        borderRadius: BorderRadius.circular(50),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              birthDate != null && birthDate != "" ? Text(
+                                  "$birthDate", style: FontTextStyle
+                                  .poppinsS12W5labelColor) : Text(
+                                  "Select Your Date Of Birth", style: FontTextStyle
+                                  .poppinsS14W4LightGreyColor)
+                              , Icon(Icons.keyboard_arrow_down,
+                                color: ColorUtils.grey,),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          birthDate != null && birthDate != "" ? Text(
-                              "$birthDate", style: FontTextStyle
-                              .poppinsS12W5labelColor) : Text(
-                              "Select Your Date Of Birth", style: FontTextStyle
-                              .poppinsS14W4LightGreyColor)
-                          , Icon(Icons.keyboard_arrow_down,
-                            color: ColorUtils.grey,),
-                        ],
+
+                      SizedBox(
+                        height: 2.h,
                       ),
-                    ),
-                  ),
-
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Phone Number",
-                    hintName: "Enter Your Number",
-                    fieldController: _phonenoController,
-                    keyboard: TextInputType.number,
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  CustomTextField(
-                    fieldName: "Address",
-                    hintName: "address",
-                    fieldController: _addressController,
-                  ),
+                      CustomTextField(
+                        fieldName: "Phone Number",
+                        hintName: "Enter Your Number",
+                        fieldController: _phonenoController,
+                        keyboard: TextInputType.number,
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      CustomTextField(
+                        fieldName: "Address",
+                        hintName: "address",
+                        fieldController: _addressController,
+                      ),
 
 
-                  SizedBox(
-                    height: 5.h,
-                  ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
 
-                  CustomButton(
-                    onTap: () {
-                      String? uidData = Provider.of<UserProvider>(
-                          context,
-                          listen: false)
-                          .userModel
-                          ?.uid;
-                      updateProfileData(uidData);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSetting()));
-                    },
-                    buttonText: "Confirm",
-                    textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+                      CustomButton(
+                        onTap: () {
+                          String? uidData = Provider.of<UserProvider>(
+                              context,
+                              listen: false)
+                              .userModel
+                              ?.uid;
+                          updateProfileData(uidData);
+
+                        },
+                        buttonText: "Confirm",
+                        textStyle: FontTextStyle.poppinsS14W4WhiteColor,
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+        Provider.of<LoaderProvider>(context, listen: true).loader
+            ? LoaderLayoutWidget()
+            : SizedBox.shrink(),
+      ],
     );
   }
   /////////////////////////////BIRTH DATE//////////////////////

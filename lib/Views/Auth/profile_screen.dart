@@ -15,6 +15,7 @@ import 'package:sizer/sizer.dart';
 import '../../Provider/loader_provider.dart';
 import '../../Provider/user_provider.dart';
 import '../../Utils/const_utils.dart';
+import '../../customMethod/upload_image.dart';
 import '../../model/user_model.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/loader_layout.dart';
@@ -69,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           color: Colors.blueGrey,
           child: SafeArea(
             child: Scaffold(
-              appBar: PreferredSize(
+              appBar: const PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: CustomAppBar(
                   title: "PROFILE",
@@ -289,16 +290,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 5.h,
                         ),
                         CustomButton(
-                          onTap: () {
+                          onTap: () async {
+                            if(formKey.currentState!.validate()){
+                              if(birthDate != null && birthDate != ""){
+                                print("if 1");
+                                if(imageFile != null && imageFile != ""){
+                                  print("if 2");
+                                  StorageMethods storageMethods =
+                                  new StorageMethods();
+                                  var url;
+                                  if (imageFile != null) {
+                                    print("if 3");
+                                    Map<String, String> data =
+                                    await storageMethods.uploadImageToServer(
+                                        imageFile, 'patient_profile_photo');
 
-                           if(formKey.currentState!.validate()){
-                            if(birthDate != null && birthDate != ""){
-                              signUpData();
-                            }else{
+                                    url = data['url'];
+                                    print("url for image:= ${url}");
+                                    signUpData(url);
+                                  }else{
+                                    print("else 3");
+                                    showToast(title: "Image is required", status: false);}
+
+
+                                }else{ print("else 2");showToast(title: "Image is required", status: false);}
+                              }else{ print("else 1");
                               showToast(title: "BirthDate is required", status: false);
-
-                            }
-                           }
+                              }
+                            }                 // if(formKey.currentState!.validate()){
+                           //  if(birthDate != null && birthDate != "" && imageFile != null && imageFile != null){
+                           //
+                           //
+                           //  }else if(birthDate != null && birthDate != "" ){
+                           //    showToast(title: "BirthDate is required", status: false);
+                           //
+                           //  }
+                           //
+                           // }
+                           // else if(imageFile != null && imageFile != "" ){
+                           //   showToast(title: "Image is required", status: false);
+                           // }
                           },
                           buttonText: "Confirm",
                           textStyle: FontTextStyle.poppinsS14W4WhiteColor,
@@ -323,7 +354,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  Future signUpData() async {
+  Future signUpData(String? url) async {
     final loading = Provider.of<LoaderProvider>(context, listen: false);
     loading.setLoader(value: true);
     try {
@@ -344,7 +375,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           address: _addressController.text,
           uid: user?.uid,
           fullName: _nameController.text,
-          profileImg: "",
+          profileImg: url,
         );
 
         Provider.of<UserProvider>(context, listen: false)
@@ -361,7 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           'gender': genderInitialValue,
           'birthdate': birthDate,
           "address":_addressController.text,
-          'profileImg': '',
+          'profileImg': url,
           "phoneNumber":_phnoController.text,
 
         });
@@ -400,7 +431,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   ////////////////////////////PROFILE IMAGE///////////////////////
-  File? imageFile = File('');
+  // File? imageFile = File('');
+  File? imageFile;
   _getFromCamera() async {
     PickedFile? pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,

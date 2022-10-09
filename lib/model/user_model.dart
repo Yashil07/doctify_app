@@ -22,27 +22,27 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     uid = json['uid'];
-    fullName = json['full_name'];
+    fullName = json['fullName'];
     email = json['email'];
-    phoneNumber = json['phone_number'];
+    phoneNumber = json['phoneNumber'];
     password = json['password'];
     birthdate = json['birthdate'];
     gender = json['gender'];
     address = json['address'];
-    profileImg = json['profile_img'];
+    profileImg = json['profileImg'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['uid'] = this.uid;
-    data['full_name'] = this.fullName;
+    data['fullName'] = this.fullName;
     data['email'] = this.email;
-    data['phone_number'] = this.phoneNumber;
+    data['phoneNumber'] = this.phoneNumber;
     data['password'] = this.password;
     data['birthdate'] = this.birthdate;
     data['gender'] = this.gender;
     data['address'] = this.address;
-    data['profile_img'] = this.profileImg;
+    data['profileImg'] = this.profileImg;
     return data;
   }
 }

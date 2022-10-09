@@ -91,21 +91,19 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   child: Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
+                        padding:  EdgeInsets.only(left: 5.0),
                         child: Container(
 
                           height:100,
                           width: 100,
                           decoration: BoxDecoration(
+                            shape: BoxShape.circle,
                               color: ColorUtils.skyBlueColor,
-                              borderRadius: BorderRadius.circular(100)
+image: DecorationImage(image: NetworkImage("${data.userModel?.profileImg}"),fit: BoxFit.cover)
                             //more than 50% of width makes circle
                           ),
-                          child: Icon(
-                            Icons.person,
-                            size: 5.h,
-                            color: ColorUtils.primaryColor,
-                          ),
+                          // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                          // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
 
                         ),
                       ),

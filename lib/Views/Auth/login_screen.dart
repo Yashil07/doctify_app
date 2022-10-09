@@ -84,8 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
           Map<String, dynamic> map = currentModel.toJson();
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          bool result = await prefs.setString('patientKey', jsonEncode(map));
-          String? userPref = prefs.getString('patientKey');
+          bool result = await prefs.setString('patient', jsonEncode(map));
+          String? userPref = prefs.getString('patient');
 
           Map<String, dynamic> mapuser =
           jsonDecode(userPref!) as Map<String, dynamic>;

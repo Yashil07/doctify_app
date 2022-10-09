@@ -23,12 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
   SharedPreferences? sharedPreferences;
   void getData() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences!.getString("patientKey") != null) {
-      String? userPref = sharedPreferences!.getString('patientKey');
+    if (sharedPreferences!.getString("patient") != null) {
+      String? userPref = sharedPreferences!.getString('patient');
 
       Map<String, dynamic> userMap =
       jsonDecode(userPref!) as Map<String, dynamic>;
-
+      print(
+        userMap['uid'],
+      );
 
       String userCollection = "patients";
       DocumentSnapshot<Map<String, dynamic>> data = await FirebaseFirestore
@@ -37,10 +39,14 @@ class _SplashScreenState extends State<SplashScreen> {
           .doc(userMap['uid'])
           .get();
       Map<String, dynamic> currentData = data.data() as Map<String, dynamic>;
+
       UserModel currentUser = UserModel.fromJson(currentData);
       Provider.of<UserProvider>(context, listen: false)
           .setUserModel(currentUser);
-
+      print("CURREnt DATA:-${currentData}");
+print("email:-${currentUser.email}");
+      print("phoneNumber:-${currentUser.phoneNumber}");
+      print("full name:-${currentUser.fullName}");
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (context) {
           return BottomNavBar();

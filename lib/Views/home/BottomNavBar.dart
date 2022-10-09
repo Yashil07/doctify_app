@@ -67,7 +67,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: ColorUtils.skyBlueColor,
               color: ColorUtils.blackColor,
-              tabs: const [
+              tabs:  [
                 GButton(
                   icon: LineIcons.home,
                   text: 'Home',

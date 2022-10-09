@@ -18,6 +18,7 @@
    static const homeLogoImage = "${baseImgPath}hlogo.png";
    static const noAppointmentImage = "${baseImgPath}noappointment.png";
    static const doctorImage = "${baseImgPath}doctor_img1.png";
+   static const loading = "${baseImgPath}loading.json";
 
 
 

@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'Provider/loader_provider.dart';
 import 'Provider/user_provider.dart';
 import 'Views/home/home_screen.dart';
 import 'Views/onBoarding/onbording_screen.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
             ChangeNotifierProvider(
               create: (context) => UserProvider(),
             ),
+            ChangeNotifierProvider(create: (context) => LoaderProvider()),
           ],
           child: MaterialApp(
             theme: ThemeData(

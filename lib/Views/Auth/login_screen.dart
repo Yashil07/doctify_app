@@ -22,6 +22,7 @@ import '../customeWidgets/custom_text_field.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import '../home/BottomNavBar.dart';
+import 'forgot_password_email_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -211,7 +212,7 @@ clearField();        } else {
                               SizedBox(height: 2.h,),
                               GestureDetector(
                                 child: Text(" Forgot Password?",style: FontTextStyle.poppinsS12W5labelColor,),
-                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));},
+                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordEmailScreen()));},
 
                               ),
                               SizedBox(height: 3.h,),

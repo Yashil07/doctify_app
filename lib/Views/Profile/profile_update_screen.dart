@@ -36,7 +36,6 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   TextEditingController();
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
-
   String  birthDate = "";
 
   getData() {
@@ -188,6 +187,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                     hintName: "Email",
                     fieldController: _emailController,
                     keyboard: TextInputType.emailAddress,
+                    readonly: true,
                   ),
                   SizedBox(
                     height: 2.h,

@@ -44,6 +44,7 @@ dependencies:
   flutter_secure_storage: ^6.0.0
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.1
+  get: ^4.6.1
 
 
 

@@ -86,7 +86,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                     final docList = snapshot.data.docs;
 
                     // final docName= {docList[0]['fullName']};
-                    final docId= {docList[0]['doctor_id']};
+                    String docId= "${docList[0]['doctor_id']}";
                     // final docSpec= {docList[0]['specialist']};
                     // final docAddress= {docList[0]['address']};
                      print(docId);
@@ -290,7 +290,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                               CustomButton(
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>  BookAppointment(doctorId: docId.toString() )));},
+                                      builder: (context) =>  BookAppointment(doctorId: docId, )));},
                                 buttonText:"Book Appointment",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
 
                             ]

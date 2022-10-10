@@ -10,9 +10,11 @@ import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
+import '../customeWidgets/show_toast.dart';
 
 class BookAppointment extends StatefulWidget {
-  const BookAppointment({Key? key}) : super(key: key);
+ final String? doctorId;
+  const BookAppointment({Key? key,this.doctorId}) : super(key: key);
 
   @override
   State<BookAppointment> createState() => _BookAppointmentState();
@@ -26,10 +28,14 @@ class _BookAppointmentState extends State<BookAppointment> {
   String  pickUpTime = "";
   String _selectedPickUpTime = "";
   String _showTime = "";
+  String amount='';
+  bool msgSelected = false;
+  bool callSelected = false;
 
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
+
 
     super.initState();
   }
@@ -137,143 +143,205 @@ class _BookAppointmentState extends State<BookAppointment> {
                       ),
                     ),
                     SizedBox(height: 4.h),
-                    Container(
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          amount = "500";
+                          msgSelected =!msgSelected;
+                        });
+                      },
+                      child: Container(
 
-                      height:100,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.appBgColor,
-                          border: Border.all(color: ColorUtils.lightGreyColor),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding:  EdgeInsets.only(left:5.w,right: 5.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height:60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(20)
-                                //more than 50% of width makes circle
-                              ),
-                              child:  Center(
-                                child: Icon(
-                                  Icons.message,
-                                  size: 30,
-                                  color: ColorUtils.primaryColor,
+                        height:100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: ColorUtils.appBgColor,
+                            border: Border.all(color:msgSelected == true ? ColorUtils.primaryColor: ColorUtils.lightGreyColor),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Padding(
+                          padding:  EdgeInsets.only(left:5.w,right: 5.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height:60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.skyBlueColor,
+                                    borderRadius: BorderRadius.circular(20)
+                                  //more than 50% of width makes circle
+                                ),
+                                child:  Center(
+                                  child: Icon(
+                                    Icons.message,
+                                    size: 30,
+                                    color: ColorUtils.primaryColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Messaging",style: FontTextStyle.poppinsS12W5labelColor,),
-                                SizedBox(height: 1.h),
-                                Text("Can Message With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
-                              ],
-                            ),
-                            Text("₹500",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Messaging",style: FontTextStyle.poppinsS12W5labelColor,),
+                                  SizedBox(height: 1.h),
+                                  Text("Can Message With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
+                                ],
+                              ),
+                              Text("₹500",style: FontTextStyle.poppinsS14W4PrimaryColor,),
 
 
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 2.h),
-                    Container(
+                    SizedBox(height:3.h),
+                    GestureDetector(
+                      onTap: (){
+                        setState(() {
+                          amount = "1000";
+                          callSelected =!callSelected;
+                        });
+                      },
+                      child: Container(
 
-                      height:100,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.appBgColor,
-                          border: Border.all(color: ColorUtils.lightGreyColor),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding:  EdgeInsets.only(left:5.w,right: 5.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height:60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(20)
-                                //more than 50% of width makes circle
-                              ),
-                              child:  Center(
-                                child: Icon(
-                                  Icons.call,
-                                  size: 30,
-                                  color: ColorUtils.primaryColor,
+                        height:100,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: ColorUtils.appBgColor,
+                            border: Border.all(color:callSelected == true ? ColorUtils.primaryColor: ColorUtils.lightGreyColor),
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Padding(
+                          padding:  EdgeInsets.only(left:5.w,right: 5.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height:60,
+                                width: 60,
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.skyBlueColor,
+                                    borderRadius: BorderRadius.circular(20)
+                                  //more than 50% of width makes circle
+                                ),
+                                child:  Center(
+                                  child: Icon(
+                                    Icons.phone,
+                                    size: 30,
+                                    color: ColorUtils.primaryColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Voice Call",style: FontTextStyle.poppinsS12W5labelColor,),
-                                SizedBox(height: 1.h),
-                                Text("Can Voice Call With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
-                              ],
-                            ),
-                            Text("₹1000",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Voice Call",style: FontTextStyle.poppinsS12W5labelColor,),
+                                  SizedBox(height: 1.h),
+                                  Text("Voice Call With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
+                                ],
+                              ),
+                              Text("₹1000",style: FontTextStyle.poppinsS14W4PrimaryColor,),
 
 
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height:2.h),
-                    Container(
-
-                      height:100,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.appBgColor,
-                          border: Border.all(color: ColorUtils.lightGreyColor),
-                          borderRadius: BorderRadius.circular(15)),
-                      child: Padding(
-                        padding:  EdgeInsets.only(left:5.w,right: 5.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height:60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(20)
-                                //more than 50% of width makes circle
-                              ),
-                              child:  Center(
-                                child: Icon(
-                                  Icons.video_call,
-                                  size: 30,
-                                  color: ColorUtils.primaryColor,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Video Call",style: FontTextStyle.poppinsS12W5labelColor,),
-                                SizedBox(height: 1.h),
-                                Text("Can Video Call With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
-                              ],
-                            ),
-                            Text("₹1500",style: FontTextStyle.poppinsS14W4PrimaryColor,),
-
-
-                          ],
-                        ),
-                      ),
-                    ),
+                    // SizedBox(height: 2.h),
+                    // Container(
+                    //
+                    //   height:100,
+                    //   width: double.infinity,
+                    //   decoration: BoxDecoration(
+                    //       color: ColorUtils.appBgColor,
+                    //       border: Border.all(color: ColorUtils.lightGreyColor),
+                    //       borderRadius: BorderRadius.circular(15)),
+                    //   child: Padding(
+                    //     padding:  EdgeInsets.only(left:5.w,right: 5.w),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Container(
+                    //           height:60,
+                    //           width: 60,
+                    //           decoration: BoxDecoration(
+                    //               color: ColorUtils.skyBlueColor,
+                    //               borderRadius: BorderRadius.circular(20)
+                    //             //more than 50% of width makes circle
+                    //           ),
+                    //           child:  Center(
+                    //             child: Icon(
+                    //               Icons.call,
+                    //               size: 30,
+                    //               color: ColorUtils.primaryColor,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             Text("Voice Call",style: FontTextStyle.poppinsS12W5labelColor,),
+                    //             SizedBox(height: 1.h),
+                    //             Text("Can Voice Call With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
+                    //           ],
+                    //         ),
+                    //         Text("₹1000",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                    //
+                    //
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height:2.h),
+                    // Container(
+                    //
+                    //   height:100,
+                    //   width: double.infinity,
+                    //   decoration: BoxDecoration(
+                    //       color: ColorUtils.appBgColor,
+                    //       border: Border.all(color: ColorUtils.lightGreyColor),
+                    //       borderRadius: BorderRadius.circular(15)),
+                    //   child: Padding(
+                    //     padding:  EdgeInsets.only(left:5.w,right: 5.w),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Container(
+                    //           height:60,
+                    //           width: 60,
+                    //           decoration: BoxDecoration(
+                    //               color: ColorUtils.skyBlueColor,
+                    //               borderRadius: BorderRadius.circular(20)
+                    //             //more than 50% of width makes circle
+                    //           ),
+                    //           child:  Center(
+                    //             child: Icon(
+                    //               Icons.video_call,
+                    //               size: 30,
+                    //               color: ColorUtils.primaryColor,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             Text("Video Call",style: FontTextStyle.poppinsS12W5labelColor,),
+                    //             SizedBox(height: 1.h),
+                    //             Text("Can Video Call With Doctor",style: FontTextStyle.poppinsS8W5labelColor,),
+                    //           ],
+                    //         ),
+                    //         Text("₹1500",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                    //
+                    //
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height:3.h),
                     Padding(
                       padding: const EdgeInsets.only(right:5.0),
@@ -284,17 +352,19 @@ class _BookAppointmentState extends State<BookAppointment> {
                       // ),
                       child:CustomButton(
                         onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PatientDetails(
-                                      appointmentDate: aDate.toString(),
-                                      appointmentTime: pickUpTime.toString(),
-                                    )));
-                            //  clearField();
-
-                          }
+                         if(pickUpTime != "" && aDate != "" && amount != "" ){
+                           Navigator.push(
+                               context,
+                               MaterialPageRoute(
+                                   builder: (context) => PatientDetails(
+                                     doctorId:  widget.doctorId!,
+                                     appointmentDate: aDate.toString(),
+                                     appointmentTime: pickUpTime.toString(),
+                                     amount: amount.toString(),
+                                   )));
+                         }else{
+                           showToast(title: "Date & Time Are Required !!", status: false);
+                         }
                         },
                         buttonText: "Confirm",
                         textStyle: FontTextStyle.poppinsS14W4WhiteColor,

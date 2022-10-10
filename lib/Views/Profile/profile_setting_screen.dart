@@ -93,12 +93,13 @@ class _ProfileSettingState extends State<ProfileSetting> {
                       Padding(
                         padding:  EdgeInsets.only(left: 5.0),
                         child: Container(
+
                           height:100,
                           width: 100,
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                            shape: BoxShape.circle,
                               color: ColorUtils.skyBlueColor,
-                              image: DecorationImage(image: NetworkImage("${data.userModel?.profileImg}"),fit: BoxFit.cover)
+                                image: DecorationImage(image: NetworkImage("${data.userModel?.profileImg}"),fit: BoxFit.cover)
                             //more than 50% of width makes circle
                           ),
                           // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?

@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
+import '../../Utils/image_utils.dart';
 import '../customeWidgets/custom_appbar.dart';
 
 class SpecialistScreen extends StatefulWidget {
@@ -46,11 +47,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.cardioImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -77,11 +74,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.toothImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -113,11 +106,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.remove_red_eye,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.eyeImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -135,8 +124,6 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                         decoration: BoxDecoration(
                             color: ColorUtils.pinkColor,
                             borderRadius: BorderRadius.circular(10)
-
-
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 15,bottom: 10,top: 20,right: 15),
@@ -144,11 +131,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.brainImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -180,11 +163,8 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.lipImage,height: 5.h,),
+
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -211,11 +191,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.child_care_outlined,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.childImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -247,11 +223,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.nerveImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(
@@ -278,11 +250,7 @@ class _SpecialistScreenState extends State<SpecialistScreen> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.monitor_heart_rounded,
-                                size: 7.h,
-                                color: ColorUtils.whiteColor,
-                              ),
+                              Image.asset(ImageUtils.sexImage,height: 5.h,),
                               SizedBox( height: 2.5.h,),
 
                               Padding(

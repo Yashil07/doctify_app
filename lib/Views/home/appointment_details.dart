@@ -11,13 +11,41 @@ import '../customeWidgets/custom_btn.dart';
 import 'messaging_end_screen.dart';
 
 class AppointmentDetails extends StatefulWidget {
-  const AppointmentDetails({Key? key}) : super(key: key);
+  final String? fullname;
+  final String? age;
+  final String? phoneno;
+  final String? gender;
+  final String? appointmentDate;
+  final String? appointmentTime;
+  const AppointmentDetails({Key? key, this.fullname, this.age, this.phoneno, this.gender, this.appointmentDate, this.appointmentTime}) : super(key: key);
 
   @override
   State<AppointmentDetails> createState() => _AppointmentDetailsState();
 }
 
 class _AppointmentDetailsState extends State<AppointmentDetails> {
+  String genderInitialValue = '';
+  String appointmentDate = '';
+  String appointmentTime = '';
+  String fullname='';
+  String age='';
+  String phoneno='';
+  @override
+  void initState() {
+    appointmentDate= widget.appointmentDate!;
+    appointmentTime= widget.appointmentTime!;
+    genderInitialValue= widget.gender!;
+    fullname= widget.fullname!;
+    age= widget.age!;
+    phoneno= widget.phoneno!;
+    print(appointmentDate);
+    print(appointmentTime);
+    print(genderInitialValue);
+    print(fullname);
+    print(age);
+    print(phoneno);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -211,9 +239,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                               children: [
                                 Text("Visit Time",style:FontTextStyle.poppinsS12W7labelColor),
                                 SizedBox(height: 1.h),
-                                Text("Morning",style:FontTextStyle.poppinsS12W5labelColor),
-                                Text("Monday, March 27 2022",style:FontTextStyle.poppinsS12W5labelColor),
-                                Text("10.00 - 10.30 AM",style:FontTextStyle.poppinsS12W5labelColor),
+                                Text("${appointmentDate}",style:FontTextStyle.poppinsS12W5labelColor),
+                                Text("${appointmentTime}",style:FontTextStyle.poppinsS12W5labelColor),
 
                               ],
                             ),
@@ -252,6 +279,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                           SizedBox(height: 1.5.h),
                                           Text("Age",style:FontTextStyle.poppinsS12W5labelColor),
                                           SizedBox(height: 1.5.h),
+                                          Text("Gender",style:FontTextStyle.poppinsS12W5labelColor),
+                                          SizedBox(height: 1.5.h),
                                           Text("Phone No",style:FontTextStyle.poppinsS12W5labelColor),
                                           //SizedBox(height: 1.5.h),
                                         ],
@@ -265,6 +294,8 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                           Text(":",style:FontTextStyle.poppinsS12W5labelColor),
                                           SizedBox(height: 1.5.h),
                                           Text(":",style:FontTextStyle.poppinsS12W5labelColor),
+                                          SizedBox(height: 1.5.h),
+                                          Text(":",style:FontTextStyle.poppinsS12W5labelColor),
                                           //SizedBox(height: 1.5.h),
                                         ],
                                       ),
@@ -272,11 +303,13 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text("Adam Smith",style:FontTextStyle.poppinsS12W5labelColor),
+                                          Text("${fullname}",style:FontTextStyle.poppinsS12W5labelColor),
                                           SizedBox(height: 1.5.h),
-                                          Text("30",style:FontTextStyle.poppinsS12W5labelColor),
+                                          Text("${age}",style:FontTextStyle.poppinsS12W5labelColor),
                                           SizedBox(height: 1.5.h),
-                                          Text("9979966965",style:FontTextStyle.poppinsS12W5labelColor),
+                                          Text("${genderInitialValue}",style:FontTextStyle.poppinsS12W5labelColor),
+                                          SizedBox(height: 1.5.h),
+                                          Text("${phoneno}",style:FontTextStyle.poppinsS12W5labelColor),
                                           //SizedBox(height: 1.5.h),
                                         ],
                                       )

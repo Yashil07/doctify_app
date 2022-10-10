@@ -102,12 +102,29 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      ClipRRect(
-                                          borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                      // ClipRRect(
+                                      //     borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                      //
+                                      //     child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                      //       height: 121,
+                                      //       width: 100.0,)
+                                      // ),
 
-                                          child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                            height: 121,
-                                            width: 100.0,)
+                                      Container(
+
+                                        height:120,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                            shape: BoxShape.rectangle,
+                                            color: ColorUtils.skyBlueColor,
+                                            image: DecorationImage(image: NetworkImage("${docList[0]['profileImg']}"),fit: BoxFit.cover)
+                                          //more than 50% of width makes circle
+                                        ),
+
+
+                                        // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                        // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
                                       ),
                                       Expanded(
                                         child: Column(
@@ -116,7 +133,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                           children: [
                                             Text("Dr. ${docList[0]['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
                                             SizedBox(height: 1.h),
-                                            Text("${docList[0]['specialist']} Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
+                                            Text("${docList[0]['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
                                           ],
                                         ),
                                       ),
@@ -191,7 +208,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                           ),
                                         ),
                                         SizedBox(height: 1.h,),
-                                        Text("${docList[0]['experience']}",style: FontTextStyle.poppinsS14W4PrimaryColor,),
+                                        Text("${docList[0]['experience']}+",style: FontTextStyle.poppinsS14W4PrimaryColor,),
                                         SizedBox(height: 1.0,),
                                         Text("Year Experience",style: FontTextStyle.poppinsS8W5labelColor,),
                                       ],
@@ -240,6 +257,10 @@ class _AboutDoctorState extends State<AboutDoctor> {
                                       Text("About Doctor",style: FontTextStyle.poppinsS12W7labelColor),
                                       SizedBox(height: 1.h),
                                       Text("${docList[0]['biography']}",style: FontTextStyle.poppinsS10W5labelColor,),
+                                      SizedBox(height:4.h),
+                                      Text("Address",style: FontTextStyle.poppinsS12W7labelColor),
+                                      SizedBox(height: 1.h),
+                                      Text("${docList[0]['address']}",style: FontTextStyle.poppinsS10W5labelColor,),
                                       SizedBox(height:4.h),
                                       Text("Working Time",style: FontTextStyle.poppinsS12W7labelColor),
                                       SizedBox(height:1.h),

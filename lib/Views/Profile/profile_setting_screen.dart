@@ -99,7 +99,7 @@ class _ProfileSettingState extends State<ProfileSetting> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                               color: ColorUtils.skyBlueColor,
-image: DecorationImage(image: NetworkImage("${data.userModel?.profileImg}"),fit: BoxFit.cover)
+                                image: DecorationImage(image: NetworkImage("${data.userModel?.profileImg}"),fit: BoxFit.cover)
                             //more than 50% of width makes circle
                           ),
                           // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?

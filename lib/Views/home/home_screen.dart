@@ -257,13 +257,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: Column(
 
                                             children: [
-                                              ClipRRect(
-                                                  borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                              // ClipRRect(
+                                              //     borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                              //
+                                              //     child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
+                                              //       height: 160.0,
+                                              //       width: 150.0,
+                                              //     )
+                                              // ),
+                                              Container(
+                                                height:160.0,
+                                                width: 150.0,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), topRight: Radius.circular(15)),
+                                                    shape: BoxShape.rectangle,
+                                                    color: ColorUtils.skyBlueColor,
+                                                    image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                                  //more than 50% of width makes circle
+                                                ),
+                                                // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                                // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
 
-                                                  child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                                    height: 160.0,
-                                                    width: 150.0,
-                                                  )
                                               ),
                                               SizedBox(height: 1.h,),
                                               Center(child: Text("${data['fullName']}",style: FontTextStyle.poppinsS8W5labelColor,)),

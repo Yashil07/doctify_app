@@ -8,6 +8,7 @@ import 'package:project/Views/Profile/profile_update_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
 import 'package:project/Views/Auth/reset_password_screen.dart';
+import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/listdemo.dart';
 import 'package:project/Views/home/my_appointment_history_screen.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
             ),
             debugShowCheckedModeBanner: false,
-            home: const SplashScreen(),
+            home: const HomeScreen(),
           ),
         );
         }

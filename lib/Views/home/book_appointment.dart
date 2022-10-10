@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:project/Views/home/patient_details_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -11,13 +12,10 @@ import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 
 class BookAppointment extends StatefulWidget {
-  final  String? doctorId;
-
-  const BookAppointment( {Key? key,this.doctorId}) : super(key: key);
+  const BookAppointment({Key? key}) : super(key: key);
 
   @override
   State<BookAppointment> createState() => _BookAppointmentState();
-
 }
 
 class _BookAppointmentState extends State<BookAppointment> {
@@ -28,17 +26,12 @@ class _BookAppointmentState extends State<BookAppointment> {
   String  pickUpTime = "";
   String _selectedPickUpTime = "";
   String _showTime = "";
-  String doctorId = "";
-
-
-
 
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
+
     super.initState();
-    doctorId = widget.doctorId!;
-    print(doctorId);
   }
   @override
   Widget build(BuildContext context) {
@@ -96,7 +89,6 @@ class _BookAppointmentState extends State<BookAppointment> {
                                       : Text("Select Appointment Date",
                                       style:
                                       FontTextStyle.poppinsS14W4LightGreyColor),
-
                                   Icon(
                                     Icons.keyboard_arrow_down,
                                     color: ColorUtils.grey,
@@ -297,8 +289,8 @@ class _BookAppointmentState extends State<BookAppointment> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PatientDetails(
-                                        doctorId: doctorId.toString()
-                                      // appointmentDate: aDate,
+                                      appointmentDate: aDate.toString(),
+                                      appointmentTime: pickUpTime.toString(),
                                     )));
                             //  clearField();
 
@@ -335,6 +327,7 @@ class _BookAppointmentState extends State<BookAppointment> {
     if (_newDate != null) {
       setState(() {
         aDate = "${_newDate.month}-${_newDate.day}-${_newDate.year}";
+        // aDate="DateFormat.yMMMMd('${_newDate.month}-${_newDate.day}-${_newDate.year}')";
 
 
       });

@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               appBar: const PreferredSize(
                 preferredSize: Size.fromHeight(50),
                 child: CustomAppBar(
-                  title: "PROFILE",
+                  title: "Profile",
                 ),
               ),
               body: SingleChildScrollView(

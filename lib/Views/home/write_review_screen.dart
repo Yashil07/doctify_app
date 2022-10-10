@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -49,6 +50,24 @@ class _WriteReviewState extends State<WriteReview> {
                   Text("How was your experience with ",style: FontTextStyle.poppinsS12W7labelColor),
                   Text("Dr. Jenny Wilson",style: FontTextStyle.poppinsS14W4PrimaryColor),
                   SizedBox(height: 2.h,),
+
+                  SizedBox(height: 2.h),
+                  RatingBar.builder(
+                    initialRating: 0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: ColorUtils.primaryColor,
+                    ),
+                    onRatingUpdate: (rating) {
+                      print(rating);
+                    },
+                  ),
+                  SizedBox(height: 2.h),
                   Container(
                     decoration: BoxDecoration(
                       border: Border(
@@ -63,6 +82,7 @@ class _WriteReviewState extends State<WriteReview> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+
                             CustomTextField(
                               fieldName: "Write a comment",
                               hintName: "Tell People about your experience",

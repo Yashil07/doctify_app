@@ -3,6 +3,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:project/Views/Auth/forget_password_screen_2.dart';
 
 import 'package:project/Views/Auth/login_screen.dart';
+import 'package:project/Views/Profile/notification_setting_screen.dart';
 import 'package:project/Views/Profile/profile_update_screen.dart';
 import 'package:project/Views/Auth/reg_screen.dart';
 import 'package:project/Views/Auth/profile_screen.dart';
@@ -10,6 +11,7 @@ import 'package:project/Views/Auth/reset_password_screen.dart';
 import 'package:project/Views/home/about_doctor.dart';
 import 'package:project/Views/home/listdemo.dart';
 import 'package:project/Views/home/my_appointment_history_screen.dart';
+import 'package:project/Views/home/write_review_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';

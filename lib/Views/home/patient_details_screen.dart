@@ -10,8 +10,9 @@ import '../customeWidgets/custom_text_field.dart';
 import 'appointment_details.dart';
 
 class PatientDetails extends StatefulWidget {
-  final  String? doctorId;
-  const PatientDetails({Key? key,this.doctorId}) : super(key: key);
+  final String appointmentDate;
+  final String appointmentTime;
+  const PatientDetails({Key? key,required this.appointmentDate, required this.appointmentTime}) : super(key: key);
 
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
@@ -23,29 +24,31 @@ class _PatientDetailsState extends State<PatientDetails> {
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _problemController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+
 
   String genderInitialValue = 'Male';
-  String doctorId = "";
+  String appointmentDate = '';
+  String appointmentTime = '';
   @override
   void initState() {
-
+    appointmentDate= widget.appointmentDate;
+    appointmentTime= widget.appointmentTime;
+    _dateController.text= appointmentDate;
+    _timeController.text= appointmentTime;
+    print(appointmentDate);
+    print(appointmentTime);
     super.initState();
-    doctorId = widget.doctorId!;
-    print(doctorId);
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blueGrey,
       child: SafeArea(
         child: Scaffold(
-          // appBar: AppBar(
-          //   title: const Text('Profile Page',
-          //       style: TextStyle(color: Colors.black54)),
-          //   leading: const BackButton(color: Colors.black54),
-          //   backgroundColor: ColorUtils.appBgColor,
-          //   elevation: 3,
-          // ),
+
           appBar: PreferredSize(
             preferredSize:Size.fromHeight(50),
             child: CustomAppBar(title: "Patient Details",),),
@@ -139,6 +142,22 @@ class _PatientDetailsState extends State<PatientDetails> {
                     height: 2.h,
                   ),
                   CustomTextField(
+                    fieldName: "Appointment Date",
+                    fieldController: _dateController,
+                    readonly: true,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
+                    fieldName: "Appointment Time",
+                    fieldController: _timeController,
+                    readonly: true,
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  CustomTextField(
                     fieldName: "Write Your Problem",
                     hintName: "Tell doctor about your problem",
                     contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 1.h),
@@ -151,7 +170,15 @@ class _PatientDetailsState extends State<PatientDetails> {
 
                   CustomButton(
 
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentDetails(doctorId: doctorId.toString())));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentDetails(
+                      fullname:_nameController.text,
+                      age:_ageController.text,
+                      phoneno:_phoneController.text,
+                      gender:genderInitialValue.toString(),
+                      appointmentDate:appointmentDate.toString(),
+                      appointmentTime:appointmentTime.toString(),
+
+                    )));},
                     buttonText: "Next",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

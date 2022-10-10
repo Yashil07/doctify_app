@@ -145,11 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                        Icons.monitor_heart_rounded,
-                                      size: 5.h,
-                                      color: ColorUtils.whiteColor,
-                                    ),
+                                    Image.asset(ImageUtils.cardioImage,height: 5.h,),
                                     SizedBox( height: 1.h,),
 
                                     Padding(
@@ -177,11 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.monitor_heart_rounded,
-                                      size: 5.h,
-                                      color: ColorUtils.whiteColor,
-                                    ),
+                                    Image.asset(ImageUtils.toothImage,height: 5.h,),
                                     SizedBox( height: 1.h,),
 
                                     Padding(
@@ -208,11 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.remove_red_eye,
-                                      size: 5.h,
-                                      color: ColorUtils.whiteColor,
-                                    ),
+                                    Image.asset(ImageUtils.eyeImage,height: 5.h,),
                                     SizedBox( height: 1.h,),
 
                                     Padding(

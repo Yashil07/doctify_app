@@ -18,6 +18,14 @@
    static const homeLogoImage = "${baseImgPath}hlogo.png";
    static const noAppointmentImage = "${baseImgPath}noappointment.png";
    static const doctorImage = "${baseImgPath}doctor_img1.png";
+   static const cardioImage = "${baseImgPath}cardiogram.png";
+   static const toothImage = "${baseImgPath}tooth.png";
+   static const eyeImage = "${baseImgPath}eye.png";
+   static const brainImage = "${baseImgPath}brain.png";
+   static const lipImage = "${baseImgPath}lip.png";
+   static const childImage = "${baseImgPath}child.png";
+   static const nerveImage = "${baseImgPath}nerve.png";
+   static const sexImage = "${baseImgPath}sex.png";
    static const loading = "${baseImgPath}loading.json";
 
 

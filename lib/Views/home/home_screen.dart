@@ -5,6 +5,7 @@ import 'package:project/Utils/image_utils.dart';
 import 'package:project/Views/customeWidgets/custom_text_field.dart';
 import 'package:project/Views/home/Favourite-doctor_screen.dart';
 import 'package:project/Views/home/about_doctor.dart';
+import 'package:project/Views/home/selected_specialist.dart';
 import 'package:project/Views/home/specialist_screen.dart';
 import 'package:project/Views/home/top-doc_screen.dart';
 import 'package:project/model/doctor_model.dart';
@@ -127,84 +128,99 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              height:160,
-                              width: 112,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.pinkColor,
-                                  borderRadius: BorderRadius.circular(10)
+                            GestureDetector(
+                            onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectedSpecialist(
+                              sid:"Cardio",
+                            )));},
+                              child: Container(
+                                height:160,
+                                width: 112,
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.pinkColor,
+                                    borderRadius: BorderRadius.circular(10)
 
-                                //more than 50% of width makes circle
+                                  //more than 50% of width makes circle
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                        Icons.monitor_heart_rounded,
+                                      size: 5.h,
+                                      color: ColorUtils.whiteColor,
+                                    ),
+                                    SizedBox( height: 1.h,),
+
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                      child: Text("Cardio Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                    ),
+                                  ],
+                                ),
+
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
+                            ),
+                            GestureDetector(
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectedSpecialist(
+                                sid:"Dental",
+                              )));},
+                              child: Container(
+                                height:160,
+                                width: 112,
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.primaryColor,
+                                    borderRadius: BorderRadius.circular(10)
+
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
                                       Icons.monitor_heart_rounded,
-                                    size: 5.h,
-                                    color: ColorUtils.whiteColor,
-                                  ),
-                                  SizedBox( height: 1.h,),
+                                      size: 5.h,
+                                      color: ColorUtils.whiteColor,
+                                    ),
+                                    SizedBox( height: 1.h,),
 
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
-                                    child: Text("Cardio Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
-                                  ),
-                                ],
-                              ),
-
-                            ),
-                            Container(
-                              height:160,
-                              width: 112,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.primaryColor,
-                                  borderRadius: BorderRadius.circular(10)
-
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.monitor_heart_rounded,
-                                    size: 5.h,
-                                    color: ColorUtils.whiteColor,
-                                  ),
-                                  SizedBox( height: 1.h,),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
-                                    child: Text("Dental Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                      child: Text("Dental Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            Container(
-                              height:160,
-                              width: 112,
-                              decoration: BoxDecoration(
-                                  color: ColorUtils.yellowColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                //more than 50% of width makes circle
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.remove_red_eye,
-                                    size: 5.h,
-                                    color: ColorUtils.whiteColor,
-                                  ),
-                                  SizedBox( height: 1.h,),
+                            GestureDetector(
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectedSpecialist(
+                                sid:"Eye",
+                              )));},
+                              child: Container(
+                                height:160,
+                                width: 112,
+                                decoration: BoxDecoration(
+                                    color: ColorUtils.yellowColor,
+                                    borderRadius: BorderRadius.circular(10)
+                                  //more than 50% of width makes circle
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.remove_red_eye,
+                                      size: 5.h,
+                                      color: ColorUtils.whiteColor,
+                                    ),
+                                    SizedBox( height: 1.h,),
 
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
-                                    child: Text("Eye Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15,right: 8,top: 4,bottom: 5),
+                                      child: Text("Eye Specialist", style: FontTextStyle.poppinsS14W4WhiteColor,),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -218,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text("Top Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
                             GestureDetector(
                               child: Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
-                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const TopDoctorScreen()));},),
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectedSpecialist()));},),
                           ],
                         ),
                       ],

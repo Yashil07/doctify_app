@@ -10,7 +10,8 @@ import '../customeWidgets/custom_text_field.dart';
 import 'appointment_details.dart';
 
 class PatientDetails extends StatefulWidget {
-  const PatientDetails({Key? key}) : super(key: key);
+  final  String? doctorId;
+  const PatientDetails({Key? key,this.doctorId}) : super(key: key);
 
   @override
   State<PatientDetails> createState() => _PatientDetailsState();
@@ -24,7 +25,14 @@ class _PatientDetailsState extends State<PatientDetails> {
   final TextEditingController _problemController = TextEditingController();
 
   String genderInitialValue = 'Male';
+  String doctorId = "";
+  @override
+  void initState() {
 
+    super.initState();
+    doctorId = widget.doctorId!;
+    print(doctorId);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -143,7 +151,7 @@ class _PatientDetailsState extends State<PatientDetails> {
 
                   CustomButton(
 
-                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentDetails()));},
+                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context) =>AppointmentDetails(doctorId: doctorId.toString())));},
                     buttonText: "Next",
                     textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                   ),

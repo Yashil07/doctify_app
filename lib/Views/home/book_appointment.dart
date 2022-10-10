@@ -11,10 +11,13 @@ import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 
 class BookAppointment extends StatefulWidget {
-  const BookAppointment({Key? key}) : super(key: key);
+  final  String? doctorId;
+
+  const BookAppointment( {Key? key,this.doctorId}) : super(key: key);
 
   @override
   State<BookAppointment> createState() => _BookAppointmentState();
+
 }
 
 class _BookAppointmentState extends State<BookAppointment> {
@@ -25,11 +28,17 @@ class _BookAppointmentState extends State<BookAppointment> {
   String  pickUpTime = "";
   String _selectedPickUpTime = "";
   String _showTime = "";
+  String doctorId = "";
+
+
+
 
   @override
   void initState() {
     dateInput.text = ""; //set the initial value of text field
     super.initState();
+    doctorId = widget.doctorId!;
+    print(doctorId);
   }
   @override
   Widget build(BuildContext context) {
@@ -288,6 +297,7 @@ class _BookAppointmentState extends State<BookAppointment> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PatientDetails(
+                                        doctorId: doctorId.toString()
                                       // appointmentDate: aDate,
                                     )));
                             //  clearField();

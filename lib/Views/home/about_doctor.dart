@@ -30,6 +30,8 @@ class _AboutDoctorState extends State<AboutDoctor> {
   String doctorId = "";
 
 
+
+
   static Stream<QuerySnapshot<Map<String, dynamic>>>
   FetchDoctorData(doctorId) {
     Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
@@ -82,6 +84,15 @@ class _AboutDoctorState extends State<AboutDoctor> {
                         snapshot.data.docs.length;
                     print(length);
                     final docList = snapshot.data.docs;
+
+                    // final docName= {docList[0]['fullName']};
+                    final docId= {docList[0]['doctor_id']};
+                    // final docSpec= {docList[0]['specialist']};
+                    // final docAddress= {docList[0]['address']};
+                     print(docId);
+                    // print(docSpec);
+                    // print(docAddress);
+
 
                     return  SingleChildScrollView(
                       child: Padding(
@@ -276,7 +287,11 @@ class _AboutDoctorState extends State<AboutDoctor> {
 
 
 
-                              CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) =>  BookAppointment()));},buttonText:"Book Appointment",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                              CustomButton(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) =>  BookAppointment(doctorId: docId.toString() )));},
+                                buttonText:"Book Appointment",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
 
                             ]
                         ),

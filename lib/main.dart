@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
             ),
             debugShowCheckedModeBanner: false,
-            home: const HomeScreen(),
+            home: const SplashScreen(),
           ),
         );
         }

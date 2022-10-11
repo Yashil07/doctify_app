@@ -8,6 +8,7 @@ import 'package:project/Utils/fontFamily_utils.dart';
 import '../Auth/login_screen.dart';
 import '../Auth/reg_screen.dart';
 import '../Profile/profile_setting_screen.dart';
+import 'history_screen.dart';
 import 'home_screen.dart';
 import 'my_appointment_history_screen.dart';
 
@@ -32,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     Appointment_History(),
-    ProfileSetting(),
+    HistoryScreen(),
     ProfileSetting(),
 
   ];

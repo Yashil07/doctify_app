@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Views/customeWidgets/custom_appbar.dart';
+import 'package:project/Views/home/top-doc_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../Utils/color_utils.dart';
@@ -42,19 +43,22 @@ class _MyAppointmentState extends State<MyAppointment> {
                       ),
                     ),
 
-                    Container(
-                      height:45,
-                      width: 45,
-                      decoration: BoxDecoration(
-                          color: ColorUtils.skyBlueColor,
-                          borderRadius: BorderRadius.circular(10)
-                        //more than 50% of width makes circle
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.add_circle_outline_outlined,
-                          size: 30,
-                          color: ColorUtils.primaryColor,
+                    GestureDetector(
+                      onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const TopDoctorScreen()));},
+                      child: Container(
+                        height:45,
+                        width: 45,
+                        decoration: BoxDecoration(
+                            color: ColorUtils.skyBlueColor,
+                            borderRadius: BorderRadius.circular(10)
+                          //more than 50% of width makes circle
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.add_circle_outline_outlined,
+                            size: 30,
+                            color: ColorUtils.primaryColor,
+                          ),
                         ),
                       ),
                     ),

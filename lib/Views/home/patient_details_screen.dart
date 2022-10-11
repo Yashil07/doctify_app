@@ -86,10 +86,13 @@ class _PatientDetailsState extends State<PatientDetails> {
                     CustomTextField(
                       fieldName: "Age",
                       hintName: "Enter Your Age",
+                      keyboard: TextInputType.number,
                       fieldController: _ageController,
                         validator: (str) {
                           if (str!.isEmpty) {
                             return '* Is Required';
+                          }else if(str.length > 2){
+                            return 'Please Enter Valid Age';
                           }
                         }
                     ),
@@ -106,6 +109,8 @@ class _PatientDetailsState extends State<PatientDetails> {
                         validator: (str) {
                           if (str!.isEmpty) {
                             return '* Is Required';
+                          }else if(str.length != 10){
+                            return '* Phone number must be of 10 digit';
                           }
                         }
                     ),

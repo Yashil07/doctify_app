@@ -26,7 +26,7 @@ class _TopDoctorScreenState extends State<TopDoctorScreen> {
         child: Scaffold(
           appBar:   const PreferredSize(
               preferredSize:Size.fromHeight(80),
-              child: CustomAppBar(title: "Top Doctor",),
+              child: CustomAppBar(title: "All Doctor",),
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -47,7 +47,7 @@ class _TopDoctorScreenState extends State<TopDoctorScreen> {
                             return Column(
                               children: [
                                 GestureDetector(
-                                  onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutDoctor()));},
+                                  onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context) =>  AboutDoctor(doctorId: "${data["doctor_id"]}",)));},
                                   child: Container(
 
                                     height:120,
@@ -61,12 +61,21 @@ class _TopDoctorScreenState extends State<TopDoctorScreen> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          ClipRRect(
-                                              borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                          Container(
 
-                                              child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                                height: 121,
-                                                width: 100.0,)
+                                            height:120,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                                shape: BoxShape.rectangle,
+                                                color: ColorUtils.skyBlueColor,
+                                                image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                              //more than 50% of width makes circle
+                                            ),
+
+
+                                            // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                            // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
                                           ),
                                           Expanded(
                                             child: Column(
@@ -75,7 +84,7 @@ class _TopDoctorScreenState extends State<TopDoctorScreen> {
                                               children: [
                                                 Text("${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
                                                 SizedBox(height: 1.h),
-                                                Text("${data['specialist']} Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
+                                                Text("${data['specialist']} ",style: FontTextStyle.poppinsS8W5labelColor,),
                                               ],
                                             ),
                                           ),

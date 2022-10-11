@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/Views/home/BottomNavBar.dart';
 import 'package:project/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -39,6 +40,9 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
   String fullname='';
   String age='';
   String phoneno='';
+  String? doctorName;
+  String? doctorImage;
+  String? doctorSpecialist;
   @override
 String userId = "";
   SharedPreferences? sharedPreferences;
@@ -120,13 +124,10 @@ String userId = "";
                             print(length);
                             final docList = snapshot.data.docs;
 
-                            // final docName= {docList[0]['fullName']};
                             final docId= {docList[0]['doctor_id']};
-                            // final docSpec= {docList[0]['specialist']};
-                            // final docAddress= {docList[0]['address']};
-                            print(docId);
-                            // print(docSpec);
-                            // print(docAddress);
+                            doctorImage = "${docList[0]['profileImg']}";
+                            doctorName = "${docList[0]['fullName']}";doctorSpecialist = "${docList[0]['specialist']}";
+
 
 
                             return  Column(
@@ -488,10 +489,13 @@ String userId = "";
         "amount": widget.amount,
         "appointmentDate": widget.appointmentDate,
         "appointmentTime": widget.appointmentTime,
+        "doctorName" : doctorName,
+        "doctorImage" :doctorImage,
+        "doctorSpecialist" : doctorSpecialist,
 
       });
-      showToast(title: "You have successfully booked appoinment !!", status: true);
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>MessagingEnd()
+      showToast(title: "You have successfully booked appointment !!", status: true);
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>BottomNavBar()
       ));
 
 

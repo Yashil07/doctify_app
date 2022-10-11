@@ -48,6 +48,7 @@ class _AboutDoctorState extends State<AboutDoctor> {
     super.initState();
     if(widget.doctorId != null){
       doctorId = widget.doctorId!;
+
     }
   }
   @override
@@ -85,13 +86,10 @@ class _AboutDoctorState extends State<AboutDoctor> {
                     print(length);
                     final docList = snapshot.data.docs;
 
-                    // final docName= {docList[0]['fullName']};
                     String docId= "${docList[0]['doctor_id']}";
-                    // final docSpec= {docList[0]['specialist']};
-                    // final docAddress= {docList[0]['address']};
-                     print(docId);
-                    // print(docSpec);
-                    // print(docAddress);
+
+
+
 
 
                     return  SingleChildScrollView(

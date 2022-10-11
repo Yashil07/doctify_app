@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -39,11 +40,11 @@ class _SelectedSpecialistState extends State<SelectedSpecialist> {
             child: Column(
                 children: [
                   if(sid == "Cardio")...[
-                    CardioClass(),
+                    const CardioClass(),
                   ]else if(sid == "Dental")...[
-                    DentalClass(),
+                    const DentalClass(),
                   ]else if(sid == "Eye")...[
-                    EyeClass(),
+                    const EyeClass(),
                   ]else if(sid == "Brain")...[
                     BrainClass(),
                   ]else if(sid == "Mouth")...[
@@ -69,6 +70,7 @@ class _SelectedSpecialistState extends State<SelectedSpecialist> {
 ///////////////////////// Cardio Class /////////////////////////////////////////
 
 class CardioClass extends StatefulWidget {
+
   const CardioClass({Key? key}) : super(key: key);
 
   @override
@@ -76,75 +78,156 @@ class CardioClass extends StatefulWidget {
 }
 
 class _CardioClassState extends State<CardioClass> {
+
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Cardio Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
+
   }
 }
 
@@ -158,74 +241,152 @@ class DentalClass extends StatefulWidget {
 }
 
 class _DentalClassState extends State<DentalClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Dental Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Dental Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -240,74 +401,151 @@ class EyeClass extends StatefulWidget {
 }
 
 class _EyeClassState extends State<EyeClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Eye Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Eye Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -323,74 +561,151 @@ class BrainClass extends StatefulWidget {
 }
 
 class _BrainClassState extends State<BrainClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Brain Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Brain Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -406,74 +721,151 @@ class MouthClass extends StatefulWidget {
 }
 
 class _MouthClassState extends State<MouthClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Mouth Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Mouth Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -489,74 +881,151 @@ class ChildClass extends StatefulWidget {
 }
 
 class _ChildClassState extends State<ChildClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Child Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Child Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -571,74 +1040,151 @@ class NerveClass extends StatefulWidget {
 }
 
 class _NerveClassState extends State<NerveClass> {
+  static Stream<QuerySnapshot<Map<String, dynamic>>>
+  FetchDoctorData() {
+    Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+        .instance
+        .collection("doctor") .where('specialist', isEqualTo: "Nerve Specialist")
+
+        .snapshots();
+    return futureSnap;
+  }
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+                // String docId= "${docList[0]['doctor_id']}";
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Nerve Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }
@@ -655,72 +1201,149 @@ class SexClass extends StatefulWidget {
 class _SexClassState extends State<SexClass> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10,right: 10),
+    Stream<QuerySnapshot<Map<String, dynamic>>>
+    FetchDoctorData() {
+      Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
+          .instance
+          .collection("doctor") .where('specialist', isEqualTo: "Sex Specialist")
 
-      child: Column(
-        children: List.generate(4, (index) =>
-            Column(
-              children: [
-                SizedBox( height: 1.5.h),
-                Container(
+          .snapshots();
+      return futureSnap;
+    }
+    return Container(
+      child:StreamBuilder(
+          stream: FetchDoctorData(),
+          builder: (BuildContext context,
+              AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData &&
+                snapshot.data.docs.length != 0) {
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapshot.connectionState ==
+                  ConnectionState.none) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                int length =
+                    snapshot.data.docs.length;
+                print(length);
+                final docList = snapshot.data.docs;
+                final docs = snapshot.data!.docs;
 
-                  height:120,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ColorUtils.appBgColor,
-                      border: Border.all(color: ColorUtils.lightGreyColor),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Padding(
-                    padding:  EdgeInsets.only(right: 5.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                            borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                // String docId= "${docList[0]['doctor_id']}";
 
-                            child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                              height: 121,
-                              width: 100.0,)
-                        ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text("Dr. Janny willson",style: FontTextStyle.poppinsS12W5labelColor,),
-                              SizedBox(height: 1.h),
-                              Text("Sex Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
-                            ],
-                          ),
-                        ),
 
-                        Center(
-                          child: Container(
-                            height:40,
-                            width: 40,
+
+
+
+                return  Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10),
+
+                  child: Column(
+                    children: List.generate(length, (index) {
+                      final data = docs[index].data();
+                      return Column(
+                        children: [
+                          SizedBox( height: 1.5.h),
+                          Container(
+
+                            height:120,
+                            width: double.infinity,
                             decoration: BoxDecoration(
-                                color: ColorUtils.skyBlueColor,
-                                borderRadius: BorderRadius.circular(10)
-                              //more than 50% of width makes circle
-                            ),
-                            child:  Center(
-                              child: Icon(
-                                Icons.favorite,
-                                size: 30,
-                                color: ColorUtils.primaryColor,
+                                color: ColorUtils.appBgColor,
+                                border: Border.all(color: ColorUtils.lightGreyColor),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(right: 5.w),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+
+                                    height:120,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                        shape: BoxShape.rectangle,
+                                        color: ColorUtils.skyBlueColor,
+                                        image: DecorationImage(image: NetworkImage("${data['profileImg']}"),fit: BoxFit.cover)
+                                      //more than 50% of width makes circle
+                                    ),
+
+
+                                    // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                    // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text("Dr. ${data['fullName']}",style: FontTextStyle.poppinsS12W5labelColor,),
+                                        SizedBox(height: 1.h),
+                                        Text("${data['specialist']}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                      ],
+                                    ),
+                                  ),
+
+                                  Center(
+                                    child: Container(
+                                      height:40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                          color: ColorUtils.skyBlueColor,
+                                          borderRadius: BorderRadius.circular(10)
+                                        //more than 50% of width makes circle
+                                      ),
+                                      child:  Center(
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 30,
+                                          color: ColorUtils.primaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
+                      );
+                    }
 
-                      ],
                     ),
                   ),
+                );
+
+              }
+
+
+            } else {
+              return Container(
+                height: MediaQuery.of(context)
+                    .size
+                    .height,
+                child: Column(
+                  mainAxisAlignment:
+                  MainAxisAlignment.center,
+                  crossAxisAlignment:
+                  CrossAxisAlignment.center,
+                  children: [
+                    Center(
+                      child:
+                      Text('no data available'),
+                    ),
+                  ],
                 ),
-              ],
-            )),
-      ),
+              );
+            }
+          }),
     );
   }
 }

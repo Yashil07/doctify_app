@@ -219,10 +219,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Top Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
+                            Text("All Doctor",style: FontTextStyle.poppinsS12W5labelColor,),
                             GestureDetector(
                               child: Text("See All",style: FontTextStyle.poppinsS12W5labelColor,),
-                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectedSpecialist()));},),
+                              onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const TopDoctorScreen()));},),
                           ],
                         ),
                       ],
@@ -234,12 +234,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (snapshot.hasError) return Text('Error = ${snapshot.error}');
 
                         if (snapshot.hasData) {
+
                           final docs = snapshot.data!.docs;
                           return SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: List.generate(docs.length, (index){
                                 final data = docs[index].data();
+                                print(data["doctor_id"]);
                                 return Row(
                                   children: [
                                     GestureDetector(

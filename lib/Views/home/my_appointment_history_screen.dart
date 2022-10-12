@@ -10,6 +10,7 @@ import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
 import '../../model/user_model.dart';
 import '../Auth/profile_screen.dart';
+import '../Message/chat_msg_screen.dart';
 import '../customeWidgets/custom_btn.dart';
 import 'messaging_end_screen.dart';
 
@@ -22,6 +23,7 @@ class Appointment_History extends StatefulWidget {
 
 class _Appointment_HistoryState extends State<Appointment_History> {
   String userId = "";
+  String doctorId = "";
   SharedPreferences? sharedPreferences;
   void getData() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -34,6 +36,18 @@ class _Appointment_HistoryState extends State<Appointment_History> {
       print(userData.uid);
       userId = userData.uid!;
     });
+  }
+
+  String chatId({
+    required String id1,
+    required String id2,
+  }) {
+    debugPrint('id1 length => ${id1.length} id2 length=> ${id2.length}');
+    if (id1.compareTo(id2) > 0) {
+      return id1 + '-' + id2;
+    } else {
+      return id2 + '-' + id1;
+    }
   }
 
   void initState() {
@@ -145,6 +159,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                             // doctorImage = "${docList[0]['profileImg']}";
                             // doctorName = "${docList[0]['fullName']}";doctorSpecialist = "${docList[0]['specialist']}";
                             //if(docList[index]["doctorName"] == 500) ? msg : call
+print("amount :==${docList[0]["amount"] }");
 
 
                              return SingleChildScrollView(
@@ -152,7 +167,7 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                               child: Column(
                                 children: List.generate(docList.length, (index){
                                   final data = docList[index].data();
-                                  print(data["doctor_id"]);
+
                                   return Column(
                                     children: [
                                       SizedBox( height: 1.5.h),
@@ -188,7 +203,43 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                                                 ),
                                               ),
 
-                                              GestureDetector(
+                                  docList[index]["amount"] != 500 ? GestureDetector(
+                                  onTap: () {
+                                    print("my chat userid:=${userId}");
+                                    print("my chat docid:=${docList[index]["doctorId"]}");
+
+                                    String id = chatId(
+                                        id1: userId,
+                                        id2: docList[index]["doctorId"]);
+
+                                    FirebaseFirestore.instance
+                                        .collection("chat")
+                                        .doc(id)
+                                        .set({
+                                      "senderId": userId,
+                                      "receiverId": docList[index]["doctorId"],
+                                    });
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  ChatMsgScreen(receiverId: "${docList[index]["doctorId"]}",senderId: userId,)));
+                                    },
+                                  child: Center(
+                                  child: Container(
+                                  height:40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                  color: ColorUtils.skyBlueColor,
+                                  borderRadius: BorderRadius.circular(10)
+                                  //more than 50% of width makes circle
+                                  ),
+                                  child:  Center(
+                                  child: Icon(
+                                  Icons.message,
+                                  size: 30,
+                                  color: ColorUtils.primaryColor,
+                                  ),
+                                  ),
+                                  ),
+                                  ),
+                                  ) :   GestureDetector(
                                                 onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagingEnd()));},
                                                 child: Center(
                                                   child: Container(

@@ -17,4 +17,14 @@ class StorageMethods {
       'fileName': fileName,
     };
   }
+
+  Future<String> uploadImageToChatServer(image) async {
+    UploadTask task = FirebaseStorage.instance
+        .ref()
+        .child('chat/${DateTime.now().millisecondsSinceEpoch}')
+        .putData(await image.readAsBytes());
+
+    final taskSnapshot = await task.whenComplete(() {});
+    return await taskSnapshot.ref.getDownloadURL();
+  }
 }

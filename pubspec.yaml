@@ -47,6 +47,11 @@ dependencies:
   get: ^4.6.1
   firebase_storage: ^10.3.10
   flutter_rating_bar: ^4.0.1
+  cached_network_image:
+  http: ^0.13.4
+  jiffy: ^4.1.0
+  grouped_list: ^4.2.0
+  flutter_screenutil: 5.3.1
 
 
 

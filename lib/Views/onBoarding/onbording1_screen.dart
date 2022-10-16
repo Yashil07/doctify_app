@@ -34,7 +34,7 @@ class _OnBording1ScreenState extends State<OnBording1Screen> {
                       // Image.asset(ImageUtils.mainLogoImage,height: 8.h,),
                       SizedBox(height: 10.h,),
                      // Lottie.network("https://assets7.lottiefiles.com/packages/lf20_zpjfsp1e.json",height: 30.h),
-                      Lottie.asset(ImageUtils.oba1gif,height: 30.h,width: 85.w),
+                        Lottie.asset(ImageUtils.oba1gif,height: 30.h,width: 85.w),
                       SizedBox(height: 10.h,),
                       Padding(
                         padding:  EdgeInsets.only(left: 3.h),

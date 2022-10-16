@@ -27,6 +27,9 @@
    static const nerveImage = "${baseImgPath}nerve.png";
    static const sexImage = "${baseImgPath}sex.png";
    static const loading = "${baseImgPath}loading.json";
+   static const card = "${baseImgPath}bankcard.png";
+   static const successjson = "${baseImgPath}success.json";
+   static const successImage = "${baseImgPath}success.png";
 
 
 

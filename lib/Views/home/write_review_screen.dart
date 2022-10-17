@@ -10,7 +10,9 @@ import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
 
 class WriteReview extends StatefulWidget {
-  const WriteReview({Key? key}) : super(key: key);
+  final String? doctorImg;
+  final String? doctorName;
+  const WriteReview({Key? key, this.doctorImg, this.doctorName}) : super(key: key);
 
   @override
   State<WriteReview> createState() => _WriteReviewState();

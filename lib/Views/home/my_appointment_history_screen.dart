@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:project/Views/customeWidgets/show_toast.dart';
 import 'package:project/Views/home/top-doc_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
@@ -55,15 +58,27 @@ class _Appointment_HistoryState extends State<Appointment_History> {
 
     super.initState();
   }
+  /// Making Phone Call
+  _makingPhoneCall() async {
+    final number = "+919979966965";
+    var url = Uri.parse("tel://$number");
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
   static Stream<QuerySnapshot<Map<String, dynamic>>>
   FetchAppointmentData(userId) {
     Stream<QuerySnapshot<Map<String, dynamic>>> futureSnap = FirebaseFirestore
         .instance
         .collection("appointment") .where('userId', isEqualTo: userId )
+        .where('status', isEqualTo: 0 )
 
         .snapshots();
     return futureSnap;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,19 +132,12 @@ class _Appointment_HistoryState extends State<Appointment_History> {
               padding: EdgeInsets.only(top: 2.h,left: 10.0,right: 10.0),
               child: Column(
                 children: [
+
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: CustomButton(onTap: (){},buttonText:"Past",textStyle: FontTextStyle.poppinsS14W4PrimaryColor,btnColor: ColorUtils.whiteColor,)),
-                      SizedBox(width: 1.h,),
-                      Expanded(child: CustomButton(onTap: (){},buttonText:"Upcoming",textStyle: FontTextStyle.poppinsS14W4WhiteColor,)),
-                    ],
-                  ),
-                  SizedBox(height: 3.h),
-                  Row(
-                    children: [
-                      Text("Yesterday, March 25 2022",style: FontTextStyle.poppinsS12W5labelColor,),
-                    ],
+                    // children: [
+                    //   Text("Yesterday, March 25 2022",style: FontTextStyle.poppinsS12W5labelColor,),
+                    // ],
                   ),
                   SizedBox(height: 1.h),
 
@@ -139,35 +147,36 @@ class _Appointment_HistoryState extends State<Appointment_History> {
                           AsyncSnapshot<dynamic> snapshot) {
                         if (snapshot.hasData &&
                             snapshot.data.docs.length != 0) {
+                          print("1 if");
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
+                            print("2 if");
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
                           } else if (snapshot.connectionState ==
                               ConnectionState.none) {
+                            print("3 if");
                             return const Center(
                               child: CircularProgressIndicator(),
                             );
                           } else {
-                            int length =
-                                snapshot.data.docs.length;
-                            print("apointment table length :-${length}");
+                            print("4 if");
 
                              final docList = snapshot.data.docs;
-                            // final docId= {docList[in]['doctor_id']};
-                            // doctorImage = "${docList[0]['profileImg']}";
-                            // doctorName = "${docList[0]['fullName']}";doctorSpecialist = "${docList[0]['specialist']}";
-                            //if(docList[index]["doctorName"] == 500) ? msg : call
-print("amount :==${docList[0]["amount"] }");
-
-
                              return SingleChildScrollView(
                               scrollDirection: Axis.vertical,
                               child: Column(
                                 children: List.generate(docList.length, (index){
                                   final data = docList[index].data();
+                                  final now = new DateTime.now();
+                                  String callDateAndTimeCheck =
+                                  DateFormat('EEEE, MMM dd, yyyy hh:mm a').format(now);
+                                  print("callDateAndTimeCheck := ${callDateAndTimeCheck}");
 
+                                  print("5 if");
+                                  String myAppointmentDateTime ="${docList[index]["appointmentDate"]} ${docList[index]["appointmentTime"]}";
+                                  print("myAppointmentDateTime:== ${myAppointmentDateTime}");
                                   return Column(
                                     children: [
                                       SizedBox( height: 1.5.h),
@@ -184,12 +193,21 @@ print("amount :==${docList[0]["amount"] }");
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              ClipRRect(
-                                                  borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                              Container(
 
-                                                  child: Image.asset(ImageUtils.doctorImage,fit: BoxFit.fill,
-                                                    height: 121,
-                                                    width: 100.0,)
+                                                height:120,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: const BorderRadius.only(topLeft:Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                                    shape: BoxShape.rectangle,
+                                                    color: ColorUtils.skyBlueColor,
+                                                    image: DecorationImage(image: NetworkImage("${docList[index]["doctorImage"]}"),fit: BoxFit.cover)
+                                                  //more than 50% of width makes circle
+                                                ),
+
+
+                                                // child:data.userModel?.profileImg != null && data.userModel?.profileImg != "" ?
+                                                // Image.network("${data.userModel?.profileImg}", fit: BoxFit.contain,) : Image.asset(ImageUtils.profileAvtar),
                                               ),
                                               Expanded(
                                                 child: Column(
@@ -198,55 +216,37 @@ print("amount :==${docList[0]["amount"] }");
                                                   children: [
                                                     Text("Dr ${docList[index]["doctorName"]}",style: FontTextStyle.poppinsS12W5labelColor,),
                                                     SizedBox(height: 1.h),
-                                                    Text("Cardio Specialist",style: FontTextStyle.poppinsS8W5labelColor,),
+                                                    Text("${docList[index]["doctorSpecialist"]}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                                    SizedBox(height: 1.h),
+                                                    Text("${docList[index]["appointmentDate"]}",style: FontTextStyle.poppinsS8W5labelColor,),
+                                                    SizedBox(height: 1.h),
+                                                    Text("${docList[index]["appointmentTime"]}",style: FontTextStyle.poppinsS8W5labelColor,),
                                                   ],
                                                 ),
                                               ),
 
-                                  docList[index]["amount"] != 500 ? GestureDetector(
-                                  onTap: () {
-                                    print("my chat userid:=${userId}");
-                                    print("my chat docid:=${docList[index]["doctorId"]}");
 
-                                    String id = chatId(
-                                        id1: userId,
-                                        id2: docList[index]["doctorId"]);
 
-                                    FirebaseFirestore.instance
-                                        .collection("chat")
-                                        .doc(id)
-                                        .set({
-                                      "senderId": userId,
-                                      "receiverId": docList[index]["doctorId"],
-                                    });
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  ChatMsgScreen(receiverId: "${docList[index]["doctorId"]}",senderId: userId,)));
-                                    },
-                                  child: Center(
-                                  child: Container(
-                                  height:40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                  color: ColorUtils.skyBlueColor,
-                                  borderRadius: BorderRadius.circular(10)
-                                  //more than 50% of width makes circle
-                                  ),
-                                  child:  Center(
-                                  child: Icon(
-                                  Icons.message,
-                                  size: 30,
-                                  color: ColorUtils.primaryColor,
-                                  ),
-                                  ),
-                                  ),
-                                  ),
-                                  ) :   GestureDetector(
-                                                onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const MessagingEnd()));},
+                                              GestureDetector(
+                                                onTap:(){
+
+
+
+
+                                                  setState(() {
+                                                    if (myAppointmentDateTime == callDateAndTimeCheck) {
+                                                      launch("tel://+91${docList[index]["doctorPhoneNumber"]}");
+                                                    }else{
+                                                      showToast(title: "You Are Too Early");
+                                                    }
+                                                  });
+                                                },
                                                 child: Center(
                                                   child: Container(
                                                     height:40,
                                                     width: 40,
                                                     decoration: BoxDecoration(
-                                                        color: ColorUtils.skyBlueColor,
+                                                        color: myAppointmentDateTime == callDateAndTimeCheck ? ColorUtils.skyBlueColor : ColorUtils.lightGreyColor,
                                                         borderRadius: BorderRadius.circular(10)
                                                       //more than 50% of width makes circle
                                                     ),
@@ -254,7 +254,7 @@ print("amount :==${docList[0]["amount"] }");
                                                       child: Icon(
                                                         Icons.call,
                                                         size: 30,
-                                                        color: ColorUtils.primaryColor,
+                                                        color:myAppointmentDateTime == callDateAndTimeCheck ? ColorUtils.primaryColor : ColorUtils.grey,
                                                       ),
                                                     ),
                                                   ),
@@ -264,7 +264,7 @@ print("amount :==${docList[0]["amount"] }");
                                             ],
                                           ),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   );
                                 }),
@@ -275,23 +275,20 @@ print("amount :==${docList[0]["amount"] }");
 
                           ///
                         } else {
-                          return Container(
-                            height: MediaQuery.of(context)
-                                .size
-                                .height,
+
+                          return Center(
                             child: Column(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
-                              children: [
-                                Center(
-                                  child:
-                                  Text('no data available'),
-                                ),
-                              ],
+                                children:[
+                                  SizedBox(height: 15.0),
+                                  Image.asset(ImageUtils.noAppointmentImage),
+                                  Text("You don't have an appointment",style: FontTextStyle.poppinsS12W5labelColor,),
+                                  SizedBox(height: 10.h),
+                                  //CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => rofileScreen()));},buttonText:"Book Appointment Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+
+                                ]
                             ),
                           );
+
                         }
                       }),
 
@@ -305,4 +302,5 @@ print("amount :==${docList[0]["amount"] }");
       ),
     );
   }
+
 }

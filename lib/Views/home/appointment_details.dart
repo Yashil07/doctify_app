@@ -8,6 +8,7 @@ import 'package:project/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../Payment/payment_screen.dart';
 import '../../Utils/color_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
@@ -16,6 +17,7 @@ import '../Profile/notification_setting_screen.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/show_toast.dart';
+import 'credit_card_page.dart';
 import 'messaging_end_screen.dart';
 
 class AppointmentDetails extends StatefulWidget {
@@ -42,6 +44,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
   String phoneno='';
   String? doctorName;
   String? doctorImage;
+  String? doctorPhoneNumber;
   String? doctorSpecialist;
   @override
 String userId = "";
@@ -127,7 +130,7 @@ String userId = "";
                             final docId= {docList[0]['doctor_id']};
                             doctorImage = "${docList[0]['profileImg']}";
                             doctorName = "${docList[0]['fullName']}";doctorSpecialist = "${docList[0]['specialist']}";
-
+                            doctorPhoneNumber="${docList[0]['phoneNumber']}";
 
 
                             return  Column(
@@ -459,9 +462,10 @@ String userId = "";
                   ),
 
                   CustomButton(onTap: (){
-                    appointmentData();
+                   appointmentData();
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentScreen(amount: "${widget.amount}",)));
 
-                    },buttonText:"Pay Now",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
+                    },buttonText:"Make Payment",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),
                 ],
               ),
             ),
@@ -492,10 +496,12 @@ String userId = "";
         "doctorName" : doctorName,
         "doctorImage" :doctorImage,
         "doctorSpecialist" : doctorSpecialist,
+        "doctorPhoneNumber" :doctorPhoneNumber,
+        "status" : 0,
 
       });
       showToast(title: "You have successfully booked appointment !!", status: true);
-      Navigator.push(context, MaterialPageRoute(builder: (context) =>BottomNavBar()
+      Navigator.push(context, MaterialPageRoute(builder: (context) =>CreditCardPage()
       ));
 
 

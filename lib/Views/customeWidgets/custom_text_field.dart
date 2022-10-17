@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project/Utils/color_utils.dart';
 import 'package:project/Utils/fontFamily_utils.dart';
 import 'package:sizer/sizer.dart';
@@ -13,12 +14,14 @@ final EdgeInsetsGeometry? contentPadding;
   final Widget? suffixIcon;
   final bool? obscureText;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormat;
   final int? maxLines;
+  final String? counterText;
   final bool? readonly;
   final int? maxLength;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String?>? onChange;
-  const CustomTextField({Key? key,this.fieldName,this.textInputAction,this.maxLength,this.keyboard,this.readonly,this.contentPadding,this.hintName,this.fieldController,this.maxLines,this.onChange,this.validator,this.prefixIcon,this.suffixIcon,this.obscureText}) : super(key: key);
+  const CustomTextField({Key? key,this.fieldName,this.textInputAction,this.maxLength,this.keyboard,this.readonly,this.contentPadding,this.hintName,this.fieldController,this.maxLines,this.onChange,this.validator,this.prefixIcon,this.suffixIcon,this.obscureText, this.inputFormat, this.counterText}) : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -42,6 +45,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textInputAction: widget.textInputAction ?? TextInputAction.next,
           maxLines:widget.maxLines ,
+          inputFormatters: widget.inputFormat ?? [],
           keyboardType: widget.keyboard,
           readOnly: widget.readonly ?? false,
           onChanged: widget.onChange ?? null,
@@ -59,7 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               //   borderRadius: BorderRadius.circular(50),
               //
               // ),
-
+              counterText: widget.counterText,
               prefixIcon:widget.prefixIcon,
               suffixIcon: widget.suffixIcon,
               hintText:widget.hintName,

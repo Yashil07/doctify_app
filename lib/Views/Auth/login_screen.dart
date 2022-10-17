@@ -200,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                   }
                                 },
-                                buttonText: "Sign Up",
+                                buttonText: "Sign In",
                                 textStyle: FontTextStyle.poppinsS14W4WhiteColor,
                               ),
                               //CustomButton(onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavBarScreen()));},buttonText:"Sign In",textStyle: FontTextStyle.poppinsS14W4WhiteColor,),

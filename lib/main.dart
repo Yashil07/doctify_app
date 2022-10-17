@@ -17,8 +17,10 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'Payment/payment_provider.dart';
 import 'Provider/loader_provider.dart';
 import 'Provider/user_provider.dart';
+import 'Views/home/credit_card_page.dart';
 import 'Views/home/home_screen.dart';
 import 'Views/onBoarding/onbording_screen.dart';
 import 'Views/onBoarding/splash_screen.dart';
@@ -38,32 +40,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        designSize: const Size(1125, 2436),
-    minTextAdapt: true,
-    splitScreenMode: true,
-    builder: () {
-          return  Sizer(
-          builder: (context, orientation, deviceType) {
-    return MultiProvider(
-    providers: [
-    ChangeNotifierProvider(
-    create: (context) => UserProvider(),
-    ),
-    ChangeNotifierProvider(create: (context) => LoaderProvider()),
-    ],
-    child: GetMaterialApp(
-    theme: ThemeData(
-    fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
-    ),
-    debugShowCheckedModeBanner: false,
-    home: const SplashScreen(),
-    ),
-    );
-    }
-    );
-    }
+    return Sizer(
+        builder: (context, orientation, deviceType) {
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => UserProvider(),
+              ),
+              ChangeNotifierProvider(create: (context) => LoaderProvider()),
+              ChangeNotifierProvider(create: (context) => PaymentProvider()),
+            ],
+            child: GetMaterialApp(
+              theme: ThemeData(
+                fontFamily: "Poppins", // backgroundColor: Color(0xffbE8F2F9),
+              ),
+              debugShowCheckedModeBanner: false,
+              home: const SplashScreen(),
 
+            ),
+          );
+        }
     );
   }
 }

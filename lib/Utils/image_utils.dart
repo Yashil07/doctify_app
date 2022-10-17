@@ -27,6 +27,8 @@
    static const nerveImage = "${baseImgPath}nerve.png";
    static const sexImage = "${baseImgPath}sex.png";
    static const loading = "${baseImgPath}loading.json";
+   static const appIcon = "${baseImgPath}Doctify_icon.png";
+   static const success = "${baseImgPath}Success.png";
 
 
 

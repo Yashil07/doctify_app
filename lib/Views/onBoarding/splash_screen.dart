@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/Utils/image_utils.dart';
+import 'package:project/Views/Auth/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Provider/user_provider.dart';
@@ -54,7 +55,7 @@ print("email:-${currentUser.email}");
       ), (route) => false);
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => OnBordingScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
               (Route<dynamic> route) => false);
     }
   }

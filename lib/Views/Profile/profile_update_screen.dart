@@ -15,6 +15,7 @@ import '../../Utils/color_utils.dart';
 import '../../Utils/const_utils.dart';
 import '../../Utils/fontFamily_utils.dart';
 import '../../Utils/image_utils.dart';
+import '../../customMethod/upload_image.dart';
 import '../customeWidgets/custom_appbar.dart';
 import '../customeWidgets/custom_btn.dart';
 import '../customeWidgets/custom_text_field.dart';
@@ -40,13 +41,16 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   final TextEditingController dateInput = TextEditingController();
   String genderInitialValue = 'Male';
   String  birthDate = "";
+  String profileImage = "";
 
   getData() {
     UserModel? model =
         Provider.of<UserProvider>(context, listen: false).userModel;
     setState(() {
-      //postUrl = model!.profileimg;
-      _nameController.text = "${model!.fullName}";
+
+      profileImage = "${model!.profileImg}";
+
+      _nameController.text = "${model.fullName}";
       _emailController.text = "${model.email}";
       genderInitialValue = "${model.gender}";
      birthDate = "${model.birthdate}";
@@ -57,9 +61,9 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   }
 
 
-  Future updateProfileData(uid) async {
-    final loading = Provider.of<LoaderProvider>(context, listen: false);
-    loading.setLoader(value: true);
+  Future updateProfileData(
+      uid, profileImage, LoaderProvider updateServiceProvider) async {
+    updateServiceProvider.setLoader(value: true);
     UserModel? model =
         Provider.of<UserProvider>(context, listen: false).userModel;
     await FirebaseFirestore.instance.collection("patients").doc(uid).update({
@@ -70,7 +74,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       'gender': genderInitialValue,
       'birthdate': birthDate,
       "address":_addressController.text,
-      'profileImg': '',
+      'profileImg': profileImage,
       "phoneNumber":_phonenoController.text,
     });
 
@@ -82,12 +86,12 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
       gender: genderInitialValue,
       birthdate: birthDate,
       address:_addressController.text,
-      profileImg: '',
+      profileImg:  profileImage,
       phoneNumber:_phonenoController.text,
     );
     Provider.of<UserProvider>(context, listen: false).setUserModel(modelUpdate);
     showToast(title: "Profile updated Successfully !!", status: true);
-    loading.setLoader(value: false);
+    updateServiceProvider.setLoader(value: false);
     Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileSetting()));
   }
 
@@ -101,6 +105,7 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
   }
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LoaderProvider>(context, listen: false);
     return Stack(
       children: [
         Container(
@@ -132,17 +137,23 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                             clipBehavior: Clip.none,
                             children: [
                               CircleAvatar(
-
-                                  radius: 75,
-                                  child: ClipOval(
-                                    child: imageFile?.path.toString() != null
-                                        && imageFile?.path.toString() != "" ?
-                                    Image.file(
-                                      imageFile!, fit: BoxFit.cover, height: 160,
-                                      width: 160,) :
-                                    Image.asset(
-                                        ImageUtils.profileAvtar, fit: BoxFit.cover),
-                                  )
+                                radius: 75,
+                                child: ClipOval(
+                                  child: imageFile!.path.toString() != ''
+                                      ? Image.file(imageFile!,
+                                      height: 160,
+                                      width: 160,
+                                      fit: BoxFit.cover)
+                                      : profileImage != '' && profileImage != null
+                                      ? Image.network(profileImage,
+                                      height: 160,
+                                      width: 160,
+                                      fit: BoxFit.cover)
+                                      : Image.asset(ImageUtils.profileAvtar,
+                                      height: 160,
+                                      width: 160,
+                                      fit: BoxFit.cover),
+                                ),
                               ),
                               Positioned(
                                   bottom: -4.w,
@@ -317,14 +328,25 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                       ),
 
                       CustomButton(
-                        onTap: () {
-                          String? uidData = Provider.of<UserProvider>(
-                              context,
+                        onTap: () async {
+                          provider.setLoader(value: true);
+                          String? uidData = Provider.of<UserProvider>(context,
                               listen: false)
                               .userModel
                               ?.uid;
-                          updateProfileData(uidData);
+                          StorageMethods storageMethods = StorageMethods();
+                          final url;
+                          if (imageFile!.path.toString() != '') {
+                            Map<String, String> data =
+                            await storageMethods.uploadImageToServer(
+                                imageFile, 'profile_photo');
 
+                            url = data['url'];
+                          } else {
+                            url = profileImage;
+                          }
+
+                          await updateProfileData(uidData, url, provider);
                         },
                         buttonText: "Confirm",
                         textStyle: FontTextStyle.poppinsS14W4WhiteColor,

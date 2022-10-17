@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text("Doctify",style: FontTextStyle.poppinsS10W5labelColor,),
                           SizedBox(width: 30.w,),
                           GestureDetector(
-                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const   FavouriteDoctorScreen()));},
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => const   TopDoctorScreen()));},
                             child: Container(
                               height:45,
                               width: 45,
